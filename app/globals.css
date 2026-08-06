@@ -140,3 +140,22 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes kantongin-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: kantongin-marquee var(--marquee-duration, 30s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+  will-change: transform;
+}
+
+.group:hover .marquee-track {
+  animation-play-state: paused;
+}
