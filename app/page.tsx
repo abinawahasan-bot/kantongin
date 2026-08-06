@@ -3,6 +3,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Services } from "@/components/sections/Services";
 import { Statistics } from "@/components/sections/Statistics";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { TrustedBy } from "@/components/sections/TrustedBy";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <WhyChooseUs />
       <HowItWorks />
       <Portfolio />
+      <Testimonials />
     </main>
   );
 }
