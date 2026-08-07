@@ -7,7 +7,6 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import gsap from "gsap";
 import { ArrowRight, Mouse } from "lucide-react";
 import { useEffect, useRef, type MouseEvent } from "react";
 import { AnimatedText } from "@/components/common/AnimatedText";
@@ -55,18 +54,26 @@ export function Hero() {
   useEffect(() => {
     if (reduceMotion) return;
 
-    const ctx = gsap.context(() => {
-      gsap.from(mockupRef.current, {
-        opacity: 0,
-        scale: 0.95,
-        y: 24,
-        duration: 1,
-        ease: "power3.out",
-        delay: 0.35,
-      });
-    }, sectionRef);
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+    void import("gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
+      ctx = gsap.context(() => {
+        gsap.from(mockupRef.current, {
+          opacity: 0,
+          scale: 0.95,
+          y: 24,
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.35,
+        });
+      }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduceMotion]);
 
   const handleAnchor = (event: AnchorTarget, target: string) => {

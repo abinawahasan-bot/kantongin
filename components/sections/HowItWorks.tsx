@@ -1,15 +1,11 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { flows, type Flow, type Step } from "@/constants/steps";
 import { cn } from "@/lib/utils";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -43,28 +39,40 @@ function FlowTimeline({ flow }: { flow: Flow }) {
   const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (reduceMotion) {
-        gsap.set(lineRef.current, { scaleY: 1 });
-        return;
-      }
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 70%",
-            end: "bottom 60%",
-            scrub: true,
-          },
-        }
-      );
-    }, rootRef);
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
 
-    return () => ctx.revert();
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([{ default: gsap }, { ScrollTrigger }]) => {
+        if (cancelled) return;
+        gsap.registerPlugin(ScrollTrigger);
+        ctx = gsap.context(() => {
+          if (reduceMotion) {
+            gsap.set(lineRef.current, { scaleY: 1 });
+            return;
+          }
+          gsap.fromTo(
+            lineRef.current,
+            { scaleY: 0 },
+            {
+              scaleY: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: rootRef.current,
+                start: "top 70%",
+                end: "bottom 60%",
+                scrub: true,
+              },
+            }
+          );
+        }, rootRef);
+      }
+    );
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduceMotion]);
 
   return (

@@ -29,6 +29,16 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+    if (prefersReducedMotion || coarsePointer) {
+      setReady(true);
+      return;
+    }
+
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     lenisRef.current = lenis;
     setReady(true);
@@ -51,11 +61,26 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   const scrollTo = useCallback(
     (target: ScrollTarget, opts?: ScrollToOptions) => {
       const lenis = lenisRef.current;
-      if (!lenis) return;
-      // Resume if stopped so a programmatic scroll is not dropped (Lenis
-      // ignores scrollTo while stopped, e.g. when the mobile menu locks it).
-      if (lenis.isStopped) lenis.start();
-      lenis.scrollTo(target, { offset: -80, ...opts });
+      const offset = opts?.offset ?? -80;
+      if (lenis) {
+        // Resume if stopped so a programmatic scroll is not dropped (Lenis
+        // ignores scrollTo while stopped, e.g. when the mobile menu locks it).
+        if (lenis.isStopped) lenis.start();
+        lenis.scrollTo(target, { offset, ...opts });
+        return;
+      }
+      // Native fallback when Lenis is disabled (coarse pointer or reduced
+      // motion preference).
+      let y: number;
+      if (typeof target === "number") {
+        y = target;
+      } else {
+        const el =
+          typeof target === "string" ? document.querySelector(target) : target;
+        if (!el) return;
+        y = el.getBoundingClientRect().top + window.scrollY + offset;
+      }
+      window.scrollTo({ top: y, behavior: "smooth" });
     },
     []
   );
