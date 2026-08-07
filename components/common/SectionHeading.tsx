@@ -37,6 +37,7 @@ export function SectionHeading({
         </span>
       ) : null}
       <AnimatedText
+        as="h2"
         text={title}
         className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl"
       />

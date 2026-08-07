@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { JsonLd } from "@/components/common/JsonLd";
 import { Providers } from "@/components/common/Providers";
@@ -12,8 +12,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/constants/site";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
+const plusJakarta = localFont({
+  src: "./fonts/PlusJakartaSans-Variable.woff2",
   variable: "--font-plus-jakarta",
   display: "swap",
 });

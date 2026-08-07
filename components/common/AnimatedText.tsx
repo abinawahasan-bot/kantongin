@@ -1,22 +1,29 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import type { ElementType } from "react";
 import { cn } from "@/lib/utils";
 
 type AnimatedTextProps = {
   text: string;
   className?: string;
   delay?: number;
+  as?: ElementType;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function AnimatedText({ text, className, delay = 0 }: AnimatedTextProps) {
+export function AnimatedText({
+  text,
+  className,
+  delay = 0,
+  as: Tag = "span",
+}: AnimatedTextProps) {
   const reduceMotion = useReducedMotion();
   const words = text.split(" ");
 
   return (
-    <span className={cn("inline-block", className)} aria-label={text}>
+    <Tag className={cn("inline-block", className)} aria-label={text}>
       {words.map((word, index) => (
         <span
           key={`${word}-${index}`}
@@ -39,6 +46,6 @@ export function AnimatedText({ text, className, delay = 0 }: AnimatedTextProps) 
           </motion.span>
         </span>
       ))}
-    </span>
+    </Tag>
   );
 }

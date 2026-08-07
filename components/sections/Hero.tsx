@@ -104,6 +104,7 @@ export function Hero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-16 px-4 pb-28 pt-32 sm:px-6 lg:grid-cols-2 lg:px-8 lg:pb-24">
         <div>
           <AnimatedText
+            as="h1"
             text="Tumbuhkan Bisnismu Lewat Affiliate, Promosi & Kolaborasi Kreator"
             className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
           />
