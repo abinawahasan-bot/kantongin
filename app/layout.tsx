@@ -5,6 +5,7 @@ import { BackToTop } from "@/components/common/BackToTop";
 import { CursorGlow } from "@/components/common/CursorGlow";
 import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { ScrollProgress } from "@/components/common/ScrollProgress";
+import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/constants/site";
 import "./globals.css";
@@ -37,6 +38,7 @@ export default function RootLayout({
           <CursorGlow />
           <Navbar />
           {children}
+          <Footer />
           <BackToTop />
         </Providers>
       </body>
