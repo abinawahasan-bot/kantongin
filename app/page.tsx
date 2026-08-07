@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <JsonLdFaq />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
       <TrustedBy />
       <Statistics />
