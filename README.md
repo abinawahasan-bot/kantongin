@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KantongIn — Landing Page
 
-## Getting Started
+Landing page satu halaman untuk **KantongIn**, agency Digital Marketing & Creator
+Collaboration di Indonesia. Menghubungkan brand, UMKM, startup, dan kreator lewat
+affiliate marketing, endorsement, dan kolaborasi terkurasi.
 
-First, run the development server:
+## Tech Stack
+
+- [Next.js 16](https://nextjs.org) (App Router, Turbopack) + React 19 + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) + shadcn/ui
+- Framer Motion, GSAP, Lenis, Embla Carousel
+- React Hook Form + Zod
+- [Resend](https://resend.com) untuk email (newsletter & form kontak)
+- Vercel Analytics
+- Vitest, Playwright, Lighthouse CI
+
+## Menjalankan Secara Lokal
 
 ```bash
+nvm use
+npm install
+cp .env.example .env.local   # isi RESEND_API_KEY
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Script
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Perintah        | Fungsi                                    |
+| --------------- | ----------------------------------------- |
+| `npm run dev`   | Server pengembangan (Turbopack)           |
+| `npm run build` | Build produksi                            |
+| `npm start`     | Menjalankan build produksi                |
+| `npm run lint`  | ESLint                                    |
+| `npm test`      | Tes unit (Vitest)                         |
+| `npm run test:e2e` | Tes end-to-end (Playwright)            |
+| `npm run analyze` | Analisis ukuran bundle produksi        |
+| `npm run lighthouse` | Audit Lighthouse CI                  |
 
-## Learn More
+## Variabel Lingkungan
 
-To learn more about Next.js, take a look at the following resources:
+| Variabel               | Keterangan                                            |
+| ---------------------- | ----------------------------------------------------- |
+| `RESEND_API_KEY`       | API key Resend (wajib untuk form & newsletter)        |
+| `RESEND_AUDIENCE_ID`   | Opsional. ID audience Resend untuk menyimpan kontak   |
+| `RESEND_FROM_DOMAIN`   | Domain pengirim (default `kantongin.com`)             |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Struktur Konten
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Halaman utama: `app/page.tsx` + `components/sections/*`
+- Blog (MDX): tambahkan file di `app/blog/_posts/*.mdx` dengan blok `frontmatter`
+  (`title`, `description`, `date`, `author`, `tags`). Posting otomatis muncul di
+  daftar, detail SSG, sitemap, dan JSON-LD.
+- Konfigurasi situs (nama, kontak, sosial): `constants/site.ts`
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Repo ini dirancang untuk di-deploy ke **Vercel** dengan domain `kantongin.com`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push ke GitHub (repo private).
+2. Import proyek di Vercel; set env `RESEND_API_KEY` (+ `RESEND_AUDIENCE_ID`).
+3. Vercel Analytics aktif otomatis setelah import.
+
+CI berisi lint, tes unit, build, E2E (Playwright), dan audit Lighthouse yang
+berjalan di setiap push/PR.
