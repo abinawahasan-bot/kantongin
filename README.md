@@ -64,3 +64,10 @@ Repo ini dirancang untuk di-deploy ke **Vercel** dengan domain `kantongin.com`.
 
 CI berisi lint, tes unit, build, E2E (Playwright), dan audit Lighthouse yang
 berjalan di setiap push/PR.
+
+### Status Deploy
+
+- Produksi: https://kantongin-beige.vercel.app (alias project Vercel
+  `kantongin` di akun `abinawahasan`).
+- Domain `kantongin.com` menyusul setelah dibeli & diverifikasi di Resend
+  (SPF/DKIM) dan di Vercel (DNS).
