@@ -1,3 +1,5 @@
+import { CTASection } from "@/components/sections/CTASection";
+import { FAQ } from "@/components/sections/FAQ";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Portfolio } from "@/components/sections/Portfolio";
@@ -20,6 +22,8 @@ export default function Home() {
       <Portfolio />
       <Testimonials />
       <Pricing />
+      <CTASection />
+      <FAQ />
     </main>
   );
 }
