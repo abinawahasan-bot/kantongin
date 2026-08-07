@@ -38,6 +38,6 @@ export const navItems: NavItem[] = [
   { label: "Affiliate", href: "#affiliate" },
   { label: "Kreator", href: "#creators" },
   { label: "Harga", href: "#pricing" },
-  { label: "Blog", href: "#faq" },
+  { label: "Blog", href: "/blog" },
   { label: "Kontak", href: "#contact" },
 ];

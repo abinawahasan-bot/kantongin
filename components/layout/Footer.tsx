@@ -35,7 +35,7 @@ const resourceLinks = [
   { label: "FAQ", href: "#faq" },
   { label: "Cara Kerja", href: "#how-it-works" },
   { label: "Harga", href: "#pricing" },
-  { label: "Blog", href: "#faq" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const legalLinks = [
