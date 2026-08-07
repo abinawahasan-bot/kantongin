@@ -78,10 +78,9 @@ function NewsletterForm() {
         />
         <MagneticButton type="submit" ariaLabel="Berlangganan newsletter" strength={8}>
           <Button
-            type="submit"
+            asChild
             variant="primary"
             size="lg"
-            disabled={isSubmitting}
             className="w-full rounded-full sm:w-auto"
           >
             {isSubmitting ? (
