@@ -1,3 +1,4 @@
+import { JsonLdFaq } from "@/components/common/JsonLd";
 import { CTASection } from "@/components/sections/CTASection";
 import { FAQ } from "@/components/sections/FAQ";
 import { Hero } from "@/components/sections/Hero";
@@ -12,8 +13,10 @@ import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
+    <>
+      <JsonLdFaq />
+      <main>
+        <Hero />
       <TrustedBy />
       <Statistics />
       <Services />
@@ -24,6 +27,7 @@ export default function Home() {
       <Pricing />
       <CTASection />
       <FAQ />
-    </main>
+      </main>
+    </>
   );
 }

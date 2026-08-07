@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { JsonLd } from "@/components/common/JsonLd";
 import { Providers } from "@/components/common/Providers";
 import { BackToTop } from "@/components/common/BackToTop";
 import { CursorGlow } from "@/components/common/CursorGlow";
@@ -17,11 +18,45 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [
+    "affiliate marketing",
+    "endorsement",
+    "KOL",
+    "digital marketing",
+    "UMKM",
+    "kreator",
+    "open promotion",
+    "kolaborasi brand",
+    "KantongIn",
+  ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: siteConfig.tagline }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: ["/opengraph-image"],
+  },
+  robots: { index: true, follow: true },
+  applicationName: siteConfig.name,
+  appleWebApp: { title: siteConfig.name, statusBarStyle: "default" },
+  formatDetection: { telephone: false },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -32,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning className={plusJakarta.variable}>
       <body className="antialiased">
+        <JsonLd />
         <Providers>
           <LoadingScreen />
           <ScrollProgress />
