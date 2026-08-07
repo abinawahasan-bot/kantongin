@@ -4,5 +4,11 @@ export const siteConfig = {
   description: "KantongIn menghubungkan brand, UMKM, startup, dan kreator untuk tumbuh lewat affiliate marketing, endorsement, dan kolaborasi.",
   url: "https://kantongin.com",
   email: "halo@kantongin.com",
-  socials: { instagram: "#", tiktok: "#", linkedin: "#", youtube: "#", whatsapp: "#" },
+  socials: {
+    instagram: "https://instagram.com/kantonginofc",
+    tiktok: "https://tiktok.com/@kantonginofc",
+    linkedin: "#",
+    youtube: "#",
+    whatsapp: "https://wa.me/6285775149968",
+  },
 } as const;

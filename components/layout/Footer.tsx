@@ -1,22 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ArrowRight,
-  Briefcase,
-  Camera,
-  Check,
-  MessageCircle,
-  Music,
-  Play,
-  Send,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, Check, Send } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Logo } from "@/components/common/Logo";
 import { MagneticButton } from "@/components/common/MagneticButton";
+import { SocialIcon } from "@/components/common/SocialIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { navItems } from "@/constants/navigation";
@@ -52,13 +43,7 @@ const legalLinks = [
   { label: "Kebijakan Cookie", href: "#" },
 ];
 
-const socialIcons: Record<string, LucideIcon> = {
-  instagram: Camera,
-  tiktok: Music,
-  linkedin: Briefcase,
-  youtube: Play,
-  whatsapp: MessageCircle,
-};
+const socialIcons = ["instagram", "tiktok", "linkedin", "youtube", "whatsapp"] as const;
 
 function NewsletterForm() {
   const {
@@ -143,16 +128,18 @@ export function Footer() {
             </p>
             <ul className="mt-6 flex flex-wrap items-center gap-2">
               {socials.map(([name, href]) => {
-                const Icon = socialIcons[name.toLowerCase()];
-                if (!Icon) return null;
+                const iconName = name.toLowerCase() as (typeof socialIcons)[number];
+                if (!socialIcons.includes(iconName)) return null;
                 return (
                   <li key={name}>
                     <a
                       href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={`KantongIn di ${name}`}
                       className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary"
                     >
-                      <Icon className="size-4" aria-hidden="true" />
+                      <SocialIcon name={iconName} className="size-4" />
                     </a>
                   </li>
                 );
