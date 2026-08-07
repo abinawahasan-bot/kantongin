@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { JsonLd } from "@/components/common/JsonLd";
 import { Providers } from "@/components/common/Providers";
 import { BackToTop } from "@/components/common/BackToTop";
@@ -83,6 +84,7 @@ export default function RootLayout({
           <Footer />
           <BackToTop />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

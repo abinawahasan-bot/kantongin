@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Check, Send } from "lucide-react";
 import type { MouseEvent } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Logo } from "@/components/common/Logo";
@@ -50,15 +51,38 @@ function NewsletterForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<NewsletterValues>({
     resolver: zodResolver(newsletterSchema),
     mode: "onBlur",
   });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
+    "idle"
+  );
+  const [message, setMessage] = useState("");
 
-  const onSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    reset();
+  const onSubmit = async (values: NewsletterValues) => {
+    setStatus("submitting");
+    setMessage("");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const body = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        setStatus("error");
+        setMessage(body.error ?? "Terjadi kesalahan, coba lagi.");
+        return;
+      }
+      setStatus("success");
+      setMessage("Terima kasih! Silakan cek inbox Anda.");
+      reset();
+    } catch {
+      setStatus("error");
+      setMessage("Gagal mengirim, coba lagi nanti.");
+    }
   };
 
   return (
@@ -83,7 +107,7 @@ function NewsletterForm() {
             size="lg"
             className="w-full rounded-full sm:w-auto"
           >
-            {isSubmitting ? (
+            {status === "submitting" ? (
               <span className="gap-2">Mengirim...</span>
             ) : (
               <span className="gap-2">
@@ -97,6 +121,18 @@ function NewsletterForm() {
       {errors.email ? (
         <p role="alert" className="mt-2 text-sm text-destructive">
           {errors.email.message}
+        </p>
+      ) : null}
+      {message ? (
+        <p
+          role="status"
+          className={
+            status === "error"
+              ? "mt-2 text-sm text-destructive"
+              : "mt-2 text-sm text-emerald-600 dark:text-emerald-400"
+          }
+        >
+          {message}
         </p>
       ) : null}
     </form>
@@ -117,7 +153,7 @@ export function Footer() {
   );
 
   return (
-    <footer id="contact" className="scroll-mt-28 border-t border-border bg-surface/50">
+    <footer className="scroll-mt-28 border-t border-border bg-surface/50">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-5">
           <div className="lg:col-span-2">

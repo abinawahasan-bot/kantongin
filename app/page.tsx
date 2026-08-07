@@ -1,4 +1,5 @@
 import { JsonLdFaq } from "@/components/common/JsonLd";
+import { ContactSection } from "@/components/sections/ContactSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { FAQ } from "@/components/sections/FAQ";
 import { Hero } from "@/components/sections/Hero";
@@ -27,6 +28,7 @@ export default function Home() {
       <Pricing />
       <CTASection />
       <FAQ />
+      <ContactSection />
       </main>
     </>
   );
