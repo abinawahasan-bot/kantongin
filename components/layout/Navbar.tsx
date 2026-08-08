@@ -8,6 +8,7 @@ import { MagneticButton } from "@/components/common/MagneticButton";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { navItems, type MegaColumn, type NavItem } from "@/constants/navigation";
+import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 import { cn } from "@/lib/utils";
 
@@ -129,14 +130,28 @@ export function Navbar() {
   });
 
   const handleAnchorClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!document.querySelector(href) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
+    if (isHowFlowAnchor(href)) {
+      switchHowFlow(href);
+      scrollTo("#how-it-works");
+      setMenuOpen(false);
+      return;
+    }
+    if (!document.querySelector(href)) return;
     scrollTo(href);
     setMenuOpen(false);
   };
 
   const navigate = (href: string) => {
-    if (!document.querySelector(href) || !ready) return;
+    if (!ready) return;
+    if (isHowFlowAnchor(href)) {
+      switchHowFlow(href);
+      scrollTo("#how-it-works");
+      setMenuOpen(false);
+      return;
+    }
+    if (!document.querySelector(href)) return;
     scrollTo(href);
     setMenuOpen(false);
   };

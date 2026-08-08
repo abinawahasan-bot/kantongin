@@ -4,6 +4,7 @@ export type Testimonial = {
   role: string;
   company: string;
   rating: number;
+  result: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -14,6 +15,7 @@ export const testimonials: Testimonial[] = [
     role: "Founder",
     company: "Kopi Selatan",
     rating: 5,
+    result: "Penjualan 3x lipat dalam 3 bulan",
   },
   {
     quote:
@@ -22,6 +24,7 @@ export const testimonials: Testimonial[] = [
     role: "Brand Manager",
     company: "Aura Beauty",
     rating: 5,
+    result: "Engagement konsisten sepanjang kampanye",
   },
   {
     quote:
@@ -30,6 +33,7 @@ export const testimonials: Testimonial[] = [
     role: "Kreator Konten",
     company: "Studio Piksel",
     rating: 5,
+    result: "Kolaborasi lancar & pembayaran tepat waktu",
   },
   {
     quote:
@@ -38,6 +42,7 @@ export const testimonials: Testimonial[] = [
     role: "Affiliate Marketer",
     company: "Belanja Bahagia",
     rating: 4,
+    result: "Komisi konsisten menjadi pemasukan utama",
   },
   {
     quote:
@@ -46,5 +51,6 @@ export const testimonials: Testimonial[] = [
     role: "Chief Marketing Officer",
     company: "Brankas Digital",
     rating: 5,
+    result: "Budget dialokasikan jauh lebih efisien",
   },
 ];

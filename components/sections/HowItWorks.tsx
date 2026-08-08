@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { flows, type Flow, type Step } from "@/constants/steps";
+import { flowForAnchor, HOW_TAB_EVENT, type HowFlow } from "@/lib/howTabs";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -95,6 +96,26 @@ function FlowTimeline({ flow }: { flow: Flow }) {
 
 export function HowItWorks() {
   const [activeId, setActiveId] = useState<Flow["id"]>("brand");
+
+  useEffect(() => {
+    const fromHash = flowForAnchor(window.location.hash);
+    if (fromHash) setActiveId(fromHash);
+
+    const onTabEvent = (event: Event) => {
+      setActiveId((event as CustomEvent<HowFlow>).detail);
+    };
+    const onHashChange = () => {
+      const flow = flowForAnchor(window.location.hash);
+      if (flow) setActiveId(flow);
+    };
+
+    window.addEventListener(HOW_TAB_EVENT, onTabEvent);
+    window.addEventListener("hashchange", onHashChange);
+    return () => {
+      window.removeEventListener(HOW_TAB_EVENT, onTabEvent);
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, []);
 
   return (
     <section id="how-it-works" className="relative py-20 lg:py-24">

@@ -24,7 +24,7 @@ export function BackToTop() {
           type="button"
           aria-label="Kembali ke atas"
           onClick={() => scrollTo(0)}
-          className="fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full border border-border bg-surface/80 text-foreground shadow-lg backdrop-blur transition-colors hover:bg-primary hover:text-primary-foreground"
+          className="fixed bottom-24 right-6 z-50 flex size-12 items-center justify-center rounded-full border border-border bg-surface/80 text-foreground shadow-lg backdrop-blur transition-colors hover:bg-primary hover:text-primary-foreground"
           initial={{ opacity: 0, scale: 0.6, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.6, y: 12 }}

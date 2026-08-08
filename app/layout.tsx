@@ -7,6 +7,7 @@ import { BackToTop } from "@/components/common/BackToTop";
 import { CursorGlow } from "@/components/common/CursorGlow";
 import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { ScrollProgress } from "@/components/common/ScrollProgress";
+import { WhatsAppFloat } from "@/components/common/WhatsAppFloat";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/constants/site";
@@ -83,6 +84,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <BackToTop />
+          <WhatsAppFloat />
         </Providers>
         <Analytics />
       </body>

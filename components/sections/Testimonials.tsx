@@ -4,7 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { type EmblaCarouselType } from "embla-carousel";
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote, Star, TrendingUp } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -80,6 +80,10 @@ function TestimonialSlide({ testimonial, index }: TestimonialSlideProps) {
             <p className="text-base font-semibold text-foreground">{testimonial.name}</p>
             <p className="mt-0.5 text-sm text-muted">
               {testimonial.role} &middot; {testimonial.company}
+            </p>
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+              <TrendingUp className="size-3.5" aria-hidden="true" />
+              {testimonial.result}
             </p>
           </div>
         </footer>

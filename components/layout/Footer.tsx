@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { navItems } from "@/constants/navigation";
 import { siteConfig } from "@/constants/site";
+import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 
 const newsletterSchema = z.object({
@@ -143,8 +144,14 @@ export function Footer() {
   const { scrollTo, ready } = useLenis();
 
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
-    if (!document.querySelector(target) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
+    if (isHowFlowAnchor(target)) {
+      switchHowFlow(target);
+      scrollTo("#how-it-works");
+      return;
+    }
+    if (!document.querySelector(target)) return;
     scrollTo(target);
   };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, BarChart3, Check, FileX, Percent, Zap } from "lucide-react";
 import type { MouseEvent } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -123,6 +123,25 @@ export function Pricing() {
             <PricingCard key={plan.name} plan={plan} index={index} onAnchor={handleAnchor} />
           ))}
         </div>
+
+        <Reveal delay={0.1}>
+          <ul className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            {[
+              { icon: FileX, label: "Tanpa kontrak jangka panjang" },
+              { icon: Percent, label: "Komisi berbasis performa" },
+              { icon: BarChart3, label: "Laporan real-time transparan" },
+              { icon: Zap, label: "Response < 24 jam" },
+            ].map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm text-muted-foreground"
+              >
+                <Icon className="size-4 text-primary" aria-hidden="true" />
+                {label}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
         <Reveal delay={0.2}>
           <p className="mt-12 text-center text-sm text-muted">
