@@ -165,7 +165,7 @@ export function Hero() {
         <button
           type="button"
           onClick={handleScrollDown}
-          aria-label="Gulir ke bawah"
+          aria-label="Scroll ke bawah"
           className="inline-flex flex-col items-center gap-1.5 text-muted transition-colors hover:text-foreground"
         >
           <span className="text-[0.7rem] font-semibold uppercase tracking-widest">Scroll</span>

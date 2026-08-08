@@ -190,9 +190,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               Navigasi
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2.5">
               {navItems
                 .filter((item) => !item.mega)
@@ -214,9 +214,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               Layanan
-            </h3>
+            </h2>
             <ul className="mt-4 space-y-2.5">
               {serviceLinks.map((label) => (
                 <li key={label}>
@@ -236,9 +236,9 @@ export function Footer() {
             <NewsletterForm />
             <div className="mt-8 grid grid-cols-2 gap-8">
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
                   Sumber
-                </h3>
+                </h2>
                 <ul className="mt-4 space-y-2.5">
                   {resourceLinks.map((link) => (
                     <li key={link.label}>
@@ -254,9 +254,9 @@ export function Footer() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
                   Legal
-                </h3>
+                </h2>
                 <ul className="mt-4 space-y-2.5">
                   {legalLinks.map((link) => (
                     <li key={link.label}>
