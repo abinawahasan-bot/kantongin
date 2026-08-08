@@ -19,8 +19,21 @@ export function flowForAnchor(href: string): HowFlow | null {
   return isHowFlowAnchor(href) ? FLOW_BY_ANCHOR[href] : null;
 }
 
+let requestedFlow: HowFlow | null = null;
+
+export function requestFlow(flow: HowFlow): void {
+  requestedFlow = flow;
+  window.dispatchEvent(new CustomEvent<HowFlow>(HOW_TAB_EVENT, { detail: flow }));
+}
+
+export function consumeRequestedFlow(): HowFlow | null {
+  const flow = requestedFlow;
+  requestedFlow = null;
+  return flow;
+}
+
 export function switchHowFlow(href: string): void {
   const flow = flowForAnchor(href);
   if (!flow) return;
-  window.dispatchEvent(new CustomEvent<HowFlow>(HOW_TAB_EVENT, { detail: flow }));
+  requestFlow(flow);
 }

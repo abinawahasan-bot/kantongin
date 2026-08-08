@@ -5,7 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { flows, type Flow, type Step } from "@/constants/steps";
-import { flowForAnchor, HOW_TAB_EVENT, type HowFlow } from "@/lib/howTabs";
+import {
+  consumeRequestedFlow,
+  flowForAnchor,
+  HOW_TAB_EVENT,
+  type HowFlow,
+} from "@/lib/howTabs";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -98,8 +103,9 @@ export function HowItWorks() {
   const [activeId, setActiveId] = useState<Flow["id"]>("brand");
 
   useEffect(() => {
+    const requested = consumeRequestedFlow();
     const fromHash = flowForAnchor(window.location.hash);
-    if (fromHash) setActiveId(fromHash);
+    setActiveId(requested ?? fromHash ?? "brand");
 
     const onTabEvent = (event: Event) => {
       setActiveId((event as CustomEvent<HowFlow>).detail);

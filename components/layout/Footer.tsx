@@ -15,6 +15,7 @@ import { navItems } from "@/constants/navigation";
 import { siteConfig } from "@/constants/site";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 
 const newsletterSchema = z.object({
   email: z.string().email("Masukkan email yang valid"),
@@ -148,11 +149,10 @@ export function Footer() {
     event.preventDefault();
     if (isHowFlowAnchor(target)) {
       switchHowFlow(target);
-      scrollTo("#how-it-works");
+      void revealAndScroll("#how-it-works", (t) => scrollTo(t));
       return;
     }
-    if (!document.querySelector(target)) return;
-    scrollTo(target);
+    void revealAndScroll(target, (t) => scrollTo(t));
   };
 
   const socials = Object.entries(siteConfig.socials).filter(

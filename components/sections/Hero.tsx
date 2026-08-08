@@ -16,6 +16,7 @@ import { DashboardMockup } from "@/components/sections/hero/DashboardMockup";
 import { Button } from "@/components/ui/button";
 import { useMousePosition } from "@/hooks/use-mouse-position";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
 
 const TRUST_CHIPS = [
@@ -77,13 +78,13 @@ export function Hero() {
   }, [reduceMotion]);
 
   const handleAnchor = (event: AnchorTarget, target: string) => {
-    if (!document.querySelector(target) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo(target);
+    void revealAndScroll(target, (t) => scrollTo(t));
   };
 
   const handleScrollDown = () => {
-    if (!document.querySelector("#services") || !ready) return;
+    if (!ready) return;
     scrollTo("#services");
   };
 

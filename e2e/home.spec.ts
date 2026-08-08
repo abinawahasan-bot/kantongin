@@ -7,7 +7,7 @@ test.describe("Beranda", () => {
     await expect(
       page.getByRole("heading", { name: /Tumbuhkan Bisnismu/ })
     ).toBeVisible();
-    await expect(page.getByRole("button", { name: "Mulai Kampanye" }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Mulai Kampanye" }).first()).toBeVisible();
   });
 
   test("navbar menyediakan navigasi anchor", async ({ page }) => {
@@ -27,6 +27,12 @@ test.describe("Beranda", () => {
 
   test("menampilkan semua section utama", async ({ page }) => {
     await page.goto("/");
+    for (let step = 1; step <= 8; step += 1) {
+      await page.evaluate((s) => {
+        window.scrollTo(0, (document.body.scrollHeight / 8) * s);
+      }, step);
+      await page.waitForTimeout(120);
+    }
     for (const id of ["home", "services", "portfolio", "affiliate", "pricing", "faq", "contact", "how-it-works"]) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }

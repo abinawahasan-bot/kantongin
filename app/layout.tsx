@@ -5,7 +5,6 @@ import { JsonLd } from "@/components/common/JsonLd";
 import { Providers } from "@/components/common/Providers";
 import { BackToTop } from "@/components/common/BackToTop";
 import { CursorGlow } from "@/components/common/CursorGlow";
-import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { ScrollProgress } from "@/components/common/ScrollProgress";
 import { WhatsAppFloat } from "@/components/common/WhatsAppFloat";
 import { Footer } from "@/components/layout/Footer";
@@ -77,7 +76,6 @@ export default function RootLayout({
         </a>
         <JsonLd />
         <Providers>
-          <LoadingScreen />
           <ScrollProgress />
           <CursorGlow />
           <Navbar />

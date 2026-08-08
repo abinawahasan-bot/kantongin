@@ -10,6 +10,7 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 import { navItems, type MegaColumn, type NavItem } from "@/constants/navigation";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
 
 type DesktopNavItemProps = {
@@ -134,12 +135,11 @@ export function Navbar() {
     event.preventDefault();
     if (isHowFlowAnchor(href)) {
       switchHowFlow(href);
-      scrollTo("#how-it-works");
+      void revealAndScroll("#how-it-works", (target) => scrollTo(target));
       setMenuOpen(false);
       return;
     }
-    if (!document.querySelector(href)) return;
-    scrollTo(href);
+    void revealAndScroll(href, (target) => scrollTo(target));
     setMenuOpen(false);
   };
 
@@ -147,12 +147,11 @@ export function Navbar() {
     if (!ready) return;
     if (isHowFlowAnchor(href)) {
       switchHowFlow(href);
-      scrollTo("#how-it-works");
+      void revealAndScroll("#how-it-works", (target) => scrollTo(target));
       setMenuOpen(false);
       return;
     }
-    if (!document.querySelector(href)) return;
-    scrollTo(href);
+    void revealAndScroll(href, (target) => scrollTo(target));
     setMenuOpen(false);
   };
 
@@ -187,9 +186,9 @@ export function Navbar() {
               href="#contact"
               ariaLabel="Mulai Kampanye"
               onClick={(event) => {
-                if (!document.querySelector("#contact") || !ready) return;
+                if (!ready) return;
                 event.preventDefault();
-                scrollTo("#contact");
+                void revealAndScroll("#contact", (target) => scrollTo(target));
               }}
               className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 sm:inline-flex"
             >

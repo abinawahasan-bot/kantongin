@@ -1,14 +1,16 @@
 import { JsonLdFaq } from "@/components/common/JsonLd";
-import { ContactSection } from "@/components/sections/ContactSection";
-import { CTASection } from "@/components/sections/CTASection";
-import { FAQ } from "@/components/sections/FAQ";
+import {
+  LazyContactSection,
+  LazyCTASection,
+  LazyFAQ,
+  LazyHowItWorks,
+  LazyPortfolio,
+  LazyTestimonials,
+} from "@/components/sections/LazySections";
 import { Hero } from "@/components/sections/Hero";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { Portfolio } from "@/components/sections/Portfolio";
 import { Pricing } from "@/components/sections/Pricing";
 import { Services } from "@/components/sections/Services";
 import { Statistics } from "@/components/sections/Statistics";
-import { Testimonials } from "@/components/sections/Testimonials";
 import { TrustedBy } from "@/components/sections/TrustedBy";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 
@@ -18,17 +20,17 @@ export default function Home() {
       <JsonLdFaq />
       <main id="main" tabIndex={-1}>
         <Hero />
-      <TrustedBy />
-      <Statistics />
-      <Services />
-      <WhyChooseUs />
-      <HowItWorks />
-      <Portfolio />
-      <Testimonials />
-      <Pricing />
-      <CTASection />
-      <FAQ />
-      <ContactSection />
+        <TrustedBy />
+        <Statistics />
+        <Services />
+        <WhyChooseUs />
+        <LazyHowItWorks />
+        <LazyPortfolio />
+        <LazyTestimonials />
+        <Pricing />
+        <LazyCTASection />
+        <LazyFAQ />
+        <LazyContactSection />
       </main>
     </>
   );

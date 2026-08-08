@@ -21,6 +21,7 @@ import {
   type PortfolioProject,
 } from "@/constants/portfolio";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -92,9 +93,9 @@ export function Portfolio() {
 
   const handleContactClick = (event: MouseEvent<HTMLAnchorElement>) => {
     setSelected(null);
-    if (!document.querySelector("#contact") || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo("#contact");
+    void revealAndScroll("#contact", (t) => scrollTo(t));
   };
 
   return (

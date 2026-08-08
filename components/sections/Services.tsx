@@ -18,6 +18,7 @@ import { SectionHeading } from "@/components/common/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { services, type Service } from "@/constants/services";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 
 const icons: Record<string, LucideIcon> = {
   handshake: Handshake,
@@ -117,15 +118,15 @@ export function Services() {
   const { scrollTo, ready } = useLenis();
 
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
-    if (!document.querySelector(target) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo(target);
+    void revealAndScroll(target, (t) => scrollTo(t));
   };
 
   const handleNavigate = (event: MouseEvent<HTMLButtonElement>) => {
-    if (!document.querySelector("#contact") || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo("#contact");
+    void revealAndScroll("#contact", (t) => scrollTo(t));
   };
 
   return (

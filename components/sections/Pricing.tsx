@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { pricingPlans, type PricingPlan } from "@/constants/pricing";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
 
 type PricingCardProps = {
@@ -102,9 +103,9 @@ export function Pricing() {
   const { scrollTo, ready } = useLenis();
 
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
-    if (!document.querySelector(target) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo(target);
+    void revealAndScroll(target, (t) => scrollTo(t));
   };
 
   return (

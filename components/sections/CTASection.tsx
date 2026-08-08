@@ -7,14 +7,15 @@ import { Particles } from "@/components/common/Particles";
 import { Reveal } from "@/components/common/Reveal";
 import { Button } from "@/components/ui/button";
 import { useLenis } from "@/lib/lenis";
+import { revealAndScroll } from "@/lib/reveal-section";
 
 export function CTASection() {
   const { scrollTo, ready } = useLenis();
 
   const handleAnchor = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>, target: string) => {
-    if (!document.querySelector(target) || !ready) return;
+    if (!ready) return;
     event.preventDefault();
-    scrollTo(target);
+    void revealAndScroll(target, (t) => scrollTo(t));
   };
 
   return (
