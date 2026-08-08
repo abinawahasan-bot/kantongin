@@ -28,11 +28,59 @@ const ContactSection = dynamic(
     import("@/components/sections/ContactSection").then((mod) => mod.ContactSection),
   { ssr: false }
 );
+const Statistics = dynamic(
+  () => import("@/components/sections/Statistics").then((mod) => mod.Statistics),
+  { ssr: false }
+);
+const Services = dynamic(
+  () => import("@/components/sections/Services").then((mod) => mod.Services),
+  { ssr: false }
+);
+const WhyChooseUs = dynamic(
+  () => import("@/components/sections/WhyChooseUs").then((mod) => mod.WhyChooseUs),
+  { ssr: false }
+);
+const Pricing = dynamic(
+  () => import("@/components/sections/Pricing").then((mod) => mod.Pricing),
+  { ssr: false }
+);
 
 export function LazyHowItWorks() {
   return (
     <LazyMount hashes={["#how-it-works", "#affiliate", "#creators"]}>
       <HowItWorks />
+    </LazyMount>
+  );
+}
+
+export function LazyStatistics() {
+  return (
+    <LazyMount>
+      <Statistics />
+    </LazyMount>
+  );
+}
+
+export function LazyServices() {
+  return (
+    <LazyMount hashes={["#services"]}>
+      <Services />
+    </LazyMount>
+  );
+}
+
+export function LazyWhyChooseUs() {
+  return (
+    <LazyMount>
+      <WhyChooseUs />
+    </LazyMount>
+  );
+}
+
+export function LazyPricing() {
+  return (
+    <LazyMount hashes={["#pricing"]}>
+      <Pricing />
     </LazyMount>
   );
 }

@@ -9,6 +9,8 @@ export const LAZY_SECTION_ANCHORS = [
   "#cta",
   "#faq",
   "#contact",
+  "#services",
+  "#pricing",
 ] as const;
 
 export function isLazyAnchor(href: string): boolean {

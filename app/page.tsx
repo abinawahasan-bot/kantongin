@@ -5,14 +5,14 @@ import {
   LazyFAQ,
   LazyHowItWorks,
   LazyPortfolio,
+  LazyPricing,
+  LazyServices,
+  LazyStatistics,
   LazyTestimonials,
+  LazyWhyChooseUs,
 } from "@/components/sections/LazySections";
 import { Hero } from "@/components/sections/Hero";
-import { Pricing } from "@/components/sections/Pricing";
-import { Services } from "@/components/sections/Services";
-import { Statistics } from "@/components/sections/Statistics";
 import { TrustedBy } from "@/components/sections/TrustedBy";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 
 export default function Home() {
   return (
@@ -21,13 +21,13 @@ export default function Home() {
       <main id="main" tabIndex={-1}>
         <Hero />
         <TrustedBy />
-        <Statistics />
-        <Services />
-        <WhyChooseUs />
+        <LazyStatistics />
+        <LazyServices />
+        <LazyWhyChooseUs />
         <LazyHowItWorks />
         <LazyPortfolio />
         <LazyTestimonials />
-        <Pricing />
+        <LazyPricing />
         <LazyCTASection />
         <LazyFAQ />
         <LazyContactSection />
