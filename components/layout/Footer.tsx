@@ -5,7 +5,6 @@ import { ArrowRight, Check, Send } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Logo } from "@/components/common/Logo";
 import { MagneticButton } from "@/components/common/MagneticButton";
 import { SocialIcon } from "@/components/common/SocialIcon";
@@ -16,12 +15,7 @@ import { siteConfig } from "@/constants/site";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
-
-const newsletterSchema = z.object({
-  email: z.string().email("Masukkan email yang valid"),
-});
-
-type NewsletterValues = z.infer<typeof newsletterSchema>;
+import { newsletterSchema, type NewsletterValues } from "@/lib/schemas/forms";
 
 const serviceLinks = [
   "Affiliate Marketing",

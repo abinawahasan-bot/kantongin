@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { siteConfig } from "@/constants/site";
 import { getClientIp, rateLimitByIp } from "@/lib/rate-limit";
+import { newsletterSchema } from "@/lib/schemas/forms";
 
 export const runtime = "nodejs";
 
-const schema = z.object({
-  email: z.string().trim().email(),
-});
+const schema = newsletterSchema;
 
 export async function POST(req: Request) {
   const limited = rateLimitByIp(`newsletter:${getClientIp(req)}`, 3, 60_000);

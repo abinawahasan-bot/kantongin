@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Loader2, Mail, MessageSquareText, Phone } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { Button } from "@/components/ui/button";
@@ -13,15 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { siteConfig } from "@/constants/site";
-
-const contactSchema = z.object({
-  name: z.string().trim().min(1, "Nama wajib diisi").max(80),
-  email: z.string().trim().email("Email tidak valid"),
-  subject: z.string().trim().min(1, "Subjek wajib diisi").max(120),
-  message: z.string().trim().min(10, "Pesan minimal 10 karakter").max(4000),
-});
-
-type ContactValues = z.infer<typeof contactSchema>;
+import { contactSchema, type ContactValues } from "@/lib/schemas/forms";
 
 export function ContactSection() {
   const {
