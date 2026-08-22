@@ -1,35 +1,85 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getClientIp, rateLimitByIp } from "./rate-limit";
+
+const { limitMock, fixedWindowMock } = vi.hoisted(() => ({
+  limitMock: vi.fn(),
+  fixedWindowMock: vi.fn(),
+}));
+
+vi.mock("@upstash/redis", () => ({
+  Redis: class {
+    constructor(_opts: unknown) {}
+  },
+}));
+
+vi.mock("@upstash/ratelimit", () => ({
+  Ratelimit: Object.assign(
+    class {
+      limit = limitMock;
+      constructor(_opts: unknown) {}
+    },
+    { fixedWindow: fixedWindowMock }
+  ),
+}));
 
 describe("rateLimitByIp", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
 
-  it("mengizinkan permintaan pertama", () => {
-    expect(rateLimitByIp("a", 3, 1000)).toEqual({ ok: true });
+  it("mengizinkan permintaan pertama", async () => {
+    expect(await rateLimitByIp("a", 3, 1000)).toEqual({ ok: true });
   });
 
-  it("menolak setelah melewati batas", () => {
-    rateLimitByIp("b", 3, 1000);
-    rateLimitByIp("b", 3, 1000);
-    rateLimitByIp("b", 3, 1000);
-    const result = rateLimitByIp("b", 3, 1000);
+  it("menolak setelah melewati batas", async () => {
+    await rateLimitByIp("b", 3, 1000);
+    await rateLimitByIp("b", 3, 1000);
+    await rateLimitByIp("b", 3, 1000);
+    const result = await rateLimitByIp("b", 3, 1000);
     expect(result.ok).toBe(false);
     expect(result.retryAfter).toBeGreaterThan(0);
   });
 
-  it("mengisi ulang bucket setelah window berlalu", () => {
-    rateLimitByIp("c", 1, 1000);
-    expect(rateLimitByIp("c", 1, 1000).ok).toBe(false);
+  it("mengisi ulang bucket setelah window berlalu", async () => {
+    await rateLimitByIp("c", 1, 1000);
+    expect((await rateLimitByIp("c", 1, 1000)).ok).toBe(false);
     vi.advanceTimersByTime(1001);
-    expect(rateLimitByIp("c", 1, 1000).ok).toBe(true);
+    expect((await rateLimitByIp("c", 1, 1000)).ok).toBe(true);
   });
 
-  it("menghitung key per IP secara terpisah", () => {
-    rateLimitByIp("d", 1, 1000);
-    expect(rateLimitByIp("d", 1, 1000).ok).toBe(false);
-    expect(rateLimitByIp("e", 1, 1000).ok).toBe(true);
+  it("menghitung key per IP secara terpisah", async () => {
+    await rateLimitByIp("d", 1, 1000);
+    expect((await rateLimitByIp("d", 1, 1000)).ok).toBe(false);
+    expect((await rateLimitByIp("e", 1, 1000)).ok).toBe(true);
+  });
+});
+
+describe("jalur Upstash", () => {
+  beforeEach(() => {
+    vi.unstubAllEnvs();
+    limitMock.mockReset();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("memakai Redis dan mengizinkan saat success", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://contoh.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "token-rahasia");
+    limitMock.mockResolvedValue({ success: true, reset: Date.now() + 60_000 });
+    await expect(rateLimitByIp("u1", 5, 60_000)).resolves.toEqual({ ok: true });
+    expect(limitMock).toHaveBeenCalledWith("u1");
+    expect(fixedWindowMock).toHaveBeenCalledWith(5, "60000 ms");
+  });
+
+  it("menolak dengan retryAfter saat success=false", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://contoh.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "token-rahasia");
+    limitMock.mockResolvedValue({ success: false, reset: Date.now() + 30_000 });
+    const result = await rateLimitByIp(`u2-${Math.random()}`, 5, 90_000);
+    expect(result.ok).toBe(false);
+    expect(result.retryAfter).toBeGreaterThan(0);
   });
 });
 

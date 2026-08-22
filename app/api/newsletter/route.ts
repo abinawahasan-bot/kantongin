@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 const schema = newsletterSchema;
 
 export async function POST(req: Request) {
-  const limited = rateLimitByIp(`newsletter:${getClientIp(req)}`, 3, 60_000);
+  const limited = await rateLimitByIp(`newsletter:${getClientIp(req)}`, 3, 60_000);
   if (!limited.ok) {
     return NextResponse.json(
       { error: "Terlalu banyak permintaan, coba lagi nanti." },
