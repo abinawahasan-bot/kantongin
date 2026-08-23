@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { z } from "zod";
 
 export type PostFrontmatter = {
   title: string;
@@ -9,6 +10,28 @@ export type PostFrontmatter = {
   author: string;
   tags: string[];
 };
+
+export const postFrontmatterSchema = z.object({
+  title: z.string().trim().min(1),
+  description: z.string().trim().min(1),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  author: z.string().trim().min(1),
+  tags: z.array(z.string()),
+});
+
+export function parseFrontmatter(
+  slug: string,
+  data: unknown
+): PostFrontmatter {
+  const result = postFrontmatterSchema.safeParse(data);
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+      .join("; ");
+    throw new Error(`Frontmatter tidak valid: ${slug} (${issues})`);
+  }
+  return result.data;
+}
 
 export type Post = PostFrontmatter & { slug: string };
 
@@ -21,7 +44,7 @@ function readPostFile(slug: string): PostContent | null {
   if (!fs.existsSync(filePath)) return null;
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
-  return { frontmatter: data as PostFrontmatter, content };
+  return { frontmatter: parseFrontmatter(slug, data), content };
 }
 
 function listSlugs(): string[] {
@@ -35,7 +58,7 @@ export const posts: Post[] = listSlugs()
   .map((slug) => {
     const post = readPostFile(slug);
     if (!post) throw new Error(`Frontmatter tidak valid: ${slug}`);
-    return { slug, ...post.frontmatter };
+    return { ...post.frontmatter, slug };
   })
   .sort((a, b) => b.date.localeCompare(a.date));
 
