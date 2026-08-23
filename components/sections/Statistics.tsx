@@ -1,30 +1,61 @@
 import { Counter } from "@/components/common/Counter";
+import { GlowCard } from "@/components/common/GlowCard";
 import { Reveal } from "@/components/common/Reveal";
+import { SectionHeading } from "@/components/common/SectionHeading";
 import { stats } from "@/constants/stats";
+
+const FEATURED = stats[4];
+const REST = stats.slice(0, 4);
 
 export function Statistics() {
   return (
-    <section id="statistics" className="py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-2xl border border-border bg-border/50">
-          <div className="grid grid-cols-2 gap-px md:grid-cols-3 lg:grid-cols-5">
-            {stats.map((stat, index) => (
-              <Reveal
-                key={stat.label}
-                delay={index * 0.08}
-                className="bg-background px-6 py-10 text-center lg:py-12"
-              >
-                <Counter
-                  to={stat.value}
-                  suffix={stat.suffix}
-                  decimals={stat.decimals}
-                  className="text-4xl font-bold tracking-tight text-foreground lg:text-5xl"
-                />
-                <p className="mt-3 text-sm text-muted-foreground">{stat.label}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+    <section id="statistics" className="glow-section py-20 lg:py-24">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          align="left"
+          eyebrow="KantongIn dalam Angka"
+          title="Hasil Nyata, Bukan Janji"
+          description="Angka yang terus tumbuh dari kampanye affiliate, endorsement, dan kolaborasi kreator yang kami jalankan."
+        />
+
+        <Reveal delay={0.05} className="mt-12">
+          <GlowCard className="rounded-2xl">
+            <div className="flex flex-col gap-6 px-8 py-10 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:px-10">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                  Komisi Disalurkan
+                </p>
+                <p className="mt-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
+                  <Counter
+                    to={FEATURED.value}
+                    suffix={FEATURED.suffix}
+                    decimals={FEATURED.decimals}
+                    className="text-gradient"
+                  />
+                </p>
+              </div>
+              <p className="max-w-sm text-base leading-relaxed text-muted">
+                Total komisi yang sudah kami salurkan ke para kreator dari seluruh
+                kampanye — bukti model bayar-performa benar-benar bekerja.
+              </p>
+            </div>
+          </GlowCard>
+        </Reveal>
+
+        <dl className="mt-6 grid grid-cols-2 divide-border border-t border-border md:grid-cols-4 md:divide-x">
+          {REST.map((stat, index) => (
+            <Reveal
+              key={stat.label}
+              delay={0.08 * (index + 1)}
+              className="border-b border-border px-6 py-8 md:border-b-0"
+            >
+              <dt className="text-sm text-muted-foreground">{stat.label}</dt>
+              <dd className="mt-2 text-4xl font-bold tracking-tight text-foreground lg:text-[2.75rem]">
+                <Counter to={stat.value} suffix={stat.suffix} />
+              </dd>
+            </Reveal>
+          ))}
+        </dl>
       </div>
     </section>
   );

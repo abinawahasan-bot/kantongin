@@ -160,6 +160,16 @@ body {
   animation-play-state: paused;
 }
 
+.marquee-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
 @keyframes blob-drift {
   0%,
   100% {
@@ -228,7 +238,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-blob-drift,
-  .hero-mesh {
+  .hero-mesh,
+  .marquee-track {
     animation: none;
   }
 }
