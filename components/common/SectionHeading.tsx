@@ -8,6 +8,7 @@ type SectionHeadingProps = {
   title: string;
   description?: string;
   align?: "left" | "center";
+  size?: "default" | "display";
 };
 
 export function SectionHeading({
@@ -15,8 +16,13 @@ export function SectionHeading({
   title,
   description,
   align = "center",
+  size = "default",
 }: SectionHeadingProps) {
   const centered = align === "center";
+  const sizeClasses =
+    size === "display"
+      ? "text-[clamp(2rem,5vw,3.25rem)] leading-[1.05]"
+      : "text-3xl sm:text-4xl md:text-5xl";
 
   return (
     <div
@@ -39,7 +45,7 @@ export function SectionHeading({
       <AnimatedText
         as="h2"
         text={title}
-        className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl"
+        className={cn("font-bold tracking-tight text-foreground", sizeClasses)}
       />
       {description ? (
         <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">

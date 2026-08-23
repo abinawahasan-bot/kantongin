@@ -19,3 +19,18 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: () => false,
   }),
 });
+
+class IntersectionObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+}
+
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverStub,
+});
