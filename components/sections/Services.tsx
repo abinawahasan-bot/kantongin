@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { type MouseEvent } from "react";
+import { BentoGrid, BentoItem } from "@/components/common/BentoGrid";
 import { GlowCard } from "@/components/common/GlowCard";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -43,6 +44,9 @@ function ServiceCard({ service, index, onLearnMore }: ServiceCardProps) {
     <Reveal delay={index * 0.08} className="h-full">
       <GlowCard className="h-full">
         <div className="flex h-full flex-col gap-4 p-6">
+          <span aria-hidden="true" className="text-xs font-bold tracking-[0.2em] text-primary/50">
+            {String(index + 1).padStart(2, "0")}
+          </span>
           <span className="inline-flex w-fit rounded-xl bg-primary/10 p-3 text-primary transition-transform duration-300 group-hover:scale-110">
             {Icon ? <Icon className="size-6" aria-hidden="true" /> : null}
           </span>
@@ -76,9 +80,63 @@ function ServiceCard({ service, index, onLearnMore }: ServiceCardProps) {
   );
 }
 
+function FlagshipCard({
+  service,
+  onLearnMore,
+}: Omit<ServiceCardProps, "index">) {
+  const Icon = icons[service.icon];
+
+  return (
+    <Reveal className="h-full">
+      <GlowCard className="h-full">
+        <div className="flex flex-col gap-8 p-8 sm:flex-row sm:items-center sm:p-10">
+          <span className="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+            {Icon ? <Icon className="size-8" aria-hidden="true" /> : null}
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-baseline gap-3">
+              <span aria-hidden="true" className="text-xs font-bold tracking-[0.2em] text-primary/60">
+                01
+              </span>
+              <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                {service.title}
+              </h3>
+            </div>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+              {service.description}
+            </p>
+            {service.points ? (
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {service.points.map((point) => (
+                  <li
+                    key={point}
+                    className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
+                  >
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <a
+              href="#contact"
+              onClick={onLearnMore}
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+            >
+              <span className="relative after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100">
+                Pelajari
+              </span>
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </GlowCard>
+    </Reveal>
+  );
+}
+
 function CustomCtaCard({ onNavigate }: { onNavigate: (event: MouseEvent<HTMLButtonElement>) => void }) {
   return (
-    <Reveal delay={0.56} className="h-full sm:col-span-2 lg:col-span-3">
+    <Reveal delay={0.56} className="h-full">
       <GlowCard className="h-full">
         <div className="relative flex h-full flex-col items-center gap-5 overflow-hidden bg-gradient-to-br from-primary/[0.07] via-transparent to-accent/[0.07] p-8 text-center sm:p-12">
           <span
@@ -134,21 +192,30 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Layanan"
-          title="Solusi Lengkap untuk Tumbuh Bersama"
-          description="Dari affiliate marketing hingga content production, semua kebutuhan pemasaran digital brand dan UMKM ada di satu tempat — dirancang untuk hasil nyata."
+          title="Semua yang Brand Butuhkan untuk Tumbuh"
+          description="Affiliate, endorsement, hingga content production — satu mitra untuk seluruh mesin pertumbuhan digital brand-mu."
         />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.title}
-              service={service}
-              index={index}
+        <BentoGrid className="mt-14">
+          <BentoItem span="full">
+            <FlagshipCard
+              service={services[0]}
               onLearnMore={(event) => handleAnchor(event, "#contact")}
             />
+          </BentoItem>
+          {services.slice(1).map((service, i) => (
+            <BentoItem key={service.title} span="third">
+              <ServiceCard
+                service={service}
+                index={i + 1}
+                onLearnMore={(event) => handleAnchor(event, "#contact")}
+              />
+            </BentoItem>
           ))}
-          <CustomCtaCard onNavigate={handleNavigate} />
-        </div>
+          <BentoItem span="full">
+            <CustomCtaCard onNavigate={handleNavigate} />
+          </BentoItem>
+        </BentoGrid>
       </div>
     </section>
   );

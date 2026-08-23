@@ -129,7 +129,7 @@ export function HowItWorks() {
         <SectionHeading
           eyebrow="Cara Kerja"
           title="Bagaimana Cara Kerja KantongIn?"
-          description="Dua alur kolaborasi yang jelas dan terukur — untuk brand yang ingin berkembang dan kreator yang ingin menghasilkan dari kontennya."
+          description="Pilih alur Anda — sebagai brand yang ingin bertumbuh atau kreator yang ingin menghasilkan. Sisanya kami pandu langkah demi langkah."
         />
 
         <div className="mt-10 flex justify-center">

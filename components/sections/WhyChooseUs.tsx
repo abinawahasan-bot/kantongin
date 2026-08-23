@@ -164,9 +164,11 @@ export function WhyChooseUs() {
     <section id="why" className="relative py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
+          align="left"
+          size="display"
           eyebrow="Kenapa KantongIn"
           title="Mengapa Brand Memilih Kami"
-          description="Bukan sekadar menghubungkan brand dengan kreator — kami membangun sistem kolaborasi yang terkurasi, transparan, dan berorientasi hasil."
+          description="Sistem kolaborasi terkurasi yang transparan dan berorientasi hasil — bukan sekadar penghubung brand dan kreator."
         />
 
         <div className="relative mt-16 lg:mt-24">
