@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, UserRound } from "lucide-react";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { siteConfig } from "@/constants/site";
+import { mdxComponents } from "@/lib/mdx-components";
 import { getPost, posts } from "../_posts";
 
 export const dynamicParams = false;
@@ -51,8 +53,7 @@ export default async function BlogPostPage({ params }: Params) {
   const mod = getPost(slug);
   if (!mod) notFound();
 
-  const Content = mod.default;
-  const post = mod.frontmatter;
+  const { frontmatter: post, content } = mod;
   const url = `${siteConfig.url}/blog/${slug}`;
 
   const jsonLd = {
@@ -119,7 +120,7 @@ export default async function BlogPostPage({ params }: Params) {
         </header>
 
         <div className="mt-10 border-t border-border pt-8">
-          <Content />
+          <MDXRemote source={content} components={mdxComponents} />
         </div>
       </article>
     </main>

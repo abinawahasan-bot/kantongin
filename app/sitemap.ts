@@ -1,23 +1,20 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/constants/site";
-
-type PostModule = { frontmatter: { date: string } };
-
-const modules = import.meta.glob("./blog/_posts/*.mdx", {
-  eager: true,
-}) as Record<string, PostModule>;
+import { posts } from "./blog/_posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const blogEntries: MetadataRoute.Sitemap = Object.keys(modules).map(
-    (path) => ({
-      url: `${siteConfig.url}/blog/${
-        path.match(/\.\/blog\/_posts\/(.+)\.mdx$/)?.[1] ?? ""
-      }`,
-      lastModified: new Date(modules[path].frontmatter.date),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    })
-  );
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${siteConfig.url}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const legalEntries: MetadataRoute.Sitemap = [
+    { url: `${siteConfig.url}/kebijakan-privasi`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteConfig.url}/syarat-ketentuan`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteConfig.url}/kebijakan-cookie`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+  ];
 
   return [
     {
@@ -33,5 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...blogEntries,
+    ...legalEntries,
   ];
 }

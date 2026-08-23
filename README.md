@@ -9,7 +9,9 @@ affiliate marketing, endorsement, dan kolaborasi terkurasi.
 - [Next.js 16](https://nextjs.org) (App Router, Turbopack) + React 19 + TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com) + shadcn/ui
 - Framer Motion, GSAP, Lenis, Embla Carousel
-- React Hook Form + Zod
+- React Hook Form + Zod (skema form bersama di `lib/schemas/forms.ts`)
+- Blog MDX via `next-mdx-remote` (RSC) + `gray-matter` (frontmatter fs-based)
+- Rate limiting hibrida: Upstash Redis (opsional) dengan fallback in-memory
 - [Resend](https://resend.com) untuk email (newsletter & form kontak)
 - Vercel Analytics
 - Vitest, Playwright, Lighthouse CI
@@ -45,13 +47,18 @@ Buka [http://localhost:3000](http://localhost:3000).
 | `RESEND_API_KEY`       | API key Resend (wajib untuk form & newsletter)        |
 | `RESEND_AUDIENCE_ID`   | Opsional. ID audience Resend untuk menyimpan kontak   |
 | `RESEND_FROM_DOMAIN`   | Domain pengirim (default `kantongin.com`)             |
+| `UPSTASH_REDIS_REST_URL`   | Opsional. URL REST Upstash Redis untuk rate limiting |
+| `UPSTASH_REDIS_REST_TOKEN` | Opsional. Token REST Upstash Redis untuk rate limiting |
 
 ## Struktur Konten
 
 - Halaman utama: `app/page.tsx` + `components/sections/*`
-- Blog (MDX): tambahkan file di `app/blog/_posts/*.mdx` dengan blok `frontmatter`
-  (`title`, `description`, `date`, `author`, `tags`). Posting otomatis muncul di
-  daftar, detail SSG, sitemap, dan JSON-LD.
+- Blog (MDX): cara menambah artikel tetap sama — drop file `.mdx` di
+  `app/blog/_posts/` dengan blok frontmatter YAML (`title`, `description`,
+  `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `tags` array).
+  Posting otomatis muncul di daftar, detail SSG, sitemap, dan JSON-LD.
+- Halaman legal: `/kebijakan-privasi`, `/syarat-ketentuan`,
+  `/kebijakan-cookie` (template generik).
 - Konfigurasi situs (nama, kontak, sosial): `constants/site.ts`
 
 ## Deploy

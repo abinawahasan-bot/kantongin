@@ -5,7 +5,6 @@ import { ArrowRight, Check, Send } from "lucide-react";
 import type { MouseEvent } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Logo } from "@/components/common/Logo";
 import { MagneticButton } from "@/components/common/MagneticButton";
 import { SocialIcon } from "@/components/common/SocialIcon";
@@ -16,12 +15,7 @@ import { siteConfig } from "@/constants/site";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
-
-const newsletterSchema = z.object({
-  email: z.string().email("Masukkan email yang valid"),
-});
-
-type NewsletterValues = z.infer<typeof newsletterSchema>;
+import { newsletterSchema, type NewsletterValues } from "@/lib/schemas/forms";
 
 const serviceLinks = [
   "Affiliate Marketing",
@@ -41,12 +35,12 @@ const resourceLinks = [
 ];
 
 const legalLinks = [
-  { label: "Kebijakan Privasi", href: "#" },
-  { label: "Syarat & Ketentuan", href: "#" },
-  { label: "Kebijakan Cookie", href: "#" },
+  { label: "Kebijakan Privasi", href: "/kebijakan-privasi" },
+  { label: "Syarat & Ketentuan", href: "/syarat-ketentuan" },
+  { label: "Kebijakan Cookie", href: "/kebijakan-cookie" },
 ];
 
-const socialIcons = ["instagram", "tiktok", "linkedin", "youtube", "whatsapp"] as const;
+const socialIcons = ["instagram", "tiktok", "whatsapp"] as const;
 
 function NewsletterForm() {
   const {
@@ -155,9 +149,7 @@ export function Footer() {
     void revealAndScroll(target, (t) => scrollTo(t));
   };
 
-  const socials = Object.entries(siteConfig.socials).filter(
-    ([, href]) => Boolean(href) && href !== "#"
-  );
+  const socials = Object.entries(siteConfig.socials);
 
   return (
     <footer className="scroll-mt-28 border-t border-border bg-surface/50">

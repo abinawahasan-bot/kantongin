@@ -1,19 +1,14 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { siteConfig } from "@/constants/site";
 import { getClientIp, rateLimitByIp } from "@/lib/rate-limit";
+import { contactSchema, type ContactValues } from "@/lib/schemas/forms";
 
 export const runtime = "nodejs";
 
-const schema = z.object({
-  name: z.string().trim().min(1, "Nama wajib diisi").max(80),
-  email: z.string().trim().email("Email tidak valid"),
-  subject: z.string().trim().min(1, "Subjek wajib diisi").max(120),
-  message: z.string().trim().min(10, "Pesan minimal 10 karakter").max(4000),
-});
+const schema = contactSchema;
 
 export async function POST(req: Request) {
-  const limited = rateLimitByIp(`contact:${getClientIp(req)}`, 5, 60_000);
+  const limited = await rateLimitByIp(`contact:${getClientIp(req)}`, 5, 60_000);
   if (!limited.ok) {
     return NextResponse.json(
       { error: "Terlalu banyak permintaan, coba lagi nanti." },
@@ -21,7 +16,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let data: z.infer<typeof schema>;
+  let data: ContactValues;
   try {
     const parsed = schema.safeParse(await req.json());
     if (!parsed.success) {

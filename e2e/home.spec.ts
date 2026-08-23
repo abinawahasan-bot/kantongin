@@ -50,4 +50,10 @@ test.describe("Beranda", () => {
       "https://instagram.com/kantonginofc"
     );
   });
+
+  test("tautan kebijakan privasi dapat diakses", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "Kebijakan Privasi" }).click();
+    await expect(page.getByRole("heading", { level: 1, name: /Kebijakan Privasi/ })).toBeVisible();
+  });
 });
