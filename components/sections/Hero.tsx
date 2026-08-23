@@ -7,22 +7,23 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, Mouse } from "lucide-react";
+import { ArrowDown, ArrowRight, Mouse } from "lucide-react";
 import { useEffect, useRef, type MouseEvent } from "react";
 import { AnimatedText } from "@/components/common/AnimatedText";
 import { MagneticButton } from "@/components/common/MagneticButton";
 import { Particles } from "@/components/common/Particles";
 import { DashboardMockup } from "@/components/sections/hero/DashboardMockup";
+import { KpiChip } from "@/components/sections/hero/KpiChip";
 import { Button } from "@/components/ui/button";
 import { useMousePosition } from "@/hooks/use-mouse-position";
+import { stats } from "@/constants/stats";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
-import { cn } from "@/lib/utils";
 
-const TRUST_CHIPS = [
-  { label: "350+ kampanye", dot: "bg-primary" },
-  { label: "850+ kreator", dot: "bg-accent" },
-] as const;
+const SOCIAL_PROOF = stats.slice(0, 3).map((stat) => ({
+  value: `${stat.value}${stat.suffix}`,
+  label: stat.label,
+}));
 
 const SPRING = { stiffness: 120, damping: 20, mass: 0.5 } as const;
 
@@ -95,9 +96,9 @@ export function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden"
     >
       <div aria-hidden="true" className="absolute inset-0 z-0">
-        <Particles className="absolute inset-0 opacity-40" />
+        <Particles className="absolute inset-0 opacity-25" />
         <div className="hero-mesh absolute inset-0" />
-        <div className="animate-blob-drift absolute -left-32 -top-32 size-[28rem] rounded-full bg-primary/20 blur-3xl" />
+        <div className="animate-blob-drift absolute -left-32 -top-32 size-[28rem] rounded-full bg-primary/15 blur-3xl" />
         <div className="animate-blob-drift absolute -right-24 top-1/4 size-[24rem] rounded-full bg-accent/15 blur-3xl [animation-delay:-6s]" />
         <div className="animate-blob-drift absolute -bottom-24 left-1/3 size-[22rem] rounded-full bg-primary/10 blur-3xl [animation-delay:-12s]" />
       </div>
@@ -106,42 +107,43 @@ export function Hero() {
         <div>
           <AnimatedText
             as="h1"
-            text="Tumbuhkan Bisnismu Lewat Affiliate, Promosi & Kolaborasi Kreator"
+            text="Tumbuhkan Penjualan Lewat Kolaborasi Kreator Terkurasi"
+            highlight="Kreator Terkurasi"
             className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
           />
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            KantongIn menghubungkan brand dan UMKM dengan jaringan kreator terkurasi untuk
-            affiliate marketing, open promotion, dan endorsement — bayar sesuai performa, tanpa
-            buang anggaran iklan.
+            Affiliate marketing &amp; endorsement berbasis performa — bayar sesuai
+            hasil, bukan janji. KantongIn hubungkan brand Anda dengan 850+ kreator
+            siap kampanye.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <MagneticButton
               href="#contact"
               onClick={(event) => handleAnchor(event, "#contact")}
             >
               <Button asChild variant="primary" size="lg" className="rounded-full">
                 <span className="gap-2">
-                  Mulai Kampanye
+                  Mulai Kampanye Gratis
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </Button>
             </MagneticButton>
-            <MagneticButton
-              href="#affiliate"
-              onClick={(event) => handleAnchor(event, "#affiliate")}
+            <a
+              href="#how-it-works"
+              onClick={(event) => handleAnchor(event, "#how-it-works")}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted transition-colors hover:text-primary"
             >
-              <Button asChild variant="outline" size="lg" className="rounded-full">
-                <span>Gabung Affiliate</span>
-              </Button>
-            </MagneticButton>
+              Lihat cara kerjanya
+              <ArrowDown className="size-4" aria-hidden="true" />
+            </a>
           </div>
 
           <ul className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
-            {TRUST_CHIPS.map((chip) => (
-              <li key={chip.label} className="flex items-center gap-2.5 text-sm font-medium text-muted">
-                <span aria-hidden="true" className={cn("size-2 rounded-full", chip.dot)} />
-                {chip.label}
+            {SOCIAL_PROOF.map((item) => (
+              <li key={item.label} className="flex items-baseline gap-2">
+                <span className="text-base font-bold text-foreground">{item.value}</span>
+                <span className="text-sm text-muted">{item.label}</span>
               </li>
             ))}
           </ul>
@@ -154,8 +156,19 @@ export function Hero() {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="w-full max-w-md lg:max-w-lg"
           >
-            <div ref={mockupRef}>
+            <div ref={mockupRef} className="relative">
               <DashboardMockup />
+              <KpiChip
+                value="+214%"
+                label="Rata-rata ROI"
+                className="left-0 top-10 hidden lg:flex"
+              />
+              <KpiChip
+                value="2.5M+"
+                label="Komisi Disalurkan"
+                floatDelay={1.2}
+                className="-right-2 bottom-12 hidden lg:flex"
+              />
             </div>
           </motion.div>
         </div>

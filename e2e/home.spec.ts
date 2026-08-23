@@ -5,7 +5,7 @@ test.describe("Beranda", () => {
     await page.goto("/");
     await expect(page).toHaveTitle(/KantongIn/);
     await expect(
-      page.getByRole("heading", { name: /Tumbuhkan Bisnismu/ })
+      page.getByRole("heading", { name: /Tumbuhkan Penjualan/ })
     ).toBeVisible();
     await expect(page.getByRole("link", { name: "Mulai Kampanye" }).first()).toBeVisible();
   });

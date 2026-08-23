@@ -9,6 +9,7 @@ type AnimatedTextProps = {
   className?: string;
   delay?: number;
   as?: ElementType;
+  highlight?: string;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -18,9 +19,26 @@ export function AnimatedText({
   className,
   delay = 0,
   as: Tag = "span",
+  highlight,
 }: AnimatedTextProps) {
   const reduceMotion = useReducedMotion();
   const words = text.split(" ");
+  const highlightWords = highlight ? highlight.split(" ") : [];
+
+  const isHighlighted = (index: number): boolean => {
+    if (highlightWords.length === 0) return false;
+    for (let start = 0; start <= words.length - highlightWords.length; start += 1) {
+      let match = true;
+      for (let offset = 0; offset < highlightWords.length; offset += 1) {
+        if (words[start + offset] !== highlightWords[offset]) {
+          match = false;
+          break;
+        }
+      }
+      if (match) return index >= start && index < start + highlightWords.length;
+    }
+    return false;
+  };
 
   return (
     <Tag className={cn("inline-block", className)} aria-label={text}>
@@ -31,7 +49,7 @@ export function AnimatedText({
           aria-hidden="true"
         >
           <motion.span
-            className="inline-block"
+            className={cn("inline-block", isHighlighted(index) && "text-gradient")}
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: "0.8em" }}
             whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: "0em" }}
             viewport={{ once: true }}
