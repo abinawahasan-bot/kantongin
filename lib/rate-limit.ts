@@ -44,6 +44,9 @@ function getUpstashLimiter(limit: number, windowMs: number): Promise<Ratelimit |
         prefix: "kantongin:ratelimit",
       }) as Ratelimit;
     })();
+    cached.catch(() => {
+      limiters.delete(cacheKey);
+    });
     limiters.set(cacheKey, cached);
   }
   return cached;
@@ -54,18 +57,18 @@ export async function rateLimitByIp(
   limit: number,
   windowMs: number
 ): Promise<RateLimitResult> {
-  const upstash = await getUpstashLimiter(limit, windowMs);
-  if (upstash) {
-    try {
+  try {
+    const upstash = await getUpstashLimiter(limit, windowMs);
+    if (upstash) {
       const { success, reset } = await upstash.limit(key);
       if (success) return { ok: true };
       return {
         ok: false,
         retryAfter: Math.max(1, Math.ceil((reset - Date.now()) / 1000)),
       };
-    } catch (error) {
-      console.warn("[rate-limit] Upstash gagal, fallback ke in-memory:", error);
     }
+  } catch (error) {
+    console.warn("[rate-limit] Upstash gagal, fallback ke in-memory:", error);
   }
   return inMemoryLimit(key, limit, windowMs);
 }

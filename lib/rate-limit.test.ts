@@ -1,14 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getClientIp, rateLimitByIp } from "./rate-limit";
 
-const { limitMock, fixedWindowMock } = vi.hoisted(() => ({
+const { limitMock, fixedWindowMock, redisState } = vi.hoisted(() => ({
   limitMock: vi.fn(),
   fixedWindowMock: vi.fn(),
+  redisState: { gagalKonstruksi: false },
 }));
 
 vi.mock("@upstash/redis", () => ({
   Redis: class {
-    constructor(_opts: unknown) {}
+    constructor(_opts: unknown) {
+      if (redisState.gagalKonstruksi) {
+        throw new Error("cold start Upstash gagal");
+      }
+    }
   },
 }));
 
@@ -88,6 +93,20 @@ describe("jalur Upstash", () => {
     limitMock.mockRejectedValue(new Error("redis down"));
     const result = await rateLimitByIp(`u3-${Math.random()}`, 5, 120_000);
     expect(result).toEqual({ ok: true });
+  });
+
+  it("fallback ke in-memory saat gagal muat Upstash dan mencoba ulang di panggilan berikutnya", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://contoh.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "token-rahasia");
+    redisState.gagalKonstruksi = true;
+
+    await expect(rateLimitByIp("f1", 7, 210_000)).resolves.toEqual({ ok: true });
+    await expect(rateLimitByIp("f1", 7, 210_000)).resolves.toEqual({ ok: true });
+
+    redisState.gagalKonstruksi = false;
+    limitMock.mockResolvedValue({ success: true, reset: Date.now() + 60_000 });
+    await expect(rateLimitByIp("f1", 7, 210_000)).resolves.toEqual({ ok: true });
+    expect(limitMock).toHaveBeenCalledWith("f1");
   });
 });
 
