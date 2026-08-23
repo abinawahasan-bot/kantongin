@@ -28,4 +28,10 @@ describe("newsletterSchema", () => {
   it("menerima email valid", () => {
     expect(newsletterSchema.safeParse({ email: "budi@example.com" }).success).toBe(true);
   });
+
+  it("memotong spasi di sekitar email", () => {
+    const result = newsletterSchema.safeParse({ email: " budi@example.com " });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.email).toBe("budi@example.com");
+  });
 });

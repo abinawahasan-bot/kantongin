@@ -10,7 +10,7 @@ export const contactSchema = z.object({
 export type ContactValues = z.infer<typeof contactSchema>;
 
 export const newsletterSchema = z.object({
-  email: z.string().email("Masukkan email yang valid"),
+  email: z.string().trim().email("Masukkan email yang valid"),
 });
 
 export type NewsletterValues = z.infer<typeof newsletterSchema>;
