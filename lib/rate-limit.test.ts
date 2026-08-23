@@ -81,6 +81,14 @@ describe("jalur Upstash", () => {
     expect(result.ok).toBe(false);
     expect(result.retryAfter).toBeGreaterThan(0);
   });
+
+  it("fallback ke in-memory saat Redis error", async () => {
+    vi.stubEnv("UPSTASH_REDIS_REST_URL", "https://contoh.upstash.io");
+    vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "token-rahasia");
+    limitMock.mockRejectedValue(new Error("redis down"));
+    const result = await rateLimitByIp(`u3-${Math.random()}`, 5, 120_000);
+    expect(result).toEqual({ ok: true });
+  });
 });
 
 describe("getClientIp", () => {
