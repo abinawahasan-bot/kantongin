@@ -35,12 +35,12 @@ const resourceLinks = [
 ];
 
 const legalLinks = [
-  { label: "Kebijakan Privasi", href: "#" },
-  { label: "Syarat & Ketentuan", href: "#" },
-  { label: "Kebijakan Cookie", href: "#" },
+  { label: "Kebijakan Privasi", href: "/kebijakan-privasi" },
+  { label: "Syarat & Ketentuan", href: "/syarat-ketentuan" },
+  { label: "Kebijakan Cookie", href: "/kebijakan-cookie" },
 ];
 
-const socialIcons = ["instagram", "tiktok", "linkedin", "youtube", "whatsapp"] as const;
+const socialIcons = ["instagram", "tiktok", "whatsapp"] as const;
 
 function NewsletterForm() {
   const {
@@ -149,9 +149,7 @@ export function Footer() {
     void revealAndScroll(target, (t) => scrollTo(t));
   };
 
-  const socials = Object.entries(siteConfig.socials).filter(
-    ([, href]) => Boolean(href) && href !== "#"
-  );
+  const socials = Object.entries(siteConfig.socials);
 
   return (
     <footer className="scroll-mt-28 border-t border-border bg-surface/50">

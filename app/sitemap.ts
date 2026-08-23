@@ -10,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const legalEntries: MetadataRoute.Sitemap = [
+    { url: `${siteConfig.url}/kebijakan-privasi`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteConfig.url}/syarat-ketentuan`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${siteConfig.url}/kebijakan-cookie`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+  ];
+
   return [
     {
       url: siteConfig.url,
@@ -24,5 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...blogEntries,
+    ...legalEntries,
   ];
 }

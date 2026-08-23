@@ -7,8 +7,6 @@ export const siteConfig = {
   socials: {
     instagram: "https://instagram.com/kantonginofc",
     tiktok: "https://tiktok.com/@kantonginofc",
-    linkedin: "#",
-    youtube: "#",
     whatsapp: "https://wa.me/6285775149968",
   },
 } as const;

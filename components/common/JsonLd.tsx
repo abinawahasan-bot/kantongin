@@ -1,9 +1,7 @@
 import { siteConfig } from "@/constants/site";
 import { faqs } from "@/constants/faqs";
 
-const socialLinks = Object.values(siteConfig.socials).filter(
-  (href) => Boolean(href) && href !== "#"
-);
+const socialLinks = Object.values(siteConfig.socials);
 
 export function JsonLd() {
   const organization = {
