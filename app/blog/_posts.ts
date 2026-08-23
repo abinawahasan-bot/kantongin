@@ -1,4 +1,6 @@
-import type { ComponentType } from "react";
+import fs from "node:fs";
+import path from "node:path";
+import matter from "gray-matter";
 
 export type PostFrontmatter = {
   title: string;
@@ -8,24 +10,36 @@ export type PostFrontmatter = {
   tags: string[];
 };
 
-type PostModule = {
-  frontmatter: PostFrontmatter;
-  default: ComponentType;
-};
-
-const modules = import.meta.glob("./_posts/*.mdx", {
-  eager: true,
-}) as Record<string, PostModule>;
-
 export type Post = PostFrontmatter & { slug: string };
 
-export const posts: Post[] = Object.entries(modules)
-  .map(([path, mod]) => ({
-    slug: path.match(/\.\/_posts\/(.+)\.mdx$/)?.[1] ?? "",
-    ...mod.frontmatter,
-  }))
+export type PostContent = { frontmatter: PostFrontmatter; content: string };
+
+const POSTS_DIR = path.join(process.cwd(), "app", "blog", "_posts");
+
+function readPostFile(slug: string): PostContent | null {
+  const filePath = path.join(POSTS_DIR, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, "utf8");
+  const { data, content } = matter(raw);
+  return { frontmatter: data as PostFrontmatter, content };
+}
+
+function listSlugs(): string[] {
+  return fs
+    .readdirSync(POSTS_DIR)
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""));
+}
+
+export const posts: Post[] = listSlugs()
+  .map((slug) => {
+    const post = readPostFile(slug);
+    if (!post) throw new Error(`Frontmatter tidak valid: ${slug}`);
+    return { slug, ...post.frontmatter };
+  })
   .sort((a, b) => b.date.localeCompare(a.date));
 
-export function getPost(slug: string) {
-  return modules[`./_posts/${slug}.mdx`] ?? null;
+export function getPost(slug: string): PostContent | null {
+  if (!posts.some((post) => post.slug === slug)) return null;
+  return readPostFile(slug);
 }
