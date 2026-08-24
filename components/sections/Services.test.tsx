@@ -33,4 +33,17 @@ describe("Services", () => {
     expect(getAllByText("01").length).toBeGreaterThan(0);
     expect(getAllByText("07").length).toBeGreaterThan(0);
   });
+
+  it("nomor flagship berada di atas ikon agar segaris dengan kartu grid", () => {
+    const { getByText, container } = render(<Services />);
+    const numberEl = getByText("01");
+    // Ikon khas kartu flagship (size-16) — nomor harus mendahuinya dalam
+    // urutan dokumen, sama seperti posisi nomor pada kartu grid.
+    const flagshipIcon = container.querySelector(".size-16");
+    expect(flagshipIcon).not.toBeNull();
+    expect(
+      numberEl.compareDocumentPosition(flagshipIcon!) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
+  });
 });

@@ -31,6 +31,14 @@ const icons: Record<string, LucideIcon> = {
   clapperboard: Clapperboard,
 };
 
+function ServiceIndex({ value }: { value: number }) {
+  return (
+    <span aria-hidden="true" className="text-xs font-bold tracking-[0.2em] text-primary/50">
+      {String(value).padStart(2, "0")}
+    </span>
+  );
+}
+
 type ServiceCardProps = {
   service: Service;
   index: number;
@@ -44,9 +52,7 @@ function ServiceCard({ service, index, onLearnMore }: ServiceCardProps) {
     <Reveal delay={index * 0.08} className="h-full">
       <GlowCard className="h-full">
         <div className="flex h-full flex-col gap-4 p-6">
-          <span aria-hidden="true" className="text-xs font-bold tracking-[0.2em] text-primary/50">
-            {String(index + 1).padStart(2, "0")}
-          </span>
+          <ServiceIndex value={index + 1} />
           <span className="inline-flex w-fit rounded-xl bg-primary/10 p-3 text-primary transition-transform duration-300 group-hover:scale-110">
             {Icon ? <Icon className="size-6" aria-hidden="true" /> : null}
           </span>
@@ -89,44 +95,42 @@ function FlagshipCard({
   return (
     <Reveal className="h-full">
       <GlowCard className="h-full">
-        <div className="flex flex-col gap-8 p-8 sm:flex-row sm:items-center sm:p-10">
-          <span className="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-            {Icon ? <Icon className="size-8" aria-hidden="true" /> : null}
-          </span>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-baseline gap-3">
-              <span aria-hidden="true" className="text-xs font-bold tracking-[0.2em] text-primary/60">
-                01
-              </span>
+        <div className="flex h-full flex-col gap-6 p-6">
+          <ServiceIndex value={1} />
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+            <span className="inline-flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              {Icon ? <Icon className="size-8" aria-hidden="true" /> : null}
+            </span>
+            <div className="min-w-0 flex-1">
               <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
                 {service.title}
               </h3>
-            </div>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-              {service.description}
-            </p>
-            {service.points ? (
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {service.points.map((point) => (
-                  <li
-                    key={point}
-                    className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
-                  >
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            <a
-              href="#contact"
-              onClick={onLearnMore}
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
-            >
-              <span className="relative after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100">
-                Pelajari
-              </span>
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </a>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+                {service.description}
+              </p>
+                {service.points ? (
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {service.points.map((point) => (
+                      <li
+                        key={point}
+                        className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-muted-foreground"
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <a
+                  href="#contact"
+                  onClick={onLearnMore}
+                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+                >
+                  <span className="relative after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100">
+                    Pelajari
+                  </span>
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </a>
+              </div>
           </div>
         </div>
       </GlowCard>
