@@ -1,0 +1,41 @@
+import { describe, expect, it, vi } from "vitest";
+import { fireEvent, render } from "@testing-library/react";
+import { Portfolio } from "./Portfolio";
+import { projects } from "@/constants/portfolio";
+
+vi.mock("@/lib/lenis", () => ({
+  useLenis: () => ({ scrollTo: vi.fn(), ready: true }),
+}));
+
+describe("Portfolio", () => {
+  it("merender heading seksi dan filter kategori", () => {
+    const { getByRole, getByText } = render(<Portfolio />);
+    expect(
+      getByRole("heading", { name: /Hasil Nyata, Kampanye Terukur/ })
+    ).toBeInTheDocument();
+    expect(getByText("Semua")).toBeInTheDocument();
+  });
+
+  it("hasil kampanye dirender sebagai chip persisten di luar overlay hover", () => {
+    const { getByText } = render(<Portfolio />);
+    const chip = getByText(projects[0].result);
+    expect(chip.closest('[class*="md:opacity-0"]')).toBeNull();
+    expect(chip.closest(".backdrop-blur-sm")).not.toBeNull();
+  });
+
+  it("indeks editorial dirender di tiap kartu", () => {
+    const { getAllByText } = render(<Portfolio />);
+    for (const idx of ["01", "03", "06"]) {
+      expect(getAllByText(idx).length).toBeGreaterThan(0);
+    }
+  });
+
+  it("membuka dialog detail berisi metrics saat tombol detail diklik", () => {
+    const { getByLabelText, getByText } = render(<Portfolio />);
+    fireEvent.click(getByLabelText(`Lihat detail proyek ${projects[0].title}`));
+    expect(
+      getByText(/jaringan affiliate kami meluncurkan promo/i)
+    ).toBeInTheDocument();
+    expect(getByText("Rp 4,2 M")).toBeInTheDocument();
+  });
+});

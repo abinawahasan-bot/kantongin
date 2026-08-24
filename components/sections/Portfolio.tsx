@@ -52,11 +52,16 @@ function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
           aria-hidden="true"
           className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-white/20 blur-2xl"
         />
-        <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/25 to-transparent p-5 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+        <span
+          aria-hidden="true"
+          className="absolute right-4 top-3 select-none font-serif text-5xl font-bold leading-none text-white/25"
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/25 to-transparent p-5 pb-14 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
           <p className="text-base font-semibold leading-snug text-white">
             {project.title}
           </p>
-          <p className="mt-0.5 text-sm font-bold text-primary">{project.result}</p>
           <button
             type="button"
             aria-label={`Lihat detail proyek ${project.title}`}
@@ -66,6 +71,11 @@ function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
             Lihat Detail
             <ArrowUpRight className="size-3.5" aria-hidden="true" />
           </button>
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4">
+          <span className="inline-flex items-center rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+            {project.result}
+          </span>
         </div>
       </div>
       <div className="flex items-center justify-between gap-4 border-t border-border/60 px-5 py-4">
@@ -99,7 +109,10 @@ export function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="relative scroll-mt-28 py-20 lg:py-24">
+    <section
+      id="portfolio"
+      className="glow-section relative scroll-mt-28 py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Portofolio"

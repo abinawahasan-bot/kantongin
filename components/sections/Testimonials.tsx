@@ -4,7 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { type EmblaCarouselType } from "embla-carousel";
 import { motion, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Star, TrendingUp } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star, TrendingUp } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -42,8 +42,11 @@ function TestimonialSlide({ testimonial, index }: TestimonialSlideProps) {
   return (
     <article className="flex min-w-0 flex-[0_0_100%] items-center justify-center px-1 py-2">
       <div className="flex w-full max-w-3xl flex-col items-center text-center">
-        <span className="inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <Quote className="size-5" aria-hidden="true" />
+        <span
+          aria-hidden="true"
+          className="text-gradient select-none font-serif text-6xl leading-none"
+        >
+          &ldquo;
         </span>
         <blockquote className="mt-6 text-xl font-medium italic leading-relaxed text-foreground lg:text-2xl">
           &ldquo;{testimonial.quote}&rdquo;
@@ -154,8 +157,9 @@ export function Testimonials() {
         <Reveal>
           <SectionHeading
             eyebrow="Testimoni"
+            size="display"
             title="Kata Mereka Tentang KantongIn"
-            description="Cerita nyata dari founder UMKM, brand, dan kreator yang telah tumbuh bersama KantongIn."
+            description="Bukan janji manis — dengar langsung dari founder, brand, dan kreator yang bertumbuh bersama KantongIn."
           />
         </Reveal>
 
