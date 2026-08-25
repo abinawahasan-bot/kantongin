@@ -38,4 +38,26 @@ describe("Portfolio", () => {
     ).toBeInTheDocument();
     expect(getByText("Rp 4,2 M")).toBeInTheDocument();
   });
+
+  it("tiap proyek menampilkan foto kontekstual dengan alt deskriptif", () => {
+    const { getAllByRole } = render(<Portfolio />);
+    const images = getAllByRole("img");
+    expect(images).toHaveLength(projects.length);
+    for (const project of projects) {
+      const { image, imageAlt } = project as typeof project & {
+        image?: string;
+        imageAlt?: string;
+      };
+      expect(image, `field image kosong pada ${project.id}`).toBeDefined();
+      expect(
+        imageAlt,
+        `field imageAlt kosong pada ${project.id}`
+      ).toBeDefined();
+      const img = images.find((el) =>
+        decodeURIComponent(el.getAttribute("src") ?? "").includes(image!)
+      );
+      expect(img, `foto tidak dirender untuk ${project.id}`).toBeDefined();
+      expect(img!.getAttribute("alt")).toBe(imageAlt);
+    }
+  });
 });

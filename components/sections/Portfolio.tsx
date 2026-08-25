@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { useState, type MouseEvent } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -32,6 +33,44 @@ const FILTERS: Filter[] = ["Semua", ...portfolioCategories];
 
 const PANEL_HEIGHTS = ["h-44 sm:h-52", "h-56 sm:h-64", "h-48 sm:h-60"];
 
+const SIZES_CARD =
+  "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
+
+function ProjectPhoto({
+  project,
+  className,
+  interactive,
+  decorative,
+}: {
+  project: PortfolioProject;
+  className?: string;
+  interactive?: boolean;
+  decorative?: boolean;
+}) {
+  return (
+    <div className={cn("relative overflow-hidden", className)}>
+      <Image
+        src={project.image}
+        alt={decorative ? "" : project.imageAlt}
+        fill
+        sizes={SIZES_CARD}
+        className={cn(
+          "object-cover transition-all duration-500 ease-out",
+          interactive && "grayscale group-hover:grayscale-0 group-hover:scale-105"
+        )}
+      />
+      <div
+        aria-hidden="true"
+        className={cn(
+          "absolute inset-0 bg-gradient-to-br mix-blend-multiply transition-opacity duration-500",
+          project.gradient,
+          interactive ? "opacity-70 group-hover:opacity-0" : "opacity-60"
+        )}
+      />
+    </div>
+  );
+}
+
 type PortfolioCardProps = {
   project: PortfolioProject;
   index: number;
@@ -41,25 +80,20 @@ type PortfolioCardProps = {
 function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
   return (
     <article className="group overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl">
-      <div
-        className={cn(
-          "relative bg-gradient-to-br",
-          project.gradient,
-          PANEL_HEIGHTS[index % PANEL_HEIGHTS.length]
-        )}
-      >
+      <div className={cn("relative", PANEL_HEIGHTS[index % PANEL_HEIGHTS.length])}>
+        <ProjectPhoto project={project} interactive />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-white/20 blur-2xl"
+          className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-white/15 blur-2xl"
         />
         <span
           aria-hidden="true"
-          className="absolute right-4 top-3 select-none font-serif text-5xl font-bold leading-none text-white/25"
+          className="absolute right-4 top-3 z-10 select-none font-serif text-5xl font-bold leading-none text-white/30 drop-shadow-sm"
         >
           {String(index + 1).padStart(2, "0")}
         </span>
-        <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/25 to-transparent p-5 pb-14 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
-          <p className="text-base font-semibold leading-snug text-white">
+        <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/25 to-transparent p-5 pb-14 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+          <p className="text-base font-semibold leading-snug text-white drop-shadow-sm">
             {project.title}
           </p>
           <button
@@ -179,19 +213,17 @@ export function Portfolio() {
       >
         {selected ? (
           <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-lg">
-            <div
-              className={cn(
-                "-mx-6 -mt-6 mb-4 flex h-40 items-end rounded-t-lg bg-gradient-to-br px-6 pb-5",
-                selected.gradient
-              )}
-            >
-              <div>
-                <Badge className="border-white/40 bg-white/20 text-white backdrop-blur-sm">
-                  {selected.category}
-                </Badge>
-                <p className="mt-2 text-2xl font-bold text-white drop-shadow-sm">
-                  {selected.result}
-                </p>
+            <div className="-mx-6 -mt-6 mb-4 h-40 overflow-hidden rounded-t-lg">
+              <ProjectPhoto project={selected} className="h-full" decorative />
+              <div className="absolute inset-x-0 bottom-0 z-10 flex items-end px-6 pb-5">
+                <div>
+                  <Badge className="border-white/40 bg-white/20 text-white backdrop-blur-sm">
+                    {selected.category}
+                  </Badge>
+                  <p className="mt-2 text-2xl font-bold text-white drop-shadow-sm">
+                    {selected.result}
+                  </p>
+                </div>
               </div>
             </div>
             <DialogHeader className="items-start text-left">
