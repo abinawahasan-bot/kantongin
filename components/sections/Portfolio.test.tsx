@@ -23,13 +23,6 @@ describe("Portfolio", () => {
     expect(chip.closest(".backdrop-blur-sm")).not.toBeNull();
   });
 
-  it("indeks editorial dirender di tiap kartu", () => {
-    const { getAllByText } = render(<Portfolio />);
-    for (const idx of ["01", "03", "06"]) {
-      expect(getAllByText(idx).length).toBeGreaterThan(0);
-    }
-  });
-
   it("membuka dialog detail berisi metrics saat tombol detail diklik", () => {
     const { getByLabelText, getByText } = render(<Portfolio />);
     fireEvent.click(getByLabelText(`Lihat detail proyek ${projects[0].title}`));

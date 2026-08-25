@@ -58,11 +58,10 @@ function ProjectPhoto({
 
 type PortfolioCardProps = {
   project: PortfolioProject;
-  index: number;
   onOpen: (project: PortfolioProject) => void;
 };
 
-function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
+function PortfolioCard({ project, onOpen }: PortfolioCardProps) {
   return (
     <article
       className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl"
@@ -79,12 +78,6 @@ function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
     >
       <div className="relative h-56 sm:h-64 cursor-pointer">
         <ProjectPhoto project={project} />
-        <span
-          aria-hidden="true"
-          className="absolute right-4 top-3 z-10 select-none font-serif text-5xl font-bold leading-none text-white/30 drop-shadow-sm"
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
         <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-5 pb-4 pt-10">
           <p className="text-base font-semibold leading-snug text-white drop-shadow-sm">
             {project.title}
@@ -177,7 +170,6 @@ export function Portfolio() {
                 <Reveal className="h-full">
                   <PortfolioCard
                     project={project}
-                    index={projects.indexOf(project)}
                     onOpen={(project) => setSelected(project)}
                   />
                 </Reveal>
