@@ -194,9 +194,6 @@ export function Portfolio() {
                   <Badge className="border-white/40 bg-white/20 text-white backdrop-blur-sm">
                     {selected.category}
                   </Badge>
-                  <p className="mt-2 text-2xl font-bold text-white drop-shadow-sm">
-                    {selected.result}
-                  </p>
                 </div>
               </div>
             </div>
