@@ -31,20 +31,16 @@ type Filter = "Semua" | PortfolioCategory;
 
 const FILTERS: Filter[] = ["Semua", ...portfolioCategories];
 
-const PANEL_HEIGHTS = ["h-44 sm:h-52", "h-56 sm:h-64", "h-48 sm:h-60"];
-
 const SIZES_CARD =
   "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
 function ProjectPhoto({
   project,
   className,
-  interactive,
   decorative,
 }: {
   project: PortfolioProject;
   className?: string;
-  interactive?: boolean;
   decorative?: boolean;
 }) {
   return (
@@ -54,18 +50,7 @@ function ProjectPhoto({
         alt={decorative ? "" : project.imageAlt}
         fill
         sizes={SIZES_CARD}
-        className={cn(
-          "object-cover transition-all duration-500 ease-out",
-          interactive && "grayscale group-hover:grayscale-0 group-hover:scale-105"
-        )}
-      />
-      <div
-        aria-hidden="true"
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br mix-blend-multiply transition-opacity duration-500",
-          project.gradient,
-          interactive ? "opacity-70 group-hover:opacity-0" : "opacity-60"
-        )}
+        className="object-cover"
       />
     </div>
   );
@@ -79,40 +64,37 @@ type PortfolioCardProps = {
 
 function PortfolioCard({ project, index, onOpen }: PortfolioCardProps) {
   return (
-    <article className="group overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl">
-      <div className={cn("relative", PANEL_HEIGHTS[index % PANEL_HEIGHTS.length])}>
-        <ProjectPhoto project={project} interactive />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-white/15 blur-2xl"
-        />
+    <article
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl"
+      onClick={() => onOpen(project)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen(project);
+        }
+      }}
+      aria-label={`Lihat detail proyek ${project.title}`}
+    >
+      <div className="relative h-56 sm:h-64 cursor-pointer">
+        <ProjectPhoto project={project} />
         <span
           aria-hidden="true"
           className="absolute right-4 top-3 z-10 select-none font-serif text-5xl font-bold leading-none text-white/30 drop-shadow-sm"
         >
           {String(index + 1).padStart(2, "0")}
         </span>
-        <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/25 to-transparent p-5 pb-14 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+        <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-5 pb-4 pt-10">
           <p className="text-base font-semibold leading-snug text-white drop-shadow-sm">
             {project.title}
           </p>
-          <button
-            type="button"
-            aria-label={`Lihat detail proyek ${project.title}`}
-            onClick={() => onOpen(project)}
-            className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-bold text-slate-900 shadow-sm transition-all duration-300 hover:bg-white/90 md:translate-y-1 md:group-hover:translate-y-0 md:focus-within:translate-y-0"
-          >
-            Lihat Detail
-            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </button>
         </div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4">
-          <span className="inline-flex items-center rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
-            {project.result}
-          </span>
-        </div>
+        <span className="pointer-events-none absolute left-5 top-3 z-10 inline-flex items-center rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+          {project.result}
+        </span>
       </div>
-      <div className="flex items-center justify-between gap-4 border-t border-border/60 px-5 py-4">
+      <div className="mt-auto flex items-center justify-between gap-4 border-t border-border/60 px-5 py-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-primary">
           {project.category}
         </p>
@@ -180,7 +162,7 @@ export function Portfolio() {
           })}
         </div>
 
-        <div className="relative mt-14 columns-1 gap-6 sm:columns-2 lg:columns-3">
+        <div className="relative mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
             {filteredProjects.map((project) => (
               <motion.div
@@ -190,7 +172,7 @@ export function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.35, ease: EASE }}
-                className="mb-6 break-inside-avoid"
+                className="mb-6"
               >
                 <Reveal className="h-full">
                   <PortfolioCard
