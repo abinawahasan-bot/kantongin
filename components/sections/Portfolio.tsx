@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState, type MouseEvent } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -190,11 +189,6 @@ export function Portfolio() {
             <div className="-mx-6 -mt-6 mb-4 h-40 overflow-hidden rounded-t-lg">
               <ProjectPhoto project={selected} className="h-full" decorative />
               <div className="absolute inset-x-0 bottom-0 z-10 flex items-end px-6 pb-5">
-                <div>
-                  <Badge className="border-white/40 bg-white/20 text-white backdrop-blur-sm">
-                    {selected.category}
-                  </Badge>
-                </div>
               </div>
             </div>
             <DialogHeader className="items-start text-left">
