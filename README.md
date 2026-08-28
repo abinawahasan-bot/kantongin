@@ -46,7 +46,7 @@ Buka [http://localhost:3000](http://localhost:3000).
 | ---------------------- | ----------------------------------------------------- |
 | `RESEND_API_KEY`       | API key Resend (wajib untuk form & newsletter)        |
 | `RESEND_AUDIENCE_ID`   | Opsional. ID audience Resend untuk menyimpan kontak   |
-| `RESEND_FROM_DOMAIN`   | Domain pengirim (default `kantongin.com`)             |
+| `RESEND_FROM_DOMAIN`   | Domain pengirim **milik Anda** yang sudah terverifikasi di Resend (wajib untuk kirim email). Jangan pakai `kantongin.com` |
 | `UPSTASH_REDIS_REST_URL`   | Opsional. URL REST Upstash Redis untuk rate limiting |
 | `UPSTASH_REDIS_REST_TOKEN` | Opsional. Token REST Upstash Redis untuk rate limiting |
 
@@ -63,7 +63,9 @@ Buka [http://localhost:3000](http://localhost:3000).
 
 ## Deploy
 
-Repo ini dirancang untuk di-deploy ke **Vercel** dengan domain `kantongin.com`.
+Repo ini dirancang untuk di-deploy ke **Vercel**. Deployment aktif saat ini tersedia
+di `https://kantongin-beige.vercel.app`. (Catatan: domain `kantongin.com` bukan
+milik kami dan bukan bagian dari project ini.)
 
 1. Push ke GitHub (repo private).
 2. Import proyek di Vercel; set env `RESEND_API_KEY` (+ `RESEND_AUDIENCE_ID`).
@@ -76,5 +78,5 @@ berjalan di setiap push/PR.
 
 - Produksi: https://kantongin-beige.vercel.app (alias project Vercel
   `kantongin` di akun `abinawahasan`).
-- Domain `kantongin.com` menyusul setelah dibeli & diverifikasi di Resend
-  (SPF/DKIM) dan di Vercel (DNS).
+- `kantongin.com` **bukan milik kami** — jangan dipakai sebagai domain project ini.
+  Jika ingin URL brand sendiri, daftarkan domain baru dan hubungkan ke Vercel.

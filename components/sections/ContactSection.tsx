@@ -71,26 +71,28 @@ export function ContactSection() {
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
           <motion.div {...fadeUp} className="flex flex-col gap-4">
-            <GlowCard className="p-6">
-              <div className="flex items-start gap-4">
-                <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
-                  <Mail className="size-5" aria-hidden="true" />
-                </span>
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground">Email</h3>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="mt-1 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-primary"
-                  >
-                    {siteConfig.email}
-                    <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                  </a>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Untuk proposal, penawaran, dan kerja sama umum.
-                  </p>
+            {siteConfig.email && (
+              <GlowCard className="p-6">
+                <div className="flex items-start gap-4">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                    <Mail className="size-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">Email</h3>
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="mt-1 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-primary"
+                    >
+                      {siteConfig.email}
+                      <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                    </a>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Untuk proposal, penawaran, dan kerja sama umum.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </GlowCard>
+              </GlowCard>
+            )}
 
             <GlowCard className="p-6">
               <div className="flex items-start gap-4">

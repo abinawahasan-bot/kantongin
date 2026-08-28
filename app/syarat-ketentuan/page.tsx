@@ -66,7 +66,12 @@ export default function SyaratKetentuanPage() {
       <h2>Kontak</h2>
       <p>
         Pertanyaan mengenai ketentuan ini dapat dikirimkan ke{" "}
-        <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+        {siteConfig.email ? (
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        ) : (
+          <span>kanal kontak yang tersedia di halaman beranda</span>
+        )}
+        .
       </p>
 
       <blockquote>

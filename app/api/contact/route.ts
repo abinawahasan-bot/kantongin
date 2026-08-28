@@ -34,7 +34,8 @@ export async function POST(req: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  const fromDomain = process.env.RESEND_FROM_DOMAIN;
+  if (!apiKey || !fromDomain || !siteConfig.email) {
     return NextResponse.json(
       { error: "Layanan belum dikonfigurasi." },
       { status: 503 }
@@ -45,7 +46,7 @@ export async function POST(req: Request) {
   const resend = new Resend(apiKey);
 
   const { error } = await resend.emails.send({
-    from: `KantongIn <kontak@${process.env.RESEND_FROM_DOMAIN ?? "kantongin.com"}>`,
+    from: `KantongIn <kontak@${fromDomain}>`,
     to: [siteConfig.email],
     replyTo: data.email,
     subject: `[Kontak] ${data.subject}`,

@@ -66,7 +66,12 @@ export default function KebijakanPrivasiPage() {
       <h2>Kontak</h2>
       <p>
         Untuk pertanyaan atau permintaan terkait kebijakan ini, hubungi kami di{" "}
-        <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+        {siteConfig.email ? (
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        ) : (
+          <span>kanal kontak yang tersedia di halaman beranda</span>
+        )}
+        .
       </p>
 
       <blockquote>
