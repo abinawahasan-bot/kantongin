@@ -14,12 +14,13 @@ import { buildWhatsAppLink } from "@/lib/wa";
 const WA_CHAT_MESSAGE = "Halo KantongIn, saya ingin konsultasi pembuatan website.";
 
 const serviceLinks = [
-  "E-commerce / Toko Online",
-  "Website Landing Page",
-  "Website Company Profile",
-  "Web App / Dashboard",
-  "Maintenance & Support",
-  "Konsultasi Website",
+  { label: "Semua Layanan", href: "/layanan" },
+  { label: "E-commerce / Toko Online", href: "#services" },
+  { label: "Website Landing Page", href: "#services" },
+  { label: "Website Company Profile", href: "#services" },
+  { label: "Web App / Dashboard", href: "#services" },
+  { label: "Maintenance & Support", href: "#services" },
+  { label: "Konsultasi Website", href: "#services" },
 ];
 
 const resourceLinks = [
@@ -51,6 +52,7 @@ export function Footer() {
   const { scrollTo, ready } = useLenis();
 
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
+    if (target.startsWith("/")) return; // rute internal — navigasi browser default
     if (!ready) return;
     event.preventDefault();
     if (isHowFlowAnchor(target)) {
@@ -122,14 +124,14 @@ export function Footer() {
               Layanan
             </h2>
             <ul className="mt-4 space-y-2.5">
-              {serviceLinks.map((label) => (
-                <li key={label}>
+              {serviceLinks.map((link) => (
+                <li key={link.label}>
                   <a
-                    href="#services"
-                    onClick={(event) => handleAnchor(event, "#services")}
+                    href={link.href}
+                    onClick={(event) => handleAnchor(event, link.href)}
                     className="text-sm text-muted transition-colors duration-200 hover:text-primary"
                   >
-                    {label}
+                    {link.label}
                   </a>
                 </li>
               ))}

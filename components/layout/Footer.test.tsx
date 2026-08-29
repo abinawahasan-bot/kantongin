@@ -43,4 +43,16 @@ describe("Footer", () => {
       screen.queryByRole("button", { name: /Berlangganan/i })
     ).not.toBeInTheDocument();
   });
+
+  it("menyediakan tautan halaman layanan & tentang kami", () => {
+    render(<Footer />);
+    expect(screen.getByRole("link", { name: "Semua Layanan" })).toHaveAttribute(
+      "href",
+      "/layanan"
+    );
+    expect(screen.getByRole("link", { name: "Tentang Kami" })).toHaveAttribute(
+      "href",
+      "/tentang-kami"
+    );
+  });
 });

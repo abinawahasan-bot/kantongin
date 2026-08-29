@@ -30,4 +30,24 @@ test.describe("Blog", () => {
     await page.goto("/blog/tidak-ada");
     await expect(page).toHaveTitle(/404/);
   });
+
+  test("halaman kategori menampilkan kartu artikel", async ({ page }) => {
+    await page.goto("/blog/kategori/umkm-digital");
+    await expect(
+      page.getByRole("heading", { name: /UMKM & Digital/i })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Pentingnya Website untuk UMKM/i })
+    ).toBeVisible();
+  });
+
+  test("detail artikel menampilkan artikel terkait", async ({ page }) => {
+    await page.goto("/blog/cara-memilih-jasa-pembuatan-website");
+    await expect(
+      page.getByRole("heading", { name: "Artikel terkait" })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Pentingnya Website untuk UMKM/i })
+    ).toBeVisible();
+  });
 });

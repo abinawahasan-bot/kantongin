@@ -12,6 +12,7 @@ import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 type DesktopNavItemProps = {
   item: NavItem;
@@ -125,12 +126,14 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const { scrollTo, ready } = useLenis();
+  const router = useRouter();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     setScrolled(value > 16);
   });
 
   const handleAnchorClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("/")) return; // rute internal — navigasi browser default
     if (!ready) return;
     event.preventDefault();
     if (isHowFlowAnchor(href)) {
@@ -144,6 +147,11 @@ export function Navbar() {
   };
 
   const navigate = (href: string) => {
+    if (href.startsWith("/")) {
+      setMenuOpen(false);
+      void router.push(href);
+      return;
+    }
     if (!ready) return;
     if (isHowFlowAnchor(href)) {
       switchHowFlow(href);

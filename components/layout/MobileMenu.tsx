@@ -95,6 +95,10 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
                   <a
                     href={item.href}
                     onClick={(event) => {
+                      if (item.href.startsWith("/")) {
+                        onClose();
+                        return;
+                      }
                       event.preventDefault();
                       onNavigate(item.href);
                     }}
@@ -110,6 +114,10 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
                           <a
                             href={link.href}
                             onClick={(event) => {
+                              if (link.href.startsWith("/")) {
+                                onClose();
+                                return;
+                              }
                               event.preventDefault();
                               onNavigate(link.href);
                             }}

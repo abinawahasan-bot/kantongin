@@ -56,12 +56,20 @@ Buka [http://localhost:3000](http://localhost:3000).
 ## Struktur Konten
 
 - Halaman utama: `app/page.tsx` + `components/sections/*`
+- Halaman statis SEO: `/layanan` (detail 6 layanan, proses, FAQ, CTA WhatsApp) di
+  `app/layanan/page.tsx`; `/tentang-kami` (nilai, statistik, partner, testimoni,
+  CTA) di `app/tentang-kami/page.tsx`.
 - Konten terpusat (layanan, langkah, nilai, paket harga, FAQ, testimoni,
   portofolio, statistik): `constants/` — ubah copy di sana, bukan di komponen.
 - Blog (MDX): cara menambah artikel tetap sama — drop file `.mdx` di
   `app/blog/_posts/` dengan blok frontmatter YAML (`title`, `description`,
-  `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `tags` array).
-  Posting otomatis muncul di daftar, detail SSG, sitemap, dan JSON-LD.
+  `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `category` Wajib,
+  `tags` array). Posting otomatis muncul di daftar, halaman kategori
+  (`/blog/kategori/<slug>`), artikel terkait (otomatis dari kategori & tag via
+  `app/blog/related.ts`), detail SSG, sitemap, dan JSON-LD.
+- Kartu artikel blog dipakai bersama lewat `app/blog/PostCard.tsx`.
+- OG image dinamis per halaman: `app/og-image/route.tsx` (query `title` &
+  opsional `subtitle`), dibangun lewat `buildOgImageUrl()` dari `lib/og.ts`.
 - Halaman legal: `/kebijakan-privasi`, `/syarat-ketentuan`,
   `/kebijakan-cookie` (template generik).
 - Konfigurasi situs (nama, kontak, sosial): `constants/site.ts`

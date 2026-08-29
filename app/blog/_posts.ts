@@ -8,6 +8,7 @@ export type PostFrontmatter = {
   description: string;
   date: string;
   author: string;
+  category: string;
   tags: string[];
 };
 
@@ -16,6 +17,7 @@ export const postFrontmatterSchema = z.object({
   description: z.string().trim().min(1),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   author: z.string().trim().min(1),
+  category: z.string().trim().min(1),
   tags: z.array(z.string()),
 });
 
@@ -65,4 +67,21 @@ export const posts: Post[] = listSlugs()
 export function getPost(slug: string): PostContent | null {
   if (!posts.some((post) => post.slug === slug)) return null;
   return readPostFile(slug);
+}
+
+export function categoryToSlug(category: string): string {
+  return category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function getCategories(): string[] {
+  return [...new Set(posts.map((p) => p.category))].sort((a, b) =>
+    a.localeCompare(b)
+  );
+}
+
+export function getPostsByCategory(category: string): Post[] {
+  return posts.filter((p) => p.category === category);
 }

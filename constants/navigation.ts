@@ -11,6 +11,7 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { label: "Beranda", href: "#home" },
+  { label: "Tentang Kami", href: "/tentang-kami" },
   {
     label: "Layanan",
     href: "#services",
@@ -18,6 +19,7 @@ export const navItems: NavItem[] = [
       {
         title: "Pembuatan Website",
         items: [
+          { label: "Lihat semua layanan", href: "/layanan" },
           { label: "E-commerce / Toko Online", href: "#services" },
           { label: "Website Landing Page", href: "#services" },
           { label: "Website Company Profile", href: "#services" },
