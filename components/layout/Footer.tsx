@@ -1,21 +1,17 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Check, Send } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import type { MouseEvent } from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Logo } from "@/components/common/Logo";
-import { MagneticButton } from "@/components/common/MagneticButton";
 import { SocialIcon } from "@/components/common/SocialIcon";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { navItems } from "@/constants/navigation";
 import { siteConfig } from "@/constants/site";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
-import { newsletterSchema, type NewsletterValues } from "@/lib/schemas/forms";
+import { buildWhatsAppLink } from "@/lib/wa";
+
+const WA_CHAT_MESSAGE = "Halo KantongIn, saya ingin konsultasi pembuatan website.";
 
 const serviceLinks = [
   "E-commerce / Toko Online",
@@ -39,100 +35,17 @@ const legalLinks = [
   { label: "Kebijakan Cookie", href: "/kebijakan-cookie" },
 ];
 
+const followLinks = [
+  { label: "Instagram", href: siteConfig.socials.instagram, icon: "instagram" as const },
+  { label: "TikTok", href: siteConfig.socials.tiktok, icon: "tiktok" as const },
+  {
+    label: "WhatsApp",
+    href: buildWhatsAppLink(WA_CHAT_MESSAGE),
+    icon: "whatsapp" as const,
+  },
+];
+
 const socialIcons = ["instagram", "tiktok", "whatsapp"] as const;
-
-function NewsletterForm() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<NewsletterValues>({
-    resolver: zodResolver(newsletterSchema),
-    mode: "onBlur",
-  });
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
-    "idle"
-  );
-  const [message, setMessage] = useState("");
-
-  const onSubmit = async (values: NewsletterValues) => {
-    setStatus("submitting");
-    setMessage("");
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = (await res.json()) as { error?: string };
-      if (!res.ok) {
-        setStatus("error");
-        setMessage(body.error ?? "Terjadi kesalahan, coba lagi.");
-        return;
-      }
-      setStatus("success");
-      setMessage("Terima kasih! Silakan cek inbox Anda.");
-      reset();
-    } catch {
-      setStatus("error");
-      setMessage("Gagal mengirim, coba lagi nanti.");
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <p className="text-sm font-semibold text-foreground">Dapatkan tips terbaru</p>
-      <p className="mt-1 text-sm leading-relaxed text-muted">
-        Tips membangun website dan update layanan, langsung ke inbox Anda.
-      </p>
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-        <Input
-          type="email"
-          placeholder="Email Anda"
-          aria-label="Alamat email untuk newsletter"
-          aria-invalid={errors.email ? true : undefined}
-          {...register("email")}
-          className="h-11 rounded-full border-border bg-surface"
-        />
-        <MagneticButton type="submit" ariaLabel="Berlangganan newsletter" strength={8}>
-          <Button
-            asChild
-            variant="primary"
-            size="lg"
-            className="w-full rounded-full sm:w-auto"
-          >
-            {status === "submitting" ? (
-              <span className="gap-2">Mengirim...</span>
-            ) : (
-              <span className="gap-2">
-                Berlangganan
-                <Send className="size-4" aria-hidden="true" />
-              </span>
-            )}
-          </Button>
-        </MagneticButton>
-      </div>
-      {errors.email ? (
-        <p role="alert" className="mt-2 text-sm text-destructive">
-          {errors.email.message}
-        </p>
-      ) : null}
-      {message ? (
-        <p
-          role="status"
-          className={
-            status === "error"
-              ? "mt-2 text-sm text-destructive"
-              : "mt-2 text-sm text-emerald-600 dark:text-emerald-400"
-          }
-        >
-          {message}
-        </p>
-      ) : null}
-    </form>
-  );
-}
 
 export function Footer() {
   const { scrollTo, ready } = useLenis();
@@ -224,7 +137,28 @@ export function Footer() {
           </div>
 
           <div>
-            <NewsletterForm />
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+              Ikuti Kami
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              Tips membangun website dan update layanan — ikuti akun resmi
+              KantongIn.
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              {followLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-muted transition-colors duration-200 hover:text-primary"
+                  >
+                    <SocialIcon name={link.icon} className="size-4" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <div className="mt-8 grid grid-cols-2 gap-8">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground">

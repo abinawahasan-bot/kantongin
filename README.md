@@ -13,7 +13,9 @@ dan SEO-ready.
 - React Hook Form + Zod (skema form bersama di `lib/schemas/forms.ts`)
 - Blog MDX via `next-mdx-remote` (RSC) + `gray-matter` (frontmatter fs-based)
 - Rate limiting hibrida: Upstash Redis (opsional) dengan fallback in-memory
-- [Resend](https://resend.com) untuk email (newsletter & form kontak)
+- Jalur lead utama via WhatsApp: form kontak membuka `wa.me` dengan pesan prefilled
+  (`lib/wa.ts`). Backend email (Resend) masih tersedia dan dormant sampai ada
+  domain sendiri — form beralih kembali saat `RESEND_*` terisi.
 - Vercel Analytics
 - Vitest, Playwright, Lighthouse CI
 
@@ -22,7 +24,7 @@ dan SEO-ready.
 ```bash
 nvm use
 npm install
-cp .env.example .env.local   # isi RESEND_API_KEY
+cp .env.example .env.local   # opsional: isi bila beralih ke jalur email Resend
 npm run dev
 ```
 
@@ -45,9 +47,9 @@ Buka [http://localhost:3000](http://localhost:3000).
 
 | Variabel               | Keterangan                                            |
 | ---------------------- | ----------------------------------------------------- |
-| `RESEND_API_KEY`       | API key Resend (wajib untuk form & newsletter)        |
+| `RESEND_API_KEY`       | Opsional. API key Resend — hanya untuk beralih ke jalur email; kosong = form kontak mengarah ke WhatsApp |
 | `RESEND_AUDIENCE_ID`   | Opsional. ID audience Resend untuk menyimpan kontak   |
-| `RESEND_FROM_DOMAIN`   | Domain pengirim **milik Anda** yang sudah terverifikasi di Resend (wajib untuk kirim email). Jangan pakai `kantongin.com` |
+| `RESEND_FROM_DOMAIN`   | Opsional. Domain pengirim **milik Anda** yang sudah terverifikasi di Resend — hanya untuk beralih ke jalur email; jangan pakai `kantongin.com` |
 | `UPSTASH_REDIS_REST_URL`   | Opsional. URL REST Upstash Redis untuk rate limiting |
 | `UPSTASH_REDIS_REST_TOKEN` | Opsional. Token REST Upstash Redis untuk rate limiting |
 
@@ -71,7 +73,8 @@ di `https://kantongin-beige.vercel.app`. (Catatan: domain `kantongin.com` bukan
 milik kami dan bukan bagian dari project ini.)
 
 1. Push ke GitHub (repo private).
-2. Import proyek di Vercel; set env `RESEND_API_KEY` (+ `RESEND_AUDIENCE_ID`).
+2. Import proyek di Vercel; set env `RESEND_API_KEY` (+ `RESEND_AUDIENCE_ID`)
+   bila beralih ke jalur email.
 3. Vercel Analytics aktif otomatis setelah import.
 
 CI berisi lint, tes unit, build, E2E (Playwright), dan audit Lighthouse yang

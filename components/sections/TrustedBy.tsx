@@ -65,6 +65,7 @@ export function TrustedBy() {
           ))}
         </Marquee>
       </div>
+      <p className="mt-8 text-center text-sm text-muted">Nama partner ilustratif.</p>
     </section>
   );
 }

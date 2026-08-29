@@ -161,6 +161,9 @@ export function Testimonials() {
             title="Kata Mereka Tentang KantongIn"
             description="Bukan janji manis — dengar langsung dari UMKM, brand, dan startup yang bertumbuh bersama hasil kerja kami."
           />
+          <p className="mt-6 text-center text-sm text-muted">
+            Testimoni ilustratif — akan diisi saat klien nyata tayang.
+          </p>
         </Reveal>
 
         <Reveal delay={0.1}>

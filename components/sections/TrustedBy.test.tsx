@@ -18,4 +18,9 @@ describe("TrustedBy", () => {
     const { getByText } = render(<TrustedBy />);
     expect(getByText(/Dipercaya oleh/i)).toBeInTheDocument();
   });
+
+  it("menampilkan catatan bahwa nama partner bersifat ilustratif", () => {
+    const { getByText } = render(<TrustedBy />);
+    expect(getByText(/nama partner ilustratif/i)).toBeInTheDocument();
+  });
 });

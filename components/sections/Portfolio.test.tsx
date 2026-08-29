@@ -53,4 +53,11 @@ describe("Portfolio", () => {
       expect(img!.getAttribute("alt")).toBe(imageAlt);
     }
   });
+
+  it("menampilkan catatan bahwa contoh proyek bersifat ilustratif", () => {
+    const { getByText } = render(<Portfolio />);
+    expect(
+      getByText(/contoh proyek ini ilustratif/i)
+    ).toBeInTheDocument();
+  });
 });

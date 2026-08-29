@@ -35,4 +35,11 @@ describe("Testimonials", () => {
       getByText(/bertumbuh bersama hasil kerja kami/i)
     ).toBeInTheDocument();
   });
+
+  it("menampilkan catatan bahwa testimoni bersifat ilustratif", () => {
+    const { getByText } = render(<Testimonials />);
+    expect(
+      getByText(/testimoni ilustratif/i)
+    ).toBeInTheDocument();
+  });
 });

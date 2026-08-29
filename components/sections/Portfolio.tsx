@@ -127,6 +127,10 @@ export function Portfolio() {
           title="Karya Website yang Sudah Meluncur"
           description="Kumpulan website yang telah kami rancang dan luncurkan untuk UMKM, brand, dan startup — dibuktikan dengan hasil yang nyata, bukan sekadar janji."
         />
+        <p className="mt-6 text-center text-sm text-muted">
+          Catatan: contoh proyek ini ilustratif dan akan diperbarui saat klien
+          nyata tayang.
+        </p>
 
         <div
           role="group"

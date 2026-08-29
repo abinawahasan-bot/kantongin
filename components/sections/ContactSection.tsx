@@ -2,17 +2,19 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Loader2, Mail, MessageSquareText, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, MessageSquareText, Phone } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
+import { SocialIcon } from "@/components/common/SocialIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { siteConfig } from "@/constants/site";
 import { contactSchema, type ContactValues } from "@/lib/schemas/forms";
+import { buildWhatsAppLink, contactToWhatsAppMessage } from "@/lib/wa";
 
 export function ContactSection() {
   const {
@@ -24,33 +26,13 @@ export function ContactSection() {
     resolver: zodResolver(contactSchema),
     mode: "onBlur",
   });
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
-    "idle"
-  );
-  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
 
-  const onSubmit = async (values: ContactValues) => {
-    setStatus("submitting");
-    setMessage("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = (await res.json()) as { error?: string };
-      if (!res.ok) {
-        setStatus("error");
-        setMessage(body.error ?? "Terjadi kesalahan, coba lagi.");
-        return;
-      }
-      setStatus("success");
-      setMessage("Pesan terkirim! Kami akan membalas secepatnya.");
-      reset();
-    } catch {
-      setStatus("error");
-      setMessage("Gagal mengirim, coba lagi nanti.");
-    }
+  const onSubmit = (values: ContactValues) => {
+    const url = buildWhatsAppLink(contactToWhatsAppMessage(values));
+    window.open(url, "_blank", "noopener,noreferrer");
+    setSent(true);
+    reset();
   };
 
   const fadeUp = {
@@ -71,6 +53,9 @@ export function ContactSection() {
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
           <motion.div {...fadeUp} className="flex flex-col gap-4">
+            <p className="text-sm text-muted-foreground">
+              Contoh proyek &amp; testimoni di halaman ini bersifat ilustratif.
+            </p>
             {siteConfig.email && (
               <GlowCard className="p-6">
                 <div className="flex items-start gap-4">
@@ -102,7 +87,9 @@ export function ContactSection() {
                 <div>
                   <h3 className="text-sm font-semibold text-foreground">WhatsApp</h3>
                   <a
-                    href={siteConfig.socials.whatsapp}
+                    href={buildWhatsAppLink(
+                      "Halo KantongIn, saya ingin konsultasi pembuatan website."
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-1 inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-primary"
@@ -233,28 +220,18 @@ export function ContactSection() {
                   variant="primary"
                   size="lg"
                   className="mt-6 w-full"
-                  disabled={status === "submitting"}
                 >
-                  {status === "submitting" ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-                      Mengirim...
-                    </>
-                  ) : (
-                    "Kirim Pesan"
-                  )}
+                  <SocialIcon name="whatsapp" className="size-4" aria-hidden="true" />
+                  Kirim via WhatsApp
                 </Button>
 
-                {message ? (
+                {sent ? (
                   <p
                     role="status"
-                    className={
-                      status === "error"
-                        ? "mt-4 text-sm text-destructive"
-                        : "mt-4 text-sm text-emerald-600 dark:text-emerald-400"
-                    }
+                    className="mt-4 text-sm text-emerald-600 dark:text-emerald-400"
                   >
-                    {message}
+                    WhatsApp dibuka di tab baru. Lanjutkan dengan menekan Kirim
+                    agar pesan sampai ke tim kami.
                   </p>
                 ) : null}
               </form>

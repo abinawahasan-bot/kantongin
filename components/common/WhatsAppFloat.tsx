@@ -1,10 +1,12 @@
 import { SocialIcon } from "@/components/common/SocialIcon";
-import { siteConfig } from "@/constants/site";
+import { buildWhatsAppLink } from "@/lib/wa";
+
+const WA_CHAT_MESSAGE = "Halo KantongIn, saya ingin konsultasi pembuatan website.";
 
 export function WhatsAppFloat() {
   return (
     <a
-      href={siteConfig.socials.whatsapp}
+      href={buildWhatsAppLink(WA_CHAT_MESSAGE)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat dengan tim KantongIn via WhatsApp"
