@@ -11,7 +11,7 @@ export type PricingPlan = {
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Landing Page",
-    price: "Rp 2,5 jt",
+    price: "Rp 500 rb",
     description:
       "Website satu halaman fokus konversi untuk produk, kampanye, atau personal branding Anda.",
     features: [
@@ -26,7 +26,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Company Profile",
-    price: "Rp 4,9 jt",
+    price: "Rp 1,3 jt",
     description:
       "Website multi-halaman profesional yang membangun kredibilitas dan kepercayaan sejak kunjungan pertama.",
     features: [

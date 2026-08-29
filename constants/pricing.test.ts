@@ -11,8 +11,8 @@ describe("pricingPlans (paket jasa pembuatan website)", () => {
   });
 
   it("harga hybrid sekali bayar tanpa period", () => {
-    expect(pricingPlans[0].price).toBe("Rp 2,5 jt");
-    expect(pricingPlans[1].price).toBe("Rp 4,9 jt");
+    expect(pricingPlans[0].price).toBe("Rp 500 rb");
+    expect(pricingPlans[1].price).toBe("Rp 1,3 jt");
     expect(pricingPlans[2].price).toBe("Custom");
     for (const plan of pricingPlans) {
       expect(plan.period).toBeUndefined();
