@@ -18,13 +18,12 @@ import { revealAndScroll } from "@/lib/reveal-section";
 import { newsletterSchema, type NewsletterValues } from "@/lib/schemas/forms";
 
 const serviceLinks = [
-  "Affiliate Marketing",
-  "Open Promotion",
-  "Endorsement / KOL",
-  "Brand Collaboration",
-  "Social Media Management",
-  "Digital Campaign Strategy",
-  "Content Production",
+  "E-commerce / Toko Online",
+  "Website Landing Page",
+  "Website Company Profile",
+  "Web App / Dashboard",
+  "Maintenance & Support",
+  "Konsultasi Website",
 ];
 
 const resourceLinks = [
@@ -85,7 +84,7 @@ function NewsletterForm() {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <p className="text-sm font-semibold text-foreground">Dapatkan tips terbaru</p>
       <p className="mt-1 text-sm leading-relaxed text-muted">
-        Tips pemasaran digital dan update kampanye, langsung ke inbox Anda.
+        Tips membangun website dan update layanan, langsung ke inbox Anda.
       </p>
       <div className="mt-4 flex flex-col gap-2 sm:flex-row">
         <Input

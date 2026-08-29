@@ -7,53 +7,42 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    icon: "handshake",
-    title: "Affiliate Marketing",
+    icon: "shoppingCart",
+    title: "E-commerce / Toko Online",
     description:
-      "Jalankan program affiliate yang terukur. Kami menghubungkan brand dan UMKM dengan ribuan affiliate aktif — bayar komisi hanya saat penjualan benar-benar terjadi.",
+      "Bangun toko online yang siap jualan 24/7 — katalog produk, keranjang, pembayaran, dan integrasi ongkir. Ubah pengunjung menjadi pelanggan.",
     points: [
-      "Komisi berbasis performa",
-      "Pelacakan real-time",
-      "Akses ribuan affiliate terkurasi",
+      "Katalog & sistem pembayaran",
+      "Integrasi payment gateway",
+      "Manajemen produk mudah",
     ],
   },
   {
-    icon: "megaphone",
-    title: "Open Promotion",
+    icon: "layoutTemplate",
+    title: "Website Landing Page",
     description:
-      "Sebarkan pesan brand-mu ke audiens luas lewat slot open promo di jaringan kreator terkurasi, tanpa perlu riset kreator satu per satu.",
-    points: ["Jangkauan luas & cepat", "Kreator terkurasi", "Laporan performa transparan"],
+      "Halaman satu halaman yang fokus mengonversi pengunjung menjadi lead atau pembeli — untuk kampanye, produk baru, atau personal branding.",
+    points: ["Desain fokus konversi", "Form & CTA tertanam", "Cepat dimuat"],
   },
   {
-    icon: "star",
-    title: "Endorsement / KOL",
+    icon: "building2",
+    title: "Website Company Profile",
     description:
-      "Bangun kepercayaan dengan endorsement dari kreator yang relevan dan kredibel. Kami memilihkan KOL yang selaras dengan nilai dan audiens brand-mu.",
+      "Profil perusahaan multi-halaman profesional: visi, layanan, tim, hingga blog. Membangun kredibilitas dan kepercayaan klien sejak kunjungan pertama.",
+    points: ["Multi-halaman & rapi", "Optimasi SEO", "Mudah dikelola"],
   },
   {
-    icon: "users",
-    title: "Brand Collaboration",
+    icon: "monitorSmartphone",
+    title: "Web App / Dashboard",
     description:
-      "Ciptakan kolaborasi brand-to-brand dan co-marketing yang saling menguntungkan, untuk menjangkau audiens baru dan memperkuat posisi brand di pasar.",
-    points: ["Sinergi antar brand", "Ide kolaborasi kreatif", "Ekspansi audiens"],
+      "Aplikasi web custom dengan login, database, dan dashboard — untuk internal tim, layanan pelanggan, atau integrasi sistem bisnis.",
+    points: ["Login & role pengguna", "Database & dashboard", "Integrasi API"],
   },
   {
-    icon: "share2",
-    title: "Social Media Management",
+    icon: "wrench",
+    title: "Maintenance & Support",
     description:
-      "Kelola kehadiran media sosial brand-mu secara profesional — konten konsisten, jadwal teratur, dan interaksi aktif yang membangun komunitas.",
-  },
-  {
-    icon: "target",
-    title: "Digital Campaign Strategy",
-    description:
-      "Rancang strategi kampanye digital berbasis data yang tepat sasaran, mulai dari riset audiens, pemilihan channel, hingga optimalisasi anggaran iklan.",
-    points: ["Riset audiens mendalam", "Pemilihan channel tepat", "Optimasi anggaran"],
-  },
-  {
-    icon: "clapperboard",
-    title: "Content Production",
-    description:
-      "Produksi konten berkualitas tinggi — video, foto, dan reels — yang siap memperkuat citra brand di setiap platform dan memikat audiens.",
+      "Website tetap aman, cepat, dan relevan: update konten, pemantauan keamanan, backup, serta bantuan teknis berkala.",
+    points: ["Update konten berkala", "Keamanan & backup", "Bantuan teknis"],
   },
 ];

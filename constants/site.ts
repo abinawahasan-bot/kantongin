@@ -1,7 +1,8 @@
 export const siteConfig = {
   name: "KantongIn",
-  tagline: "Digital Marketing & Creator Collaboration Agency",
-  description: "KantongIn menghubungkan brand, UMKM, startup, dan kreator untuk tumbuh lewat affiliate marketing, endorsement, dan kolaborasi.",
+  tagline: "Jasa Pembuatan Website Profesional",
+  description:
+    "KantongIn membantu UMKM, startup, dan brand tampil profesional lewat jasa pembuatan website — landing page, company profile, toko online, hingga web app.",
   // CATATAN: `kantongin.com` bukan milik kami. URL di bawah memakai deployment
   // Vercel aktif; ubah saat punya domain sendiri. Email dikosongkan sampai ada
   // domain untuk alamat bisnis - isi dengan alamat yang benar sebelum produksi.

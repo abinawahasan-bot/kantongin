@@ -35,12 +35,12 @@ export function CTASection() {
 
             <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6">
               <h2 className="text-3xl font-bold tracking-tight text-background dark:text-foreground sm:text-4xl lg:text-5xl">
-                Siap Tumbuh Bersama KantongIn?
+                Siap Punya Website Profesional?
               </h2>
               <p className="max-w-2xl text-base leading-relaxed text-muted-foreground dark:text-muted sm:text-lg">
-                Mulai dari affiliate marketing, endorsement, hingga kolaborasi kreator — tim kami siap
-                membantu brand dan UMKM mencapai hasil yang terukur. Konsultasi pertama gratis, tanpa
-                komitmen.
+                Dari landing page, company profile, hingga toko online — tim kami siap
+                membantu UMKM dan brand tampil profesional dan mendatangkan pelanggan.
+                Konsultasi pertama gratis, tanpa komitmen.
               </p>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton
@@ -54,7 +54,7 @@ export function CTASection() {
                     className="rounded-full dark:bg-primary dark:text-primary-foreground"
                   >
                     <span className="gap-2">
-                      Mulai Kampanye
+                      Konsultasi Gratis
                       <ArrowRight className="size-4" aria-hidden="true" />
                     </span>
                   </Button>

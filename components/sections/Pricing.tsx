@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, BarChart3, Check, FileX, Percent, Zap } from "lucide-react";
+import { ArrowRight, Check, Globe, MessageSquare, Repeat, ShieldCheck } from "lucide-react";
 import type { MouseEvent } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
@@ -128,10 +128,10 @@ export function Pricing() {
         <Reveal delay={0.1}>
           <ul className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             {[
-              { icon: FileX, label: "Tanpa kontrak jangka panjang" },
-              { icon: Percent, label: "Komisi berbasis performa" },
-              { icon: BarChart3, label: "Laporan real-time transparan" },
-              { icon: Zap, label: "Response < 24 jam" },
+              { icon: ShieldCheck, label: "Tanpa biaya tersembunyi" },
+              { icon: MessageSquare, label: "Gratis konsultasi" },
+              { icon: Repeat, label: "Gratis revisi" },
+              { icon: Globe, label: "Bantuan domain & hosting" },
             ].map(({ icon: Icon, label }) => (
               <li
                 key={label}

@@ -1,10 +1,10 @@
 export const partners: string[] = [
-  "Nusagro",
+  "RumahKreasi",
   "KopiKita",
-  "Batista",
-  "RumahMode",
-  "TechFlow",
   "SembakoID",
-  "MotoGaul",
-  "HijauKita",
+  "Klinik Sehat",
+  "NusaProperti",
+  "FinanceHub",
+  "WarungTetangga",
+  "GlowSheet",
 ];

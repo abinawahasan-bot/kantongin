@@ -1,8 +1,9 @@
 # KantongIn — Landing Page
 
-Landing page satu halaman untuk **KantongIn**, agency Digital Marketing & Creator
-Collaboration di Indonesia. Menghubungkan brand, UMKM, startup, dan kreator lewat
-affiliate marketing, endorsement, dan kolaborasi terkurasi.
+Landing page satu halaman untuk **KantongIn**, jasa pembuatan website profesional
+di Indonesia. Membantu UMKM, startup, dan brand tampil online lewat landing page,
+company profile, toko online/e-commerce, hingga web app — desain responsif, cepat,
+dan SEO-ready.
 
 ## Tech Stack
 
@@ -53,6 +54,8 @@ Buka [http://localhost:3000](http://localhost:3000).
 ## Struktur Konten
 
 - Halaman utama: `app/page.tsx` + `components/sections/*`
+- Konten terpusat (layanan, langkah, nilai, paket harga, FAQ, testimoni,
+  portofolio, statistik): `constants/` — ubah copy di sana, bukan di komponen.
 - Blog (MDX): cara menambah artikel tetap sama — drop file `.mdx` di
   `app/blog/_posts/` dengan blok frontmatter YAML (`title`, `description`,
   `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `tags` array).

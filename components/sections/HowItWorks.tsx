@@ -128,8 +128,8 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Cara Kerja"
-          title="Bagaimana Cara Kerja KantongIn?"
-          description="Pilih alur Anda — sebagai brand yang ingin bertumbuh atau kreator yang ingin menghasilkan. Sisanya kami pandu langkah demi langkah."
+          title="Proses Pengerjaan yang Jelas & Terukur"
+          description="Pilih alur Anda — membangun website baru atau merawat website yang sudah berjalan. Sisanya kami pandu langkah demi langkah."
         />
 
         <div className="mt-10 flex justify-center">

@@ -14,8 +14,8 @@ export function Statistics() {
         <SectionHeading
           align="left"
           eyebrow="KantongIn dalam Angka"
-          title="Hasil Nyata, Bukan Janji"
-          description="Angka yang terus tumbuh dari kampanye affiliate, endorsement, dan kolaborasi kreator yang kami jalankan."
+          title="Hasil Nyata, Website Terukur"
+          description="Angka yang terus bertumbuh dari website yang kami rancang, luncurkan, dan rawat untuk UMKM, startup, dan brand."
         />
 
         <Reveal delay={0.05} className="mt-12">
@@ -23,7 +23,7 @@ export function Statistics() {
             <div className="flex flex-col gap-6 px-8 py-10 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:px-10">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-                  Komisi Disalurkan
+                  Klien Merekomendasikan
                 </p>
                 <p className="mt-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
                   <Counter
@@ -35,8 +35,9 @@ export function Statistics() {
                 </p>
               </div>
               <p className="max-w-sm text-base leading-relaxed text-muted">
-                Total komisi yang sudah kami salurkan ke para kreator dari seluruh
-                kampanye — bukti model bayar-performa benar-benar bekerja.
+                Prosentase klien yang puas dan merekomendasikan layanan kami —
+                bukti bahwa website yang kami bangun benar-benar membantu bisnis
+                mereka bertumbuh.
               </p>
             </div>
           </GlowCard>

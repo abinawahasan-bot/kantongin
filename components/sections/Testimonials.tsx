@@ -159,7 +159,7 @@ export function Testimonials() {
             eyebrow="Testimoni"
             size="display"
             title="Kata Mereka Tentang KantongIn"
-            description="Bukan janji manis — dengar langsung dari founder, brand, dan kreator yang bertumbuh bersama KantongIn."
+            description="Bukan janji manis — dengar langsung dari UMKM, brand, dan startup yang bertumbuh bersama hasil kerja kami."
           />
         </Reveal>
 

@@ -6,6 +6,7 @@ describe("contactSchema", () => {
     const result = contactSchema.safeParse({
       name: " Budi ",
       email: "budi@example.com",
+      service: "Company Profile",
       subject: "Halo",
       message: "Pesan yang cukup panjang untuk lolos validasi.",
     });
@@ -15,8 +16,18 @@ describe("contactSchema", () => {
 
   it("menolak pesan kurang dari 10 karakter", () => {
     expect(
-      contactSchema.safeParse({ name: "Budi", email: "budi@example.com", subject: "Halo", message: "pendek" }).success
+      contactSchema.safeParse({ name: "Budi", email: "budi@example.com", service: "Company Profile", subject: "Halo", message: "pendek" }).success
     ).toBe(false);
+  });
+
+  it("menolak data tanpa jenis layanan", () => {
+    const result = contactSchema.safeParse({
+      name: "Budi",
+      email: "budi@example.com",
+      subject: "Halo",
+      message: "Pesan yang cukup panjang untuk lolos validasi.",
+    });
+    expect(result.success).toBe(false);
   });
 });
 

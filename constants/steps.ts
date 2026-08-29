@@ -13,55 +13,55 @@ export type Flow = {
 export const flows: Flow[] = [
   {
     id: "brand",
-    label: "Untuk Brand",
+    label: "Website Baru",
     anchorId: "affiliate",
     steps: [
       {
         title: "Konsultasi",
         description:
-          "Ceritakan tujuan dan kebutuhan kampanyemu. Tim kami mendengarkan, menggali target audiens, lalu menyusun pendekatan yang paling tepat untuk brand-mu.",
+          "Ceritakan kebutuhan dan tujuan websitenya. Tim kami mendengarkan, memahami bisnis Anda, lalu menyusun rekomendasi paling tepat — gratis tanpa komitmen.",
       },
       {
-        title: "Briefing & Strategi",
+        title: "Desain & Development",
         description:
-          "Kami menyusun brief lengkap, memilih kreator yang relevan, dan merancang strategi eksekusi — semua disepakati bersama sebelum kampanye berjalan.",
+          "Kami merancang tampilan yang sesuai identitas brand lalu mengembangkannya — responsif, cepat, dan SEO-ready. Anda bisa pantau progresnya di setiap tahap.",
       },
       {
-        title: "Peluncuran Kampanye",
+        title: "Review & Peluncuran",
         description:
-          "Kampanye tayang serentak di jaringan kreator terkurasi. Tim kami memantau performa secara real-time dan memastikan semuanya berjalan sesuai rencana.",
+          "Anda mencoba websitenya, kami menyempurnakan detailnya. Setelah semuanya pas, website diluncurkan dan siap mendatangkan pelanggan.",
       },
       {
-        title: "Report & Optimasi",
+        title: "Optimasi & Dukungan",
         description:
-          "Terima laporan performa yang transparan dan terukur. Kami menganalisis hasil lalu mengoptimasi strategi untuk hasil yang lebih baik di kampanye berikutnya.",
+          "Kami memantau performa, menjaga kecepatan dan keamanan, serta siap membantu pengembangan selanjutnya agar bisnis Anda terus bertumbuh.",
       },
     ],
   },
   {
     id: "creator",
-    label: "Untuk Kreator",
+    label: "Maintenance & Support",
     anchorId: "creators",
     steps: [
       {
-        title: "Daftar & Verifikasi",
+        title: "Audit Website",
         description:
-          "Daftarkan akun kreatormu dalam hitungan menit. Tim kami memverifikasi profil dan kualitas kontenmu untuk bergabung ke jaringan kreator terkurasi.",
+          "Kami meninjau kondisi website Anda — kecepatan, keamanan, SEO, dan pengalaman pengguna — lalu menyusun prioritas perbaikan yang jelas.",
       },
       {
-        title: "Pilih Kolaborasi",
+        title: "Perbaikan & Update",
         description:
-          "Jelajahi kampanye brand yang sesuai dengan gaya dan audiensmu. Pilih kolaborasi yang kamu sukai dengan komisi yang jelas sejak awal.",
+          "Kami memperbarui konten, meng-update komponen, dan membenahi isu teknis secara berkala supaya website selalu prima dan bebas dari ancaman.",
       },
       {
-        title: "Terbitkan Konten",
+        title: "Pemantauan Berkala",
         description:
-          "Buat dan terbitkan konten sesuai brief. Kode pelacakan memastikan setiap klik dan penjualan tercatat otomatis, tanpa perlu rekap manual.",
+          "Kami memantau uptime, backup data, dan performa secara rutin. Setiap masalah terdeteksi cepat dan ditangani sebelum mengganggu bisnis Anda.",
       },
       {
-        title: "Raih Komisi",
+        title: "Laporan & Rekomendasi",
         description:
-          "Pantau performa kontenmu secara real-time dan raih komisi dari setiap penjualan yang berhasil. Komisi bisa dicairkan kapan saja.",
+          "Anda menerima laporan berkala beserta rekomendasi pengembangan. Website tetap relevan seiring pertumbuhan bisnis Anda.",
       },
     ],
   },

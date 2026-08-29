@@ -6,9 +6,9 @@ export type Stat = {
 };
 
 export const stats: Stat[] = [
-  { value: 350, suffix: "+", label: "Kampanye Berjalan" },
-  { value: 120, suffix: "+", label: "Brand & UMKM" },
-  { value: 850, suffix: "+", label: "Kreator Bergabung" },
-  { value: 60, suffix: "rb", label: "Affiliates Aktif" },
-  { value: 2.5, suffix: "M", decimals: 1, label: "Rupiah Komisi Disalurkan" },
+  { value: 120, suffix: "+", label: "Website Selesai" },
+  { value: 45, suffix: "+", label: "Brand & UMKM" },
+  { value: 4.9, suffix: "", decimals: 1, label: "Rating Klien" },
+  { value: 2, suffix: "+", label: "Tahun Pengalaman" },
+  { value: 98, suffix: "%", label: "Klien Merekomendasikan" },
 ];

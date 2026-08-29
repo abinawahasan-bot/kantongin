@@ -167,8 +167,8 @@ export function WhyChooseUs() {
           align="left"
           size="display"
           eyebrow="Kenapa KantongIn"
-          title="Mengapa Brand Memilih Kami"
-          description="Sistem kolaborasi terkurasi yang transparan dan berorientasi hasil — bukan sekadar penghubung brand dan kreator."
+          title="Mengapa Klien Memilih Kami"
+          description="Kami membangun website yang cepat, responsif, dan dirancang untuk mendatangkan pelanggan — dengan proses yang transparan sejak awal."
         />
 
         <div className="relative mt-16 lg:mt-24">

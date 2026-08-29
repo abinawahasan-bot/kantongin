@@ -6,17 +6,17 @@ describe("Statistics", () => {
   it("merender heading seksi", () => {
     const { getByRole } = render(<Statistics />);
     expect(
-      getByRole("heading", { name: /Hasil Nyata, Bukan Janji/ })
+      getByRole("heading", { name: /Hasil Nyata, Website Terukur/ })
     ).toBeInTheDocument();
   });
 
   it("merender keempat statistik pendukung", () => {
     const { getByText } = render(<Statistics />);
     for (const label of [
-      "Kampanye Berjalan",
+      "Website Selesai",
       "Brand & UMKM",
-      "Kreator Bergabung",
-      "Affiliates Aktif",
+      "Rating Klien",
+      "Tahun Pengalaman",
     ]) {
       expect(getByText(label)).toBeInTheDocument();
     }
@@ -24,7 +24,7 @@ describe("Statistics", () => {
 
   it("featured stat memakai gradient dan glow card", () => {
     const { getByText } = render(<Statistics />);
-    const featured = getByText("Komisi Disalurkan").closest("div");
+    const featured = getByText("Klien Merekomendasikan").closest("div");
     expect(featured?.querySelector(".text-gradient")).not.toBeNull();
     expect(featured?.closest(".rounded-2xl")).not.toBeNull();
   });

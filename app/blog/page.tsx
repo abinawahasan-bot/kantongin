@@ -7,7 +7,7 @@ import { posts } from "./_posts";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Wawasan pemasaran digital, affiliate marketing, endorsement, dan kolaborasi kreator dari tim KantongIn.",
+    "Tips membangun website, landing page, toko online, dan SEO untuk UMKM serta brand dari tim KantongIn.",
 };
 
 function formatDate(date: string) {
@@ -31,8 +31,8 @@ export default function BlogPage() {
             Wawasan &amp; strategi terbaru
           </h1>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-            Tips praktis seputar affiliate marketing, endorsement, dan kolaborasi
-            kreator untuk membantu brand serta UMKM tumbuh.
+            Tips praktis seputar website, landing page, toko online, dan optimasi
+            SEO untuk membantu bisnis Anda tampil profesional dan bertumbuh.
           </p>
         </div>
 

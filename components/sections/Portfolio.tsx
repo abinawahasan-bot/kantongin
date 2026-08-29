@@ -124,8 +124,8 @@ export function Portfolio() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Portofolio"
-          title="Hasil Nyata, Kampanye Terukur"
-          description="Kumpulan kampanye yang telah kami jalankan bersama brand dan kreator — dibuktikan dengan hasil yang nyata, bukan sekadar janji."
+          title="Karya Website yang Sudah Meluncur"
+          description="Kumpulan website yang telah kami rancang dan luncurkan untuk UMKM, brand, dan startup — dibuktikan dengan hasil yang nyata, bukan sekadar janji."
         />
 
         <div

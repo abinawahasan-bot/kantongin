@@ -6,15 +6,15 @@ test.describe("Blog", () => {
     await expect(
       page.getByRole("heading", { name: /Wawasan & strategi terbaru/i })
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: /Apa Itu Affiliate Marketing/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Panduan Memilih Kreator/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Pentingnya Website untuk UMKM/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Landing Page vs Toko Online/i })).toBeVisible();
   });
 
   test("artikel dapat dibuka dengan konten dan metadata", async ({ page }) => {
-    await page.goto("/blog/affiliate-marketing-untuk-umkm");
-    await expect(page).toHaveTitle(/Apa Itu Affiliate Marketing/);
+    await page.goto("/blog/pentingnya-website-untuk-umkm");
+    await expect(page).toHaveTitle(/Pentingnya Website untuk UMKM/);
     await expect(
-      page.getByRole("heading", { name: /Apa Itu Affiliate Marketing/ })
+      page.getByRole("heading", { name: /Pentingnya Website untuk UMKM/ })
     ).toBeVisible();
     await expect(page.getByRole("link", { name: /Kembali ke blog/i })).toBeVisible();
     const blogPostingCount = await page

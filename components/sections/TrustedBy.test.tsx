@@ -5,7 +5,7 @@ import { TrustedBy } from "./TrustedBy";
 describe("TrustedBy", () => {
   it("merender semua partner sebagai chip pill berborder", () => {
     const { getAllByText } = render(<TrustedBy />);
-    const chip = getAllByText("Nusagro")[0].closest("span")?.parentElement;
+    const chip = getAllByText("RumahKreasi")[0].closest("span")?.parentElement;
     expect(chip).toHaveClass("rounded-full", "border");
   });
 

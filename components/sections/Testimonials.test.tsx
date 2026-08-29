@@ -31,6 +31,8 @@ describe("Testimonials", () => {
 
   it("deskripsi seksi memakai copy baru", () => {
     const { getByText } = render(<Testimonials />);
-    expect(getByText(/Bukan janji manis/i)).toBeInTheDocument();
+    expect(
+      getByText(/bertumbuh bersama hasil kerja kami/i)
+    ).toBeInTheDocument();
   });
 });

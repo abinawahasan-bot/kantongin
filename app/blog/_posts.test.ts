@@ -10,7 +10,7 @@ describe("_posts (fs)", () => {
   });
 
   it("getPost mengembalikan frontmatter dan konten", () => {
-    const post = getPost("affiliate-marketing-untuk-umkm");
+    const post = getPost("pentingnya-website-untuk-umkm");
     expect(post).not.toBeNull();
     expect(post?.frontmatter.title).toBeTruthy();
     expect(post?.content.length).toBeGreaterThan(100);

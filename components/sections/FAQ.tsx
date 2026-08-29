@@ -32,7 +32,7 @@ export function FAQ() {
           <SectionHeading
             eyebrow="FAQ"
             title="Pertanyaan yang Sering Diajukan"
-            description="Masih ragu? Temukan jawaban tentang layanan, pembayaran komisi, dan cara bergabung bersama KantongIn."
+            description="Masih ragu? Temukan jawaban tentang proses pengerjaan, biaya, dan perawatan website bersama KantongIn."
           />
         </Reveal>
 

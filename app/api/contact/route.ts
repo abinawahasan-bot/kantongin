@@ -55,6 +55,7 @@ export async function POST(req: Request) {
         <h2>Pesan baru dari form kontak</h2>
         <p><strong>Nama:</strong> ${data.name}</p>
         <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Jenis Layanan:</strong> ${data.service}</p>
         <p><strong>Subjek:</strong> ${data.subject}</p>
         <p><strong>Pesan:</strong></p>
         <blockquote style="white-space:pre-wrap;border-left:3px solid #ddd;padding-left:12px;margin:0">${data.message}</blockquote>

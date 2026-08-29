@@ -66,7 +66,7 @@ export function ContactSection() {
         <SectionHeading
           eyebrow="Kontak"
           title="Ayo bicarakan proyek Anda"
-          description="Ceritakan kebutuhan brand atau kampanye Anda, dan tim kami akan merespons dalam 1×24 jam kerja."
+          description="Ceritakan kebutuhan website Anda, dan tim kami akan merespons dalam 1×24 jam kerja."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
@@ -171,20 +171,44 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                <div className="mt-5 flex flex-col gap-2">
-                  <Label htmlFor="contact-subject">Subjek</Label>
-                  <Input
-                    id="contact-subject"
-                    type="text"
-                    placeholder="Contoh: Kolaborasi brand"
-                    aria-invalid={errors.subject ? true : undefined}
-                    {...register("subject")}
-                  />
-                  {errors.subject ? (
-                    <p role="alert" className="text-sm text-destructive">
-                      {errors.subject.message}
-                    </p>
-                  ) : null}
+                <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="contact-service">Jenis Layanan</Label>
+                    <select
+                      id="contact-service"
+                      className="h-11 rounded-xl border border-input bg-transparent px-3 text-sm text-foreground shadow-sm outline-none transition-colors focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/30 disabled:cursor-not-allowed disabled:opacity-50"
+                      aria-invalid={errors.service ? true : undefined}
+                      {...register("service")}
+                    >
+                      <option value="">Pilih jenis layanan...</option>
+                      <option>Landing Page</option>
+                      <option>Company Profile</option>
+                      <option>E-commerce / Toko Online</option>
+                      <option>Web App / Dashboard</option>
+                      <option>Maintenance & Support</option>
+                      <option>Lainnya</option>
+                    </select>
+                    {errors.service ? (
+                      <p role="alert" className="text-sm text-destructive">
+                        {errors.service.message}
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="contact-subject">Subjek</Label>
+                    <Input
+                      id="contact-subject"
+                      type="text"
+                      placeholder="Contoh: Proyek website"
+                      aria-invalid={errors.subject ? true : undefined}
+                      {...register("subject")}
+                    />
+                    {errors.subject ? (
+                      <p role="alert" className="text-sm text-destructive">
+                        {errors.subject.message}
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
 
                 <div className="mt-5 flex flex-col gap-2">

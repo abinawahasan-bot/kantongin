@@ -10,47 +10,47 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Tim KantongIn bukan sekadar eksekutor, mereka partner strategis. Dalam tiga bulan, brand awareness kami melonjak dan penjualan nyaris tiga kali lipat — sesuatu yang tak pernah kami capai dengan agensi sebelumnya.",
+      "Dulu usaha kami ada di marketplace, sekarang punya toko online sendiri. Dalam dua bulan sejak website diluncurkan, penjualan online naik hampir dua kali lipat dan pelanggan bisa checkout langsung 24 jam.",
     name: "Rina Wijaya",
     role: "Founder",
     company: "Kopi Selatan",
     rating: 5,
-    result: "Penjualan 3x lipat dalam 3 bulan",
+    result: "Penjualan online naik 2x dalam 2 bulan",
   },
   {
     quote:
-      "Kolaborasi kreator yang mereka kurasi benar-benar memahami DNA brand kami. Setiap konten terasa otentik dan alami, dan itu tercermin dari engagement yang konsisten tinggi sepanjang kampanye.",
+      "Website toko kami terasa beda — cepat, rapi, dan mudah dikelola sendiri. Tim KantongIn juga mengajarkan cara update produk, jadi kami tidak bergantung pada siapa pun.",
     name: "Dina Prameswari",
-    role: "Brand Manager",
+    role: "Owner",
     company: "Aura Beauty",
     rating: 5,
-    result: "Engagement konsisten sepanjang kampanye",
+    result: "Kelola toko online secara mandiri",
   },
   {
     quote:
-      "Sebagai kreator, saya menghargai brief yang jelas dan tim yang memberi ruang untuk berekspresi. KantongIn membuat proses kolaborasi terasa mudah, profesional, dan menyenangkan dari awal sampai tuntas.",
-    name: "Bagas Aditya",
-    role: "Kreator Konten",
-    company: "Studio Piksel",
-    rating: 5,
-    result: "Kolaborasi lancar & pembayaran tepat waktu",
-  },
-  {
-    quote:
-      "Sistem affiliate yang transparan dan pembayaran yang selalu tepat waktu membuat saya serius. Komisi yang mengalir konsisten setiap bulan kini menjadi salah satu sumber penghasilan utama saya.",
-    name: "Sari Handayani",
-    role: "Affiliate Marketer",
-    company: "Belanja Bahagia",
-    rating: 4,
-    result: "Komisi konsisten menjadi pemasukan utama",
-  },
-  {
-    quote:
-      "Untuk startup dengan tim yang kecil, KantongIn terasa seperti departemen marketing sendiri. Laporan yang terukur dan rekomendasi berbasis data membantu kami mengalokasikan budget dengan jauh lebih cerdas.",
+      "Butuh company profile yang kredibel untuk pitching ke investor. Hasilnya melebihi ekspektasi — desainnya profesional, dimuat cepat, dan sejak website tayang banyak klien baru yang menghubungi kami.",
     name: "Andi Pratama",
     role: "Chief Marketing Officer",
     company: "Brankas Digital",
     rating: 5,
-    result: "Budget dialokasikan jauh lebih efisien",
+    result: "Lebih banyak klien baru sejak website tayang",
+  },
+  {
+    quote:
+      "Landing page untuk kampanye produk baru kami selesai tepat waktu dan benar-benar mengonversi. Form yang dulu sepi sekarang penuh, dan tim sales tinggal menindaklanjuti lead yang masuk.",
+    name: "Sari Handayani",
+    role: "Kepala Operasional",
+    company: "Belanja Bahagia",
+    rating: 4,
+    result: "Lead kampanye meningkat 60%",
+  },
+  {
+    quote:
+      "Paket maintenance bikin tenang — website kami selalu aman, cepat, dan kontennya tetap segar. Ada masalah, direspons cepat. Rasanya seperti punya tim IT sendiri.",
+    name: "Bagas Aditya",
+    role: "Founder",
+    company: "Studio Piksel",
+    rating: 5,
+    result: "Website aman & terawat tanpa ribet",
   },
 ];

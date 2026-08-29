@@ -2,13 +2,11 @@
 
 import {
   ArrowRight,
-  Clapperboard,
-  Handshake,
-  Megaphone,
-  Share2,
-  Star,
-  Target,
-  Users,
+  Building2,
+  LayoutTemplate,
+  MonitorSmartphone,
+  ShoppingCart,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
 import { type MouseEvent } from "react";
@@ -22,13 +20,11 @@ import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
 
 const icons: Record<string, LucideIcon> = {
-  handshake: Handshake,
-  megaphone: Megaphone,
-  star: Star,
-  users: Users,
-  share2: Share2,
-  target: Target,
-  clapperboard: Clapperboard,
+  shoppingCart: ShoppingCart,
+  layoutTemplate: LayoutTemplate,
+  building2: Building2,
+  monitorSmartphone: MonitorSmartphone,
+  wrench: Wrench,
 };
 
 function ServiceIndex({ value }: { value: number }) {
@@ -196,8 +192,8 @@ export function Services() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Layanan"
-          title="Semua yang Brand Butuhkan untuk Tumbuh"
-          description="Affiliate, endorsement, hingga content production — satu mitra untuk seluruh mesin pertumbuhan digital brand-mu."
+          title="Semua Jenis Website yang Anda Butuhkan"
+          description="Dari landing page hingga toko online dan web app — satu mitra untuk kebutuhan digital bisnis Anda, dikerjakan dari nol hingga meluncur."
         />
 
         <BentoGrid className="mt-14">

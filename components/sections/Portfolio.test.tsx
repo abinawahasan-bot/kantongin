@@ -11,7 +11,7 @@ describe("Portfolio", () => {
   it("merender heading seksi dan filter kategori", () => {
     const { getByRole, getByText } = render(<Portfolio />);
     expect(
-      getByRole("heading", { name: /Hasil Nyata, Kampanye Terukur/ })
+      getByRole("heading", { name: /Karya Website yang Sudah Meluncur/ })
     ).toBeInTheDocument();
     expect(getByText("Semua")).toBeInTheDocument();
   });
@@ -27,9 +27,9 @@ describe("Portfolio", () => {
     const { getByLabelText, getByText } = render(<Portfolio />);
     fireEvent.click(getByLabelText(`Lihat detail proyek ${projects[0].title}`));
     expect(
-      getByText(/jaringan affiliate kami meluncurkan promo/i)
+      getByText(/katalog produk, keranjang belanja/i)
     ).toBeInTheDocument();
-    expect(getByText("Rp 4,2 M")).toBeInTheDocument();
+    expect(getByText("+2x")).toBeInTheDocument();
   });
 
   it("tiap proyek menampilkan foto kontekstual dengan alt deskriptif", () => {

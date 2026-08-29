@@ -8,30 +8,30 @@ export type Value = {
 export const values: Value[] = [
   {
     icon: "badgeCheck",
-    title: "Tim Kreator Terkurasi",
+    title: "Design Modern & Responsif",
     description:
-      "Setiap kreator melewati kurasi ketat — kredibilitas, kualitas konten, dan keselarasan audiens. Kamu hanya bekerja sama dengan kreator yang benar-benar relevan dan terpercaya.",
-    badge: "100% Terverifikasi",
+      "Tampilan kekinian yang menyesuaikan di semua perangkat — dari HP sampai layar lebar. Website Anda terlihat profesional di mana pun pelanggan membukanya.",
+    badge: "Siap Mobile",
   },
   {
     icon: "barChart",
-    title: "Data-Driven & Transparan",
+    title: "Fast & SEO-Ready",
     description:
-      "Tidak ada keputusan berdasarkan asumsi. Setiap kampanye dipandu data audiens dan performa real-time, dengan laporan yang terbuka di setiap tahap perjalanan.",
-    badge: "Laporan Real-time",
+      "Website dimuat cepat dan teroptimasi untuk mesin pencari sejak awal. Pelanggan menemukan Anda lebih mudah — dan betah berlama-lama di website Anda.",
+    badge: "PageSpeed 95+",
   },
   {
     icon: "rocket",
-    title: "Eksekusi Cepat & Andal",
+    title: "Proses Transparan & Tepat Waktu",
     description:
-      "Dari brief hingga tayang, tim kami bergerak cepat dengan proses yang teruji. Kampanye berjalan tepat waktu, tanpa hambatan, dan siap untuk diskalakan.",
+      "Progres pengerjaan jelas di setiap tahap dengan estimasi yang realistis. Anda selalu tahu status proyek tanpa harus mengejar-ngejar tim kami.",
     badge: "Response < 24 Jam",
   },
   {
     icon: "trendingUp",
-    title: "Hasil yang Terukur",
+    title: "Support & Maintenance",
     description:
-      "Setiap rupiah anggaran bisa dilacak. Kami memantau performa hingga konversi, sehingga kamu tahu persis hasil dari setiap kolaborasi yang dijalankan.",
-    badge: "Setiap Rupiah Terlacak",
+      "Website tidak berhenti setelah diluncurkan. Kami siap merawat, memperbarui, dan mengembangkan website Anda agar terus mendukung pertumbuhan bisnis.",
+    badge: "Garansi Perbaikan",
   },
 ];

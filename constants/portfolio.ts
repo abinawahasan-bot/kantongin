@@ -1,8 +1,8 @@
 export type PortfolioCategory =
-  | "Affiliate"
-  | "Endorsement"
-  | "Brand Collab"
-  | "Social Media";
+  | "E-commerce"
+  | "Company Profile"
+  | "Landing Page"
+  | "Web App";
 
 export type PortfolioMetric = {
   label: string;
@@ -22,107 +22,107 @@ export type PortfolioProject = {
 };
 
 export const portfolioCategories: PortfolioCategory[] = [
-  "Affiliate",
-  "Endorsement",
-  "Brand Collab",
-  "Social Media",
+  "E-commerce",
+  "Company Profile",
+  "Landing Page",
+  "Web App",
 ];
 
 export const projects: PortfolioProject[] = [
   {
-    id: "glowskin-ramadan",
-    title: "GlowSkin Ramadan Mega Sale",
-    category: "Affiliate",
-    result: "+312% ROAS",
-    gradient: "from-emerald-500 to-teal-600",
-    image: "/portfolio/glowskin-ramadan.jpg",
-    imageAlt: "Koleksi produk skincare GlowSkin dalam kemasan elegan",
-    description:
-      "Kampanye affiliate Ramadan untuk brand skincare lokal. Seluruh jaringan affiliate kami meluncurkan promo dalam satu hari serentak, menghasilkan ledakan penjualan di periode paling kompetitif tahun ini.",
-    metrics: [
-      { label: "ROAS", value: "+312%" },
-      { label: "GMV", value: "Rp 4,2 M" },
-      { label: "Order", value: "18,4K" },
-    ],
-  },
-  {
-    id: "kopi-nusantara-launch",
-    title: "Kopi Nusantara Affiliate Launch",
-    category: "Affiliate",
-    result: "Rp 1,8 M Penjualan",
-    gradient: "from-amber-500 to-orange-600",
-    image: "/portfolio/kopi-nusantara-launch.jpg",
-    imageAlt: "Barista menuang kopi premium dengan presisi tinggi",
-    description:
-      "Peluncuran brand kopi premium dengan program affiliate berjenjang. Lebih dari 400 kreator membangun konten ulasan yang berubah menjadi penjualan konsisten selama tiga bulan pertama.",
-    metrics: [
-      { label: "Penjualan", value: "Rp 1,8 M" },
-      { label: "Kreator", value: "420" },
-      { label: "ROAS", value: "+278%" },
-    ],
-  },
-  {
-    id: "fitfuel-endorsement",
-    title: "FitFuel Endorsement KOL",
-    category: "Endorsement",
-    result: "3,2 Jt Views",
-    gradient: "from-violet-500 to-purple-600",
-    image: "/portfolio/fitfuel-endorsement.jpg",
-    imageAlt: "Atlet fitness sedang berlatih di gym dengan energi tinggi",
-    description:
-      "Endorsement 15 KOL fitness dan healthy lifestyle untuk brand suplemen. Konten autentik dari kreator terkurasi membangun kepercayaan sekaligus engagement tinggi pada audiens yang sangat relevan.",
-    metrics: [
-      { label: "Views", value: "3,2 Jt" },
-      { label: "Engagement", value: "8,9%" },
-      { label: "Reach", value: "1,1 Jt" },
-    ],
-  },
-  {
-    id: "pesona-wisata-series",
-    title: "Pesona Wisata Endorsement Series",
-    category: "Endorsement",
-    result: "+45% Brand Recall",
-    gradient: "from-sky-500 to-blue-600",
-    image: "/portfolio/pesona-wisata-series.jpg",
-    imageAlt: "Hamparan sawah berundak hijau di destinasi wisata tropis",
-    description:
-      "Serial endorsement destinasi wisata domestik yang melibatkan 18 kreator perjalanan. Visual memukau dan cerita lokal mengangkat kesadaran brand sekaligus mendorong pemesanan paket liburan.",
-    metrics: [
-      { label: "Brand Recall", value: "+45%" },
-      { label: "Reach", value: "2,6 Jt" },
-      { label: "KOL", value: "18" },
-    ],
-  },
-  {
-    id: "lokalkita-kedai-paman",
-    title: "LokalKita x Kedai Paman Collab",
-    category: "Brand Collab",
-    result: "12K UGC Dibuat",
+    id: "rumahkreasi-toko-online",
+    title: "RumahKreasi Fashion Store",
+    category: "E-commerce",
+    result: "2x Penjualan Online",
     gradient: "from-rose-500 to-pink-600",
     image: "/portfolio/lokalkita-kedai-paman.jpg",
     imageAlt: "Rak pakaian komunitas di ruang kedai kopi yang hangat",
     description:
-      "Kolaborasi brand fashion lokal dengan jaringan kedai kopi untuk kampanye UGC lintas komunitas. Kampanye menghasilkan ribuan konten kreator dan ekspansi audiens yang signifikan bagi kedua brand.",
+      "Toko online fashion dengan katalog produk, keranjang belanja, dan integrasi payment gateway. Website responsif yang membuat belanja terasa mudah di semua perangkat.",
     metrics: [
-      { label: "UGC", value: "12.000" },
-      { label: "Engagement", value: "+63%" },
-      { label: "Audiens Baru", value: "480K" },
+      { label: "Penjualan", value: "+2x" },
+      { label: "PageSpeed", value: "96" },
+      { label: "Produk", value: "1.200" },
     ],
   },
   {
-    id: "technest-social",
-    title: "TechNest Social Media Takeover",
-    category: "Social Media",
-    result: "98K Pengikut Baru",
+    id: "kopikita-online",
+    title: "KopiKita Online",
+    category: "E-commerce",
+    result: "Rp 250 Jt GMV",
+    gradient: "from-amber-500 to-orange-600",
+    image: "/portfolio/kopi-nusantara-launch.jpg",
+    imageAlt: "Barista menuang kopi premium dengan presisi tinggi",
+    description:
+      "Toko online untuk brand F&B dengan sistem pemesanan, pembayaran digital, dan integrasi ongkir. Pesanan masuk otomatis dan mudah dikelola dari satu panel.",
+    metrics: [
+      { label: "GMV", value: "Rp 250 Jt" },
+      { label: "Order", value: "9.400" },
+      { label: "Konversi", value: "3,1%" },
+    ],
+  },
+  {
+    id: "sembakoid-marketplace",
+    title: "SembakoID Grocery",
+    category: "E-commerce",
+    result: "60% Lead Meningkat",
+    gradient: "from-emerald-500 to-teal-600",
+    image: "/portfolio/glowskin-ramadan.jpg",
+    imageAlt: "Koleksi produk dalam kemasan elegan di rak penyimpanan",
+    description:
+      "Toko online grosir dengan pencarian produk, keranjang, dan checkout cepat. Fitur stok dan laporan penjualan memudahkan tim mengelola ribuan SKU.",
+    metrics: [
+      { label: "Lead", value: "+60%" },
+      { label: "SKU", value: "5.000" },
+      { label: "SEO Rank", value: "Top 5" },
+    ],
+  },
+  {
+    id: "klinik-sehat-profile",
+    title: "Klinik Sehat Pro",
+    category: "Company Profile",
+    result: "8x Jadwal Booking",
+    gradient: "from-sky-500 to-blue-600",
+    image: "/portfolio/fitfuel-endorsement.jpg",
+    imageAlt: "Suasana sehat dengan atlet berlatih dengan energi tinggi",
+    description:
+      "Company profile klinik dengan halaman layanan, tim dokter, dan form booking online. Desain bersih dan terpercaya yang meningkatkan kepercayaan pasien.",
+    metrics: [
+      { label: "Booking", value: "8x" },
+      { label: "PageSpeed", value: "98" },
+      { label: "Halaman", value: "7" },
+    ],
+  },
+  {
+    id: "nusaproperti-landing",
+    title: "NusaProperti Landing",
+    category: "Landing Page",
+    result: "2,4x Lead Properti",
+    gradient: "from-violet-500 to-purple-600",
+    image: "/portfolio/pesona-wisata-series.jpg",
+    imageAlt: "Hamparan lahan luas dengan pemandangan hijau di destinasi tropis",
+    description:
+      "Landing page properti dengan galeri unit, simulasi kredit, dan form lead yang terhubung WhatsApp. Fokus konversi membuat tim sales lebih mudah menindaklanjuti prospek.",
+    metrics: [
+      { label: "Lead", value: "2,4x" },
+      { label: "Konversi", value: "4,8%" },
+      { label: "Speed", value: "0,9s" },
+    ],
+  },
+  {
+    id: "financehub-webapp",
+    title: "FinanceHub Dashboard",
+    category: "Web App",
+    result: "40% Hemat Admin",
     gradient: "from-cyan-500 to-blue-600",
     image: "/portfolio/technest-social.jpg",
     imageAlt: "Perangkat gadget modern di atas meja kerja minimalis",
     description:
-      "Pengelolaan penuh media sosial brand gadget dengan strategi konten berbasis tren. Konsistensi unggahan dan interaksi aktif mengubah profil brand menjadi magnet audiens baru setiap minggunya.",
+      "Web app dashboard keuangan dengan login multi-role, laporan real-time, dan integrasi API. Proses manual digantikan alur otomatis yang lebih cepat dan akurat.",
     metrics: [
-      { label: "Pengikut", value: "98K" },
-      { label: "Interaksi", value: "4,2 Jt" },
-      { label: "Impresi", value: "12 Jt" },
+      { label: "Efisiensi", value: "+40%" },
+      { label: "Pengguna", value: "210" },
+      { label: "Uptime", value: "99,9%" },
     ],
   },
 ];

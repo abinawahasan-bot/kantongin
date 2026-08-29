@@ -5,15 +5,19 @@ test.describe("Beranda", () => {
     await page.goto("/");
     await expect(page).toHaveTitle(/KantongIn/);
     await expect(
-      page.getByRole("heading", { name: /Tumbuhkan Penjualan/ })
+      page.getByRole("heading", { name: /Website Profesional/ })
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: "Mulai Kampanye" }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Konsultasi Gratis" }).first()).toBeVisible();
   });
 
   test("navbar menyediakan navigasi anchor", async ({ page }) => {
     await page.goto("/");
     const nav = page.getByRole("navigation", { name: "Navigasi utama" });
     await expect(nav.getByRole("link", { name: "Layanan" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Proses" })).toHaveAttribute(
+      "href",
+      "#how-it-works"
+    );
     await expect(nav.getByRole("link", { name: "Harga" })).toBeVisible();
     await expect(nav.getByRole("link", { name: "Blog" })).toHaveAttribute(
       "href",

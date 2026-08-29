@@ -5,38 +5,38 @@ export type Faq = {
 
 export const faqs: Faq[] = [
   {
-    question: "Bagaimana cara mulai kampanye bersama KantongIn?",
+    question: "Berapa lama pengerjaan website?",
     answer:
-      "Mulailah dengan konsultasi gratis bersama tim kami. Anda cukup menceritakan tujuan bisnis dan target audiens, lalu tim kami menyusun rekomendasi paket serta strategi kampanye yang paling sesuai sebelum disepakati bersama.",
+      "Tergantung jenisnya: Landing Page sekitar 1–2 minggu, Company Profile 2–3 minggu, dan E-commerce/Toko Online 3–6 minggu. Estimasi pasti disepakati di awal setelah konsultasi kebutuhan Anda.",
   },
   {
-    question: "Apa itu affiliate marketing?",
+    question: "Apakah harga sudah termasuk domain & hosting?",
     answer:
-      "Affiliate marketing adalah model kerja sama di mana brand membayar komisi hanya saat terjadi penjualan atau konversi dari tautan affiliate. Dengan begitu, anggaran pemasaran Anda lebih efisien karena dibayar berdasarkan performa nyata.",
+      "Belum — harga paket fokus pada jasa pembuatan website. Kami membantu Anda menyiapkan domain dan hosting yang sesuai (termasuk pilihan yang hemat), dan biayanya transparan sejak awal, tanpa biaya tersembunyi.",
   },
   {
-    question: "Bagaimana komisi dibayarkan ke kreator?",
+    question: "Bisakah saya minta revisi?",
     answer:
-      "Setiap klik dan penjualan yang berasal dari kode pelacakan unik tercatat otomatis dan real-time. Komisi yang terkumpul bisa dicairkan kapan saja melalui dashboard, tanpa perlu rekap manual.",
+      "Tentu. Setiap paket menyertakan gratis revisi pada tahap desain dan pengembangan. Kami mengundang Anda memeriksa hasil di tiap tahap, jadi hasil akhir sesuai keinginan sebelum website diluncurkan.",
+  },
+  {
+    question: "Apakah website bisa dikelola sendiri setelah selesai?",
+    answer:
+      "Bisa. Kami membangun website dengan sistem yang mudah dikelola dan menyertakan pelatihan admin singkat. Anda (atau tim Anda) bisa memperbarui konten, produk, dan artikel secara mandiri.",
   },
   {
     question: "Apakah layanan ini cocok untuk UMKM?",
     answer:
-      "Sangat cocok. Paket Starter dirancang khusus untuk brand dan UMKM yang baru ingin membangun pondasi pemasaran digital dengan biaya terjangkau, sementara paket Professional dan Enterprise melayani kebutuhan yang lebih besar.",
+      "Sangat cocok. Paket Landing Page dan Company Profile dirancang khusus untuk UMKM dan bisnis yang baru go online dengan anggaran terjangkau. Untuk kebutuhan lebih besar, tersedia paket Custom / Web App.",
   },
   {
-    question: "Bagaimana cara bergabung menjadi kreator?",
+    question: "Apakah website sudah aman dan cepat diakses?",
     answer:
-      "Cukup daftarkan akun kreator Anda dalam hitungan menit. Tim kami akan memverifikasi profil dan kualitas konten, lalu Anda bisa mulai memilih kolaborasi brand yang sesuai dengan gaya dan audiens Anda.",
+      "Ya. Setiap website kami bangun dengan standar keamanan (HTTPS, proteksi data, backup berkala) dan dioptimasi agar cepat dimuat di semua perangkat — termasuk SEO dasar agar mudah ditemukan di mesin pencari.",
   },
   {
-    question: "Apakah ada kontrak jangka panjang?",
+    question: "Bagaimana dukungan setelah website diluncurkan?",
     answer:
-      "Tidak. Semua paket bersifat fleksibel tanpa ikatan kontrak jangka panjang. Anda bisa berhenti, ganti paket, atau upgrade kapan saja sesuai kebutuhan bisnis.",
-  },
-  {
-    question: "Bagaimana saya memantau performa kampanye?",
-    answer:
-      "Anda mendapat akses ke dashboard analitik real-time dan laporan performa bulanan yang transparan. Tim kami juga melakukan optimasi berkelanjutan agar hasil kampanye semakin baik.",
+      "Anda mendapat masa garansi perbaikan dan bisa memilih paket Maintenance & Support untuk update konten, pemantauan keamanan, backup, dan bantuan teknis berkala. Tim kami juga siap merespons cepat via WhatsApp.",
   },
 ];

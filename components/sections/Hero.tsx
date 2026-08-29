@@ -107,14 +107,14 @@ export function Hero() {
         <div>
           <AnimatedText
             as="h1"
-            text="Tumbuhkan Penjualan Lewat Kolaborasi Kreator Terkurasi"
-            highlight="Kreator Terkurasi"
+            text="Website Profesional yang Mendatangkan Pelanggan"
+            highlight="Mendatangkan Pelanggan"
             className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
           />
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            Affiliate marketing &amp; endorsement berbasis performa — bayar sesuai
-            hasil, bukan janji. KantongIn hubungkan brand Anda dengan 850+ kreator
-            siap kampanye.
+            Jasa pembuatan website untuk UMKM, startup, dan brand — landing page,
+            company profile, toko online, hingga web app. Responsif, cepat, dan
+            SEO-ready dalam anggaran Anda.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -124,7 +124,7 @@ export function Hero() {
             >
               <Button asChild variant="primary" size="lg" className="rounded-full">
                 <span className="gap-2">
-                  Mulai Kampanye Gratis
+                  Konsultasi Gratis
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </Button>
@@ -159,13 +159,13 @@ export function Hero() {
             <div ref={mockupRef} className="relative">
               <DashboardMockup />
               <KpiChip
-                value="+214%"
-                label="Rata-rata ROI"
+                value="98%"
+                label="Klien Puas"
                 className="left-0 top-10 hidden lg:flex"
               />
               <KpiChip
-                value="2.5M+"
-                label="Komisi Disalurkan"
+                value="100+"
+                label="Website Selesai"
                 floatDelay={1.2}
                 className="-right-2 bottom-12 hidden lg:flex"
               />
