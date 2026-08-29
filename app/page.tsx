@@ -1,6 +1,6 @@
 import { JsonLdFaq } from "@/components/common/JsonLd";
 import {
-  LazyContactSection,
+  LazyEstimateWizard,
   LazyCTASection,
   LazyFAQ,
   LazyHowItWorks,
@@ -30,7 +30,7 @@ export default function Home() {
         <LazyPricing />
         <LazyCTASection />
         <LazyFAQ />
-        <LazyContactSection />
+        <LazyEstimateWizard />
       </main>
     </>
   );

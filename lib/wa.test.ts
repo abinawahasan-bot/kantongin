@@ -1,29 +1,82 @@
 import { describe, expect, it } from "vitest";
-import { buildWhatsAppLink, contactToWhatsAppMessage, waNumber } from "./wa";
-import type { ContactValues } from "./schemas/forms";
+import type { EstimateContactValues } from "@/lib/schemas/forms";
+import {
+  buildWhatsAppLink,
+  estimateDirectMessage,
+  estimateToWhatsAppMessage,
+} from "./wa";
 
-describe("lib/wa", () => {
-  it("mengekstrak nomor dari siteConfig.socials.whatsapp", () => {
-    expect(waNumber()).toBe("6285775149968");
+const estimateValues: EstimateContactValues = {
+  name: "Budi Santoso",
+  email: "budi@example.com",
+  service: "company",
+  addons: ["blog", "maintenance"],
+  budget: "1to3m",
+  message: "Saya butuh website untuk perusahaan konstruksi.",
+};
+
+describe("buildWhatsAppLink", () => {
+  it("menghasilkan link wa.me dengan pesan ter-encode", () => {
+    const link = buildWhatsAppLink("Halo!");
+    expect(link.startsWith("https://wa.me/6285775149968?text=")).toBe(true);
+    expect(decodeURIComponent(link)).toContain("text=Halo!");
   });
-  it("menyusun link wa.me dengan text ter-encode", () => {
-    expect(buildWhatsAppLink("Halo & KantongIn+")).toBe(
-      "https://wa.me/6285775149968?text=Halo%20%26%20KantongIn%2B"
+});
+
+describe("estimateToWhatsAppMessage", () => {
+  it("menyusun pesan terstruktur lengkap", () => {
+    const message = estimateToWhatsAppMessage(estimateValues);
+    expect(message).toContain("Halo KantongIn, saya ingin konsultasi pembuatan website!");
+    expect(message).toContain("Nama: Budi Santoso");
+    expect(message).toContain("Email: budi@example.com");
+    expect(message).toContain("Jenis Layanan: Company Profile");
+    expect(message).toContain("• Blog / Artikel (+Rp 300.000)");
+    expect(message).toContain("• Maintenance & support (1 bulan) (+Rp 150.000)");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.750.000");
+    expect(message).toContain("Budget: Rp 1–3 juta");
+    expect(message).toContain("Pesan: Saya butuh website untuk perusahaan konstruksi.");
+    expect(message).toContain(
+      "(angka estimasi & fitur dapat berubah setelah konsultasi scope)"
     );
   });
-  it("contactToWhatsAppMessage memuat semua field", () => {
-    const values: ContactValues = {
-      name: "Budi",
-      email: "budi@example.com",
-      service: "Landing Page",
-      subject: "Proyek",
-      message: "Saya ingin membuat landing page.",
-    };
-    const msg = contactToWhatsAppMessage(values);
-    expect(msg).toContain("Nama: Budi");
-    expect(msg).toContain("Email: budi@example.com");
-    expect(msg).toContain("Jenis Layanan: Landing Page");
-    expect(msg).toContain("Subjek: Proyek");
-    expect(msg).toContain("Saya ingin membuat landing page.");
+
+  it("menulis '-' untuk fitur tambahan kosong", () => {
+    const message = estimateToWhatsAppMessage({
+      name: "Sari",
+      email: "sari@example.com",
+      service: "landing",
+      addons: [],
+      budget: "undecided",
+      message: "Mau bikin landing page produk baru.",
+    });
+    expect(message).toContain("Fitur tambahan: -");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 500.000");
+    expect(message).toContain("Budget: Belum tahu");
+  });
+
+  it("menulis custom untuk add-on API tanpa harga", () => {
+    const message = estimateToWhatsAppMessage({
+      ...estimateValues,
+      addons: ["api"],
+    });
+    expect(message).toContain("• Integrasi API / sistem (custom)");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.300.000");
+  });
+});
+
+describe("estimateDirectMessage", () => {
+  it("menyusun pesan ringkas tanpa data kontak", () => {
+    const message = estimateDirectMessage("company", ["blog", "maintenance"]);
+    expect(message).toContain("Jenis Layanan: Company Profile");
+    expect(message).toContain("• Blog / Artikel (+Rp 300.000)");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.750.000");
+    expect(message).not.toContain("Nama:");
+    expect(message).not.toContain("Budget:");
+  });
+
+  it("menulis '-' untuk fitur tambahan kosong", () => {
+    expect(estimateDirectMessage("landing", [])).toContain(
+      "Fitur tambahan: -"
+    );
   });
 });

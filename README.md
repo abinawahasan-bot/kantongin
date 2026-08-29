@@ -10,12 +10,20 @@ dan SEO-ready.
 - [Next.js 16](https://nextjs.org) (App Router, Turbopack) + React 19 + TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com) + shadcn/ui
 - Framer Motion, GSAP, Lenis, Embla Carousel
-- React Hook Form + Zod (skema form bersama di `lib/schemas/forms.ts`)
+- Zod (skema validasi form bersama di `lib/schemas/forms.ts`)
 - Blog MDX via `next-mdx-remote` (RSC) + `gray-matter` (frontmatter fs-based)
 - Rate limiting hibrida: Upstash Redis (opsional) dengan fallback in-memory
-- Jalur lead utama via WhatsApp: form kontak membuka `wa.me` dengan pesan prefilled
-  (`lib/wa.ts`). Backend email (Resend) masih tersedia dan dormant sampai ada
-  domain sendiri — form beralih kembali saat `RESEND_*` terisi.
+- Jalur lead utama via WhatsApp: wizard estimasi harga (`#contact`) dan
+  kalkulator di halaman `/layanan` membuka `wa.me` dengan pesan prefilled
+  berisi rincian kebutuhan, estimasi awal, dan data kontak. Backend email
+  (Resend) masih tersedia dan dormant sampai ada domain sendiri — beralih
+  otomatis saat `RESEND_*` terisi.
+- Estimator harga: model katalog & komputasi murni di `lib/estimator.ts`;
+  UI bersama `components/common/PriceEstimator.tsx` dipakai wizard beranda
+  (`components/sections/EstimateWizard.tsx`) dan kalkulator `/layanan`
+  (`components/sections/EstimatorCard.tsx`). Pilihan bisa dibawa lintas
+  halaman lewat query `?estimasi=`. Semua nilai bersifat indikatif
+  ("mulai dari"), harga final disepakati saat konsultasi scope.
 - Vercel Analytics
 - Vitest, Playwright, Lighthouse CI
 

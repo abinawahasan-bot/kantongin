@@ -6,6 +6,7 @@ import { GlowCard } from "@/components/common/GlowCard";
 import { JsonLdFaq } from "@/components/common/JsonLd";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
+import { EstimatorCard } from "@/components/sections/EstimatorCard";
 import { Button } from "@/components/ui/button";
 import { faqs } from "@/constants/faqs";
 import { siteConfig } from "@/constants/site";
@@ -172,6 +173,8 @@ export default function LayananPage() {
             ))}
           </ol>
         </div>
+
+        <EstimatorCard />
 
         <div className="mt-20">
           <SectionHeading

@@ -23,9 +23,8 @@ const CTASection = dynamic(
   () => import("@/components/sections/CTASection").then((mod) => mod.CTASection),
   { ssr: false }
 );
-const ContactSection = dynamic(
-  () =>
-    import("@/components/sections/ContactSection").then((mod) => mod.ContactSection),
+const EstimateWizard = dynamic(
+  () => import("@/components/sections/EstimateWizard").then((mod) => mod.EstimateWizard),
   { ssr: false }
 );
 const Statistics = dynamic(
@@ -117,10 +116,10 @@ export function LazyCTASection() {
   );
 }
 
-export function LazyContactSection() {
+export function LazyEstimateWizard() {
   return (
     <LazyMount hashes={["#contact"]}>
-      <ContactSection />
+      <EstimateWizard />
     </LazyMount>
   );
 }
