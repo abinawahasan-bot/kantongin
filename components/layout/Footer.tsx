@@ -2,12 +2,14 @@
 
 import { ArrowRight, Check, Mail } from "lucide-react";
 import type { MouseEvent } from "react";
+import { usePathname } from "next/navigation";
 import { Logo } from "@/components/common/Logo";
 import { SocialIcon } from "@/components/common/SocialIcon";
 import { navItems } from "@/constants/navigation";
 import { siteConfig } from "@/constants/site";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
+import { resolveNavHref } from "@/lib/nav";
 import { revealAndScroll } from "@/lib/reveal-section";
 import { buildWhatsAppLink } from "@/lib/wa";
 
@@ -50,9 +52,11 @@ const socialIcons = ["instagram", "tiktok", "whatsapp"] as const;
 
 export function Footer() {
   const { scrollTo, ready } = useLenis();
+  const pathname = usePathname();
 
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
     if (target.startsWith("/")) return; // rute internal — navigasi browser default
+    if (pathname !== "/") return; // anchor home dari halaman lain — navigasi native ke "/#target"
     if (!ready) return;
     event.preventDefault();
     if (isHowFlowAnchor(target)) {
@@ -112,7 +116,7 @@ export function Footer() {
                 .map((item) => (
                   <li key={item.label}>
                     <a
-                      href={item.href}
+                      href={resolveNavHref(pathname, item.href)}
                       onClick={(event) => handleAnchor(event, item.href)}
                       className="inline-flex items-center gap-1 text-sm text-muted transition-colors duration-200 hover:text-primary"
                     >
@@ -134,7 +138,7 @@ export function Footer() {
               {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <a
-                    href={link.href}
+                    href={resolveNavHref(pathname, link.href)}
                     onClick={(event) => handleAnchor(event, link.href)}
                     className="text-sm text-muted transition-colors duration-200 hover:text-primary"
                   >
@@ -177,7 +181,7 @@ export function Footer() {
                   {resourceLinks.map((link) => (
                     <li key={link.label}>
                       <a
-                        href={link.href}
+                        href={resolveNavHref(pathname, link.href)}
                         onClick={(event) => handleAnchor(event, link.href)}
                         className="text-sm text-muted transition-colors duration-200 hover:text-primary"
                       >

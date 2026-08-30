@@ -10,7 +10,7 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { label: "Beranda", href: "#home" },
+  { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/tentang-kami" },
   {
     label: "Layanan",

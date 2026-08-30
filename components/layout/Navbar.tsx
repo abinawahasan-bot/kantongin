@@ -10,22 +10,28 @@ import { MobileMenu } from "@/components/layout/MobileMenu";
 import { navItems, type MegaColumn, type NavItem } from "@/constants/navigation";
 import { isHowFlowAnchor, switchHowFlow } from "@/lib/howTabs";
 import { useLenis } from "@/lib/lenis";
+import { resolveNavHref } from "@/lib/nav";
 import { revealAndScroll } from "@/lib/reveal-section";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type DesktopNavItemProps = {
   item: NavItem;
+  href: string;
   onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
+};
+
+type DesktopMegaItemProps = DesktopNavItemProps & {
+  resolveHref: (href: string) => string;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function DesktopNavItem({ item, onNavigate }: DesktopNavItemProps) {
+function DesktopNavItem({ item, href, onNavigate }: DesktopNavItemProps) {
   return (
     <li>
       <a
-        href={item.href}
+        href={href}
         onClick={(event) => onNavigate(event, item.href)}
         className="rounded-md px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
       >
@@ -35,7 +41,7 @@ function DesktopNavItem({ item, onNavigate }: DesktopNavItemProps) {
   );
 }
 
-function DesktopMegaItem({ item, onNavigate }: DesktopNavItemProps) {
+function DesktopMegaItem({ item, href, resolveHref, onNavigate }: DesktopMegaItemProps) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLLIElement>(null);
   const triggerRef = useRef<HTMLAnchorElement>(null);
@@ -64,7 +70,7 @@ function DesktopMegaItem({ item, onNavigate }: DesktopNavItemProps) {
     >
       <a
         ref={triggerRef}
-        href={item.href}
+        href={href}
         aria-haspopup="true"
         aria-expanded={open}
         onFocus={() => setOpen(true)}
@@ -100,7 +106,7 @@ function DesktopMegaItem({ item, onNavigate }: DesktopNavItemProps) {
                       {column.items.map((link) => (
                         <li key={link.label}>
                           <a
-                            href={link.href}
+                            href={resolveHref(link.href)}
                             role="menuitem"
                             onClick={(event) => onNavigate(event, link.href)}
                             className="block rounded-lg px-3 py-2 text-sm text-foreground/75 transition-colors hover:bg-background hover:text-foreground"
@@ -127,13 +133,24 @@ export function Navbar() {
   const { scrollY } = useScroll();
   const { scrollTo, ready } = useLenis();
   const router = useRouter();
+  const pathname = usePathname();
 
   useMotionValueEvent(scrollY, "change", (value) => {
     setScrolled(value > 16);
   });
 
   const handleAnchorClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("/")) return; // rute internal — navigasi browser default
+    if (href.startsWith("/")) {
+      // Kembali ke beranda saat sudah di beranda: scroll halus ke atas,
+      // bukan reload.
+      if (href === "/" && pathname === "/") {
+        event.preventDefault();
+        void scrollTo("#home");
+      }
+      return; // rute internal — navigasi browser default
+    }
+    // Anchor section dari halaman lain → navigasi native ke "/#target".
+    if (pathname !== "/") return;
     if (!ready) return;
     event.preventDefault();
     if (isHowFlowAnchor(href)) {
@@ -152,6 +169,12 @@ export function Navbar() {
       void router.push(href);
       return;
     }
+    if (pathname !== "/") {
+      // Anchor section dari halaman lain → pindah ke deep-link beranda.
+      setMenuOpen(false);
+      void router.push(resolveNavHref(pathname, href));
+      return;
+    }
     if (!ready) return;
     if (isHowFlowAnchor(href)) {
       switchHowFlow(href);
@@ -162,6 +185,8 @@ export function Navbar() {
     void revealAndScroll(href, (target) => scrollTo(target));
     setMenuOpen(false);
   };
+
+  const resolveHref = (href: string) => resolveNavHref(pathname, href);
 
   return (
     <>
@@ -174,15 +199,26 @@ export function Navbar() {
         )}
       >
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          <Logo onClick={(event) => handleAnchorClick(event, "#home")} className="shrink-0" />
+          <Logo onClick={(event) => handleAnchorClick(event, "/")} className="shrink-0" />
 
           <nav aria-label="Navigasi utama" className="hidden items-center lg:flex">
             <ul className="flex items-center gap-0.5">
               {navItems.map((item) =>
                 item.mega ? (
-                  <DesktopMegaItem key={item.href} item={item} onNavigate={handleAnchorClick} />
+                  <DesktopMegaItem
+                    key={item.href}
+                    item={item}
+                    href={resolveHref(item.href)}
+                    resolveHref={resolveHref}
+                    onNavigate={handleAnchorClick}
+                  />
                 ) : (
-                  <DesktopNavItem key={item.href} item={item} onNavigate={handleAnchorClick} />
+                  <DesktopNavItem
+                    key={item.href}
+                    item={item}
+                    href={resolveHref(item.href)}
+                    onNavigate={handleAnchorClick}
+                  />
                 )
               )}
             </ul>
@@ -191,9 +227,10 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <MagneticButton
-              href="#contact"
+              href={resolveHref("#contact")}
               ariaLabel="Mulai Kampanye"
               onClick={(event) => {
+                if (pathname !== "/") return; // anchor home dari halaman lain — navigasi native
                 if (!ready) return;
                 event.preventDefault();
                 void revealAndScroll("#contact", (target) => scrollTo(target));
@@ -215,7 +252,12 @@ export function Navbar() {
         </div>
       </header>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} onNavigate={navigate} />
+      <MobileMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onNavigate={navigate}
+        resolveHref={resolveHref}
+      />
     </>
   );
 }

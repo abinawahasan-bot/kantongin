@@ -1,4 +1,5 @@
 import { JsonLdFaq } from "@/components/common/JsonLd";
+import { HomeHashScroll } from "@/components/common/HomeHashScroll";
 import {
   LazyEstimateWizard,
   LazyCTASection,
@@ -19,6 +20,7 @@ export default function Home() {
     <>
       <JsonLdFaq />
       <main id="main" tabIndex={-1}>
+        <HomeHashScroll />
         <Hero />
         <TrustedBy />
         <LazyStatistics />

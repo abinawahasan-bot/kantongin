@@ -3,13 +3,14 @@ import { cn } from "@/lib/utils";
 
 type LogoProps = {
   className?: string;
+  href?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
 
-export function Logo({ className, onClick }: LogoProps) {
+export function Logo({ className, href = "/", onClick }: LogoProps) {
   return (
     <a
-      href="#home"
+      href={href}
       onClick={onClick}
       aria-label="KantongIn - Beranda"
       className={cn(

@@ -10,6 +10,7 @@ type MobileMenuProps = {
   open: boolean;
   onClose: () => void;
   onNavigate: (href: string) => void;
+  resolveHref: (href: string) => string;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -25,7 +26,7 @@ const itemVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
 };
 
-export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, onNavigate, resolveHref }: MobileMenuProps) {
   const { stop, start } = useLenis();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -93,7 +94,7 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
               {navItems.map((item) => (
                 <motion.li key={item.href} variants={itemVariants}>
                   <a
-                    href={item.href}
+                    href={resolveHref(item.href)}
                     onClick={(event) => {
                       if (item.href.startsWith("/")) {
                         onClose();
@@ -112,7 +113,7 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
                       {item.mega.flatMap((column) => column.items).map((link) => (
                         <li key={link.label}>
                           <a
-                            href={link.href}
+                            href={resolveHref(link.href)}
                             onClick={(event) => {
                               if (link.href.startsWith("/")) {
                                 onClose();
@@ -137,7 +138,7 @@ export function MobileMenu({ open, onClose, onNavigate }: MobileMenuProps) {
           <div className="shrink-0 px-6 pb-10">
             <motion.a
               variants={itemVariants}
-              href="#contact"
+              href={resolveHref("#contact")}
               onClick={(event) => {
                 event.preventDefault();
                 onNavigate("#contact");

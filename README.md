@@ -121,6 +121,10 @@ Buka [http://localhost:3000](http://localhost:3000).
 - Halaman legal: `/kebijakan-privasi`, `/syarat-ketentuan`,
   `/kebijakan-cookie` (template generik).
 - Konfigurasi situs (nama, kontak, sosial): `constants/site.ts`
+- Navigasi: item menu anchor section (`#services`, `#contact`, dst.) otomatis
+  menjadi deep-link `/ #section` saat diklik dari halaman selain beranda
+  (`lib/nav.ts`); `components/common/HomeHashScroll.tsx` me-scroll ke section
+  tujuan saat beranda termuat dengan hash.
 
 ## Deploy
 
