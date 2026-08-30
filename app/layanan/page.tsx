@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/common/SectionHeading";
 import { EstimatorCard } from "@/components/sections/EstimatorCard";
 import { Button } from "@/components/ui/button";
 import { faqs } from "@/constants/faqs";
+import { guaranteePoints } from "@/constants/guarantees";
 import { siteConfig } from "@/constants/site";
 import { services } from "@/constants/services";
 import { flows } from "@/constants/steps";
@@ -45,13 +46,6 @@ export const metadata: Metadata = {
     images: [buildOgImageUrl("Layanan Pembuatan Website", siteConfig.tagline)],
   },
 };
-
-const guaranteePoints = [
-  "Gratis revisi pada tahap desain & pengembangan",
-  "Estimasi waktu pengerjaan realistis, disepakati di awal",
-  "Garansi perbaikan setelah website diluncurkan",
-  "Pelatihan singkat agar Anda bisa mengelola website sendiri",
-];
 
 export default function LayananPage() {
   const processSteps = flows[0].steps;

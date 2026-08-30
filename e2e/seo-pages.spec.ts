@@ -33,7 +33,7 @@ test.describe("SEO & halaman statis", () => {
     await expect(
       page.getByRole("heading", { name: /Proses yang Jelas dari Awal/ })
     ).toBeVisible();
-    await expect(page.locator("details")).toHaveCount(7);
+    await expect(page.locator("details")).toHaveCount(11);
     const waLink = page.getByRole("link", {
       name: /Konsultasi layanan ini/i,
     });
@@ -84,6 +84,45 @@ test.describe("SEO & halaman statis", () => {
     const body = (await res.text()) as string;
     expect(body).toContain('<rss version="2.0">');
     expect(body).toContain("<item>");
+  });
+
+  test("manifest-icon menyajikan PNG 192/512 dan menolak ukuran lain", async ({
+    page,
+  }) => {
+    const res512 = await page.request.get("/manifest-icon?size=512");
+    expect(res512.status()).toBe(200);
+    expect((await res512.headers())["content-type"]).toContain("image/png");
+
+    const res192 = await page.request.get("/manifest-icon?size=192");
+    expect(res192.status()).toBe(200);
+    expect((await res192.headers())["content-type"]).toContain("image/png");
+
+    expect((await page.request.get("/manifest-icon?size=999")).status()).toBe(400);
+    expect((await page.request.get("/manifest-icon")).status()).toBe(400);
+  });
+
+  test("apple-icon menyajikan PNG", async ({ page }) => {
+    await page.goto("/");
+    await expect(
+      page.locator('link[rel="apple-touch-icon"]')
+    ).toHaveAttribute("href", /\/apple-icon/);
+    const res = await page.request.get("/apple-icon");
+    expect(res.status()).toBe(200);
+    expect((await res.headers())["content-type"]).toContain("image/png");
+  });
+
+  test("manifest web app memuat ikon PNG & theme color", async ({ page }) => {
+    await page.goto("/");
+    const manifestLink = page.locator('link[rel="manifest"]');
+    await expect(manifestLink).toHaveAttribute("href", /manifest\.webmanifest/);
+    const res = await page.request.get("/manifest.webmanifest");
+    expect(res.status()).toBe(200);
+    const manifest = await res.json();
+    const iconUrls = manifest.icons.map((icon: { src: string }) => icon.src);
+    expect(iconUrls).toContain("/manifest-icon?size=192");
+    expect(iconUrls).toContain("/manifest-icon?size=512");
+    expect(manifest.theme_color).toBe("#22C55E");
+    expect(manifest.lang).toBe("id");
   });
 
   test("halaman layanan memuat BreadcrumbList dan ItemList JSON-LD", async ({ page }) => {

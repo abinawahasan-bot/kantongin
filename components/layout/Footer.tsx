@@ -26,7 +26,7 @@ const serviceLinks = [
 const resourceLinks = [
   { label: "FAQ", href: "#faq" },
   { label: "Cara Kerja", href: "#how-it-works" },
-  { label: "Harga", href: "#pricing" },
+  { label: "Harga", href: "/harga" },
   { label: "Blog", href: "/blog" },
 ];
 

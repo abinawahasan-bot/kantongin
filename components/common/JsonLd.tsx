@@ -1,5 +1,5 @@
 import { siteConfig } from "@/constants/site";
-import { faqs } from "@/constants/faqs";
+import { buildFaqSchema } from "@/constants/faqs";
 
 export function buildOrganizationSchema(): Record<string, unknown> {
   return {
@@ -34,23 +34,10 @@ export function JsonLd() {
 }
 
 export function JsonLdFaq() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema()) }}
     />
   );
 }

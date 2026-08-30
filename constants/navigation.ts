@@ -37,7 +37,7 @@ export const navItems: NavItem[] = [
   },
   { label: "Proses", href: "#how-it-works" },
   { label: "Portofolio", href: "#portfolio" },
-  { label: "Harga", href: "#pricing" },
+  { label: "Harga", href: "/harga" },
   { label: "Blog", href: "/blog" },
   { label: "Kontak", href: "#contact" },
 ];

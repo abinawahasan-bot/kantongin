@@ -68,10 +68,12 @@ Buka [http://localhost:3000](http://localhost:3000).
 
 - Halaman utama: `app/page.tsx` + `components/sections/*`
 - Halaman statis SEO: `/layanan` (detail 6 layanan, proses, FAQ, CTA WhatsApp) di
-  `app/layanan/page.tsx`; `/tentang-kami` (nilai, statistik, partner, testimoni,
-  CTA) di `app/tentang-kami/page.tsx`.
-- Konten terpusat (layanan, langkah, nilai, paket harga, FAQ, testimoni,
-  portofolio, statistik): `constants/` — ubah copy di sana, bukan di komponen.
+  `app/layanan/page.tsx`; `/harga` (estimator harga, 3 paket, transparansi
+  pembayaran/kontrak/garansi, FAQ) di `app/harga/page.tsx`; `/tentang-kami`
+  (nilai, statistik, partner, testimoni, CTA) di `app/tentang-kami/page.tsx`.
+- Konten terpusat (layanan, langkah, nilai, paket harga, FAQ 11 butir, alur
+  pembayaran, garansi, testimoni, portofolio, statistik): `constants/` — ubah
+  copy di sana, bukan di komponen.
 - Blog (MDX): cara menambah artikel tetap sama — drop file `.mdx` di
   `app/blog/_posts/` dengan blok frontmatter YAML (`title`, `description`,
   `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `category` Wajib,
@@ -79,13 +81,20 @@ Buka [http://localhost:3000](http://localhost:3000).
   (`/blog/kategori/<slug>`), artikel terkait (otomatis dari kategori & tag via
   `app/blog/related.ts`), detail SSG, sitemap, dan JSON-LD (ItemList di index,
   BreadcrumbList di detail/kategori). Saat ini ada 9 artikel.
-- Kartu artikel blog dipakai bersama lewat `app/blog/PostCard.tsx`.
+- Kartu artikel blog dipakai bersama lewat `app/blog/PostCard.tsx`; kartu paket
+  harga dipakai bersama (home & `/harga`) lewat `components/common/PricingCard.tsx`.
 - JSON-LD terstruktur lain: `buildBreadcrumbList`/`buildItemList` di
-  `components/common/JsonLd.tsx` (dipakai di blog, kategori, dan `/layanan`).
+  `components/common/JsonLd.tsx` (dipakai di blog, kategori, `/layanan`, dan
+  `/harga`); FAQPage schema dibangun dari `buildFaqSchema()` di
+  `constants/faqs.ts` (dipakai home & `/harga`).
 - RSS feed: `/feed.xml` (RSS 2.0) dibangun dari semua posting via `buildFeedXml()`
   di `lib/feed.ts`; terhubung lewat `alternates` di `app/layout.tsx`.
 - OG image dinamis per halaman: `app/og-image/route.tsx` (query `title` &
   opsional `subtitle`), dibangun lewat `buildOgImageUrl()` dari `lib/og.ts`.
+- PWA installable (tanpa service worker): ikon PNG `192`/`512` (termasuk
+  `maskable`) via `app/manifest-icon/route.tsx`, ikon Apple
+  (`app/apple-icon.tsx`, 180×180), manifest diperkaya di `app/manifest.ts`, dan
+  `themeColor` via `viewport` di `app/layout.tsx`.
 - Halaman legal: `/kebijakan-privasi`, `/syarat-ketentuan`,
   `/kebijakan-cookie` (template generik).
 - Konfigurasi situs (nama, kontak, sosial): `constants/site.ts`
