@@ -19,8 +19,8 @@ describe("buildOrganizationSchema", () => {
     expect(contactPoint.telephone).toBe("+6285775149968");
     expect(contactPoint.contactType).toBe("sales");
   });
-  it("tidak meng-emit email saat kosong", () => {
-    expect(buildOrganizationSchema().email).toBeUndefined();
+  it("meng-emit email kontak yang terkonfigurasi", () => {
+    expect(buildOrganizationSchema().email).toBe("abinawahasan@gmail.com");
   });
   it("tidak memuat aggregateRating", () => {
     expect(buildOrganizationSchema().aggregateRating).toBeUndefined();

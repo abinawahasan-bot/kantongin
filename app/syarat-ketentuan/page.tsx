@@ -4,13 +4,12 @@ import { siteConfig } from "@/constants/site";
 
 export const metadata: Metadata = {
   title: "Syarat & Ketentuan",
-  description:
-    "Ketentuan penggunaan layanan KantongIn untuk klien dan mitra kolaborasi.",
+  description: "Ketentuan penggunaan layanan pembuatan website KantongIn.",
 };
 
 export default function SyaratKetentuanPage() {
   return (
-    <LegalPage title="Syarat & Ketentuan" updated="23 Agustus 2026">
+    <LegalPage title="Syarat & Ketentuan" updated="30 Agustus 2026">
       <h2>Penerimaan Ketentuan</h2>
       <p>
         Dengan mengakses situs KantongIn atau menggunakan layanan kami, Anda menyatakan telah
@@ -20,10 +19,11 @@ export default function SyaratKetentuanPage() {
 
       <h2>Layanan Kami</h2>
       <p>
-        KantongIn menyediakan jasa pemasaran digital yang meliputi affiliate marketing,
-        endorsement, kolaborasi dengan kreator, social media management, strategi kampanye
-        digital, dan produksi konten. Ruang lingkup spesifik setiap layanan diatur dalam
-        proposal atau perjanjian kerja sama tersendiri.
+        KantongIn menyediakan jasa pembuatan dan pengelolaan website profesional:
+        landing page, website company profile, toko online/e-commerce, aplikasi web
+        (web app), serta layanan optimasi, maintenance, dan konsultasi website. Ruang
+        lingkup spesifik setiap layanan diatur dalam proposal atau perjanjian kerja
+        sama tersendiri.
       </p>
 
       <h2>Kewajiban Klien</h2>
@@ -73,11 +73,6 @@ export default function SyaratKetentuanPage() {
         )}
         .
       </p>
-
-      <blockquote>
-        Dokumen ini adalah template awal — sesuaikan dengan praktik nyata sebelum digunakan
-        produksi.
-      </blockquote>
     </LegalPage>
   );
 }

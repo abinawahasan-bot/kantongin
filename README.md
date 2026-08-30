@@ -18,6 +18,9 @@ dan SEO-ready.
   berisi rincian kebutuhan, estimasi awal, dan data kontak. Backend email
   (Resend) masih tersedia dan dormant sampai ada domain sendiri — beralih
   otomatis saat `RESEND_*` terisi.
+- Email kontak bisnis aktif: `abinawahasan@gmail.com` ditampilkan (mailto) di
+  wizard `#contact`, footer, halaman legal, dan JSON-LD. Jalur kirim email
+  (Resend) tetap dormant sampai `RESEND_*` terisi.
 - Estimator harga: model katalog & komputasi murni di `lib/estimator.ts`;
   UI bersama `components/common/PriceEstimator.tsx` dipakai wizard beranda
   (`components/sections/EstimateWizard.tsx`) dan kalkulator `/layanan`

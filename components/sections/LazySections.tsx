@@ -46,7 +46,7 @@ const Pricing = dynamic(
 
 export function LazyHowItWorks() {
   return (
-    <LazyMount hashes={["#how-it-works", "#affiliate", "#creators"]}>
+    <LazyMount hashes={["#how-it-works", "#website-baru", "#maintenance"]}>
       <HowItWorks />
     </LazyMount>
   );

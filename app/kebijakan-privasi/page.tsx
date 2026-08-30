@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function KebijakanPrivasiPage() {
   return (
-    <LegalPage title="Kebijakan Privasi" updated="23 Agustus 2026">
+    <LegalPage title="Kebijakan Privasi" updated="30 Agustus 2026">
       <h2>Identitas Pengendali Data</h2>
       <p>
         Pengendali data pribadi atas layanan KantongIn adalah <strong>[Nama Entitas]</strong>,
@@ -20,7 +20,7 @@ export default function KebijakanPrivasiPage() {
       <h2>Jenis Data yang Kami Kumpulkan</h2>
       <ul>
         <li>Data identitas: nama lengkap, alamat email, dan nomor telepon.</li>
-        <li>Data bisnis: nama brand, jenis usaha, dan kebutuhan kampanye.</li>
+        <li>Data bisnis: nama brand, jenis usaha, dan kebutuhan website.</li>
         <li>Data teknis: alamat IP, jenis perangkat, browser, dan halaman yang dikunjungi.</li>
         <li>Korespondensi yang Anda kirimkan melalui formulir kontak atau newsletter.</li>
       </ul>
@@ -29,7 +29,7 @@ export default function KebijakanPrivasiPage() {
       <p>Kami memproses data pribadi Anda untuk:</p>
       <ul>
         <li>Menanggapi permintaan konsultasi dan penawaran layanan.</li>
-        <li>Mengelola kerja sama kampanye dan komunikasi operasional.</li>
+        <li>Mengelola kerja sama layanan dan komunikasi operasional.</li>
         <li>Mengirimkan materi pemasaran bila Anda berlangganan newsletter.</li>
         <li>Meningkatkan kualitas, keamanan, dan performa situs.</li>
       </ul>
@@ -73,11 +73,6 @@ export default function KebijakanPrivasiPage() {
         )}
         .
       </p>
-
-      <blockquote>
-        Dokumen ini adalah template awal — sesuaikan dengan praktik nyata sebelum digunakan
-        produksi.
-      </blockquote>
     </LegalPage>
   );
 }

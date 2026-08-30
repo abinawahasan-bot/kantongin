@@ -3,12 +3,12 @@ import { flows } from "./steps";
 
 describe("steps (alur jasa pembuatan website)", () => {
   it("mempertahankan id, label, dan anchor flows", () => {
-    expect(flows.map((f) => f.id)).toEqual(["brand", "creator"]);
+    expect(flows.map((f) => f.id)).toEqual(["new-site", "maintenance"]);
     expect(flows.map((f) => f.label)).toEqual([
       "Website Baru",
       "Maintenance & Support",
     ]);
-    expect(flows.map((f) => f.anchorId)).toEqual(["affiliate", "creators"]);
+    expect(flows.map((f) => f.anchorId)).toEqual(["website-baru", "maintenance"]);
   });
 
   it("setiap flow memiliki 4 langkah", () => {

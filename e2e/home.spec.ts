@@ -37,7 +37,7 @@ test.describe("Beranda", () => {
       }, step);
       await page.waitForTimeout(120);
     }
-    for (const id of ["home", "services", "portfolio", "affiliate", "pricing", "faq", "contact", "how-it-works"]) {
+    for (const id of ["home", "services", "portfolio", "website-baru", "pricing", "faq", "contact", "how-it-works"]) {
       await expect(page.locator(`#${id}`)).toBeVisible();
     }
   });
@@ -53,6 +53,7 @@ test.describe("Beranda", () => {
       "href",
       "https://instagram.com/kantonginofc"
     );
+    await expect(page.getByRole("link", { name: "abinawahasan@gmail.com" })).toBeVisible();
   });
 
   test("tautan kebijakan privasi dapat diakses", async ({ page }) => {

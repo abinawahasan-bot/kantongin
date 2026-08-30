@@ -1,10 +1,10 @@
-export type HowFlow = "brand" | "creator";
+export type HowFlow = "new-site" | "maintenance";
 
-export const HOW_FLOW_ANCHORS = ["#affiliate", "#creators"] as const;
+export const HOW_FLOW_ANCHORS = ["#website-baru", "#maintenance"] as const;
 
 export const FLOW_BY_ANCHOR: Record<(typeof HOW_FLOW_ANCHORS)[number], HowFlow> = {
-  "#affiliate": "brand",
-  "#creators": "creator",
+  "#website-baru": "new-site",
+  "#maintenance": "maintenance",
 };
 
 export const HOW_TAB_EVENT = "kantongin:how-tab";

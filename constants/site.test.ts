@@ -11,6 +11,6 @@ describe("siteConfig", () => {
   it("url & whatsapp dipertahankan", () => {
     expect(siteConfig.url).toBe("https://kantongin-beige.vercel.app");
     expect(siteConfig.socials.whatsapp).toContain("wa.me/6285");
-    expect(siteConfig.email).toBe("");
+    expect(siteConfig.email).toBe("abinawahasan@gmail.com");
   });
 });

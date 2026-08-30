@@ -100,12 +100,12 @@ function FlowTimeline({ flow }: { flow: Flow }) {
 }
 
 export function HowItWorks() {
-  const [activeId, setActiveId] = useState<Flow["id"]>("brand");
+  const [activeId, setActiveId] = useState<Flow["id"]>("new-site");
 
   useEffect(() => {
     const requested = consumeRequestedFlow();
     const fromHash = flowForAnchor(window.location.hash);
-    setActiveId(requested ?? fromHash ?? "brand");
+    setActiveId(requested ?? fromHash ?? "new-site");
 
     const onTabEvent = (event: Event) => {
       setActiveId((event as CustomEvent<HowFlow>).detail);

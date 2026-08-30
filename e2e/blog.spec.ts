@@ -28,7 +28,9 @@ test.describe("Blog", () => {
 
   test("slug yang tidak dikenal menampilkan 404", async ({ page }) => {
     await page.goto("/blog/tidak-ada");
-    await expect(page).toHaveTitle(/404/);
+    await expect(
+      page.getByRole("heading", { name: /Halaman tidak ditemukan/ })
+    ).toBeVisible();
   });
 
   test("halaman kategori menampilkan kartu artikel", async ({ page }) => {

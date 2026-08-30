@@ -4,7 +4,7 @@ export type Step = {
 };
 
 export type Flow = {
-  id: "brand" | "creator";
+  id: "new-site" | "maintenance";
   label: string;
   anchorId: string;
   steps: Step[];
@@ -12,9 +12,9 @@ export type Flow = {
 
 export const flows: Flow[] = [
   {
-    id: "brand",
+    id: "new-site",
     label: "Website Baru",
-    anchorId: "affiliate",
+    anchorId: "website-baru",
     steps: [
       {
         title: "Konsultasi",
@@ -39,9 +39,9 @@ export const flows: Flow[] = [
     ],
   },
   {
-    id: "creator",
+    id: "maintenance",
     label: "Maintenance & Support",
-    anchorId: "creators",
+    anchorId: "maintenance",
     steps: [
       {
         title: "Audit Website",

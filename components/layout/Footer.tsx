@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Mail } from "lucide-react";
 import type { MouseEvent } from "react";
 import { Logo } from "@/components/common/Logo";
 import { SocialIcon } from "@/components/common/SocialIcon";
@@ -93,6 +93,13 @@ export function Footer() {
                 );
               })}
             </ul>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="mt-6 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-primary"
+            >
+              <Mail className="size-4" aria-hidden="true" />
+              {siteConfig.email}
+            </a>
           </div>
 
           <div>

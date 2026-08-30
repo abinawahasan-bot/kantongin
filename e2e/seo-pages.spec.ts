@@ -42,4 +42,28 @@ test.describe("SEO & halaman statis", () => {
       page.getByRole("heading", { name: /Garansi & Komitmen Kami/ })
     ).toBeVisible();
   });
+
+  test("halaman legal mencerminkan identitas bisnis saat ini", async ({ page }) => {
+    for (const path of ["/kebijakan-privasi", "/syarat-ketentuan", "/kebijakan-cookie"]) {
+      await page.goto(path);
+      await expect(page.locator("body")).not.toContainText("template awal");
+      await expect(page.locator("body")).not.toContainText(/affiliate|kreator|Digital Marketing/i);
+      await expect(page.locator("body")).toContainText("30 Agustus 2026");
+    }
+  });
+
+  test("halaman tak dikenal menampilkan 404 berbingkai brand", async ({ page }) => {
+    await page.goto("/halaman-tidak-ada");
+    await expect(
+      page.getByRole("heading", { name: /Halaman tidak ditemukan/ })
+    ).toBeVisible();
+    await expect(page.getByRole("link", { name: /Kembali ke Beranda/ })).toHaveAttribute(
+      "href",
+      "/"
+    );
+    await expect(page.getByRole("link", { name: /Konsultasi via WhatsApp/ })).toHaveAttribute(
+      "href",
+      /wa\.me\//
+    );
+  });
 });

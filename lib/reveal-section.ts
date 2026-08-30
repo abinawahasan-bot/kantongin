@@ -2,8 +2,8 @@ export const REVEAL_SECTION_EVENT = "kantongin:reveal-section";
 
 export const LAZY_SECTION_ANCHORS = [
   "#how-it-works",
-  "#affiliate",
-  "#creators",
+  "#website-baru",
+  "#maintenance",
   "#portfolio",
   "#testimonials",
   "#cta",

@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
+import { siteConfig } from "@/constants/site";
 
 export const runtime = "nodejs";
 
-export const alt = "KantongIn — Digital Marketing & Creator Collaboration Agency";
+export const alt = "KantongIn — " + siteConfig.tagline;
 
 export const size = {
   width: 1200,
@@ -49,7 +50,7 @@ export default function OpengraphImage() {
             color: "#94A3B8",
           }}
         >
-          Digital Marketing &amp; Creator Collaboration Agency
+          {siteConfig.tagline}
         </div>
       </div>
     ),

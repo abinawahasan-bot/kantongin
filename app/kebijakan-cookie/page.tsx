@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function KebijakanCookiePage() {
   return (
-    <LegalPage title="Kebijakan Cookie" updated="23 Agustus 2026">
+    <LegalPage title="Kebijakan Cookie" updated="30 Agustus 2026">
       <h2>Apa Itu Cookie</h2>
       <p>
         Cookie adalah berkas kecil yang disimpan oleh browser di perangkat Anda saat
@@ -49,11 +49,6 @@ export default function KebijakanCookiePage() {
         )}
         .
       </p>
-
-      <blockquote>
-        Dokumen ini adalah template awal — sesuaikan dengan praktik nyata sebelum digunakan
-        produksi.
-      </blockquote>
     </LegalPage>
   );
 }
