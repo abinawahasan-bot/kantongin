@@ -17,6 +17,8 @@ import { KpiChip } from "@/components/sections/hero/KpiChip";
 import { Button } from "@/components/ui/button";
 import { useMousePosition } from "@/hooks/use-mouse-position";
 import { stats } from "@/constants/stats";
+import { CTA_REASSURANCE } from "@/constants/copy";
+import { trackConversion } from "@/lib/analytics";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
 
@@ -81,6 +83,9 @@ export function Hero() {
   const handleAnchor = (event: AnchorTarget, target: string) => {
     if (!ready) return;
     event.preventDefault();
+    if (target === "#contact") {
+      trackConversion("cta_whatsapp_click", { section: "hero" });
+    }
     void revealAndScroll(target, (t) => scrollTo(t));
   };
 
@@ -138,6 +143,8 @@ export function Hero() {
               <ArrowDown className="size-4" aria-hidden="true" />
             </a>
           </div>
+
+          <p className="mt-4 text-sm text-muted">{CTA_REASSURANCE}</p>
 
           <ul className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
             {SOCIAL_PROOF.map((item) => (

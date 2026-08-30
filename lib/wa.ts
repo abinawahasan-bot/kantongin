@@ -1,5 +1,5 @@
 import { siteConfig } from "@/constants/site";
-import type { ContactValues, EstimateContactValues } from "@/lib/schemas/forms";
+import type { EstimateContactValues } from "@/lib/schemas/forms";
 import {
   computeEstimate,
   formatRp,
@@ -14,18 +14,6 @@ export function waNumber(): string {
 
 export function buildWhatsAppLink(message: string): string {
   return `https://wa.me/${waNumber()}?text=${encodeURIComponent(message)}`;
-}
-
-export function contactToWhatsAppMessage(values: ContactValues): string {
-  return [
-    "Halo KantongIn, saya tertarik jasa pembuatan website!",
-    "",
-    `Nama: ${values.name}`,
-    `Email: ${values.email}`,
-    `Jenis Layanan: ${values.service}`,
-    `Subjek: ${values.subject}`,
-    `Pesan: ${values.message}`,
-  ].join("\n");
 }
 
 export function estimateToWhatsAppMessage(values: EstimateContactValues): string {

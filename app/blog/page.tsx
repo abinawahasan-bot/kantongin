@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BlogCtaPanel } from "@/components/blog/BlogCtaPanel";
 import { siteConfig } from "@/constants/site";
 import { buildItemList, JsonLdData } from "@/components/common/JsonLd";
 import { buildOgImageUrl } from "@/lib/og";
@@ -62,6 +63,10 @@ export default function BlogPage() {
           ))}
         </ul>
       </section>
+
+      <div className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:pb-28">
+        <BlogCtaPanel />
+      </div>
     </main>
   );
 }

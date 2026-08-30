@@ -32,6 +32,7 @@ import {
 } from "@/lib/estimator";
 import { estimateContactSchema } from "@/lib/schemas/forms";
 import { buildWhatsAppLink, estimateToWhatsAppMessage } from "@/lib/wa";
+import { trackConversion } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const STEPS = ["Kebutuhan", "Detail", "Kontak"] as const;
@@ -159,6 +160,7 @@ export function EstimateWizard() {
       return;
     }
     const url = buildWhatsAppLink(estimateToWhatsAppMessage(parsed.data));
+    trackConversion("wizard_submit");
     window.open(url, "_blank", "noopener,noreferrer");
     setSent(true);
   };

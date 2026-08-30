@@ -5,9 +5,11 @@ import type { MouseEvent } from "react";
 import { PricingCard } from "@/components/common/PricingCard";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
+import { CTA_REASSURANCE } from "@/constants/copy";
 import { pricingPlans } from "@/constants/pricing";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
+import { trackConversion } from "@/lib/analytics";
 
 export function Pricing() {
   const { scrollTo, ready } = useLenis();
@@ -15,6 +17,7 @@ export function Pricing() {
   const handleAnchor = (event: MouseEvent<HTMLAnchorElement>, target: string) => {
     if (!ready) return;
     event.preventDefault();
+    trackConversion("cta_whatsapp_click", { section: "pricing" });
     void revealAndScroll(target, (t) => scrollTo(t));
   };
 
@@ -40,6 +43,8 @@ export function Pricing() {
             />
           ))}
         </div>
+
+        <p className="mt-6 text-center text-sm text-muted">{CTA_REASSURANCE}</p>
 
         <Reveal delay={0.1}>
           <ul className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">

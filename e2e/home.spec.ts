@@ -56,6 +56,13 @@ test.describe("Beranda", () => {
     await expect(page.getByRole("link", { name: "abinawahasan@gmail.com" })).toBeVisible();
   });
 
+  test("beranda menampilkan micro-copy reasuransi CTA", async ({ page }) => {
+    await page.goto("/");
+    await expect(
+      page.getByText("Gratis · Tanpa komitmen · Konsultasi via WhatsApp")
+    ).toBeVisible();
+  });
+
   test("tautan kebijakan privasi dapat diakses", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "Kebijakan Privasi" }).click();

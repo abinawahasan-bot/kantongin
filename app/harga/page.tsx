@@ -3,18 +3,18 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { buildBreadcrumbList, JsonLdData, JsonLdFaq } from "@/components/common/JsonLd";
 import { PricingCard } from "@/components/common/PricingCard";
+import { TrackLink } from "@/components/common/TrackLink";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { FAQ } from "@/components/sections/FAQ";
 import { EstimatorCard } from "@/components/sections/EstimatorCard";
+import { WA_CHAT_MESSAGE } from "@/constants/copy";
 import { guaranteePoints, paymentFlow } from "@/constants/guarantees";
 import { pricingPlans } from "@/constants/pricing";
 import { siteConfig } from "@/constants/site";
 import { buildOgImageUrl } from "@/lib/og";
 import { buildWhatsAppLink } from "@/lib/wa";
-
-const WA_CHAT_MESSAGE = "Halo KantongIn, saya ingin konsultasi pembuatan website.";
 
 export const metadata: Metadata = {
   title: "Harga",
@@ -72,13 +72,15 @@ export default function HargaPage() {
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full" variant="primary">
-              <a
+              <TrackLink
                 href={buildWhatsAppLink(WA_CHAT_MESSAGE)}
+                event="cta_whatsapp_click"
+                payload={{ section: "harga-intro" }}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Konsultasi Gratis
-              </a>
+              </TrackLink>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full">
               <Link href="#estimasi">
@@ -112,6 +114,8 @@ export default function HargaPage() {
                   `Halo KantongIn, saya ingin konsultasi paket ${plan.name}.`
                 )}
                 ctaTarget="_blank"
+                trackEvent="cta_whatsapp_click"
+                trackSection="harga-paket"
               />
             ))}
           </div>
@@ -175,13 +179,15 @@ export default function HargaPage() {
             dan estimasi waktu yang realistis untuk proyek Anda.
           </p>
           <Button asChild size="lg" className="mt-6 rounded-full">
-            <a
+            <TrackLink
               href={buildWhatsAppLink(WA_CHAT_MESSAGE)}
+              event="cta_whatsapp_click"
+              payload={{ section: "harga-cta" }}
               target="_blank"
               rel="noopener noreferrer"
             >
               Konsultasi via WhatsApp
-            </a>
+            </TrackLink>
           </Button>
         </div>
       </div>

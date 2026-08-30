@@ -8,6 +8,7 @@ import { Reveal } from "@/components/common/Reveal";
 import { Button } from "@/components/ui/button";
 import { useLenis } from "@/lib/lenis";
 import { revealAndScroll } from "@/lib/reveal-section";
+import { trackConversion } from "@/lib/analytics";
 
 export function CTASection() {
   const { scrollTo, ready } = useLenis();
@@ -15,6 +16,9 @@ export function CTASection() {
   const handleAnchor = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>, target: string) => {
     if (!ready) return;
     event.preventDefault();
+    if (target === "#contact") {
+      trackConversion("cta_whatsapp_click", { section: "cta" });
+    }
     void revealAndScroll(target, (t) => scrollTo(t));
   };
 

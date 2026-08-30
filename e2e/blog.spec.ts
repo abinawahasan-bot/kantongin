@@ -26,6 +26,28 @@ test.describe("Blog", () => {
     expect(blogPostingCount).toBeGreaterThanOrEqual(1);
   });
 
+  test("artikel menampilkan panel CTA WhatsApp dengan micro-copy", async ({
+    page,
+  }) => {
+    await page.goto("/blog/pentingnya-website-untuk-umkm");
+    await expect(
+      page.getByRole("heading", { name: /Mau Menerapkannya di Website Anda\?/ })
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Konsultasi Gratis via WhatsApp/i })
+    ).toHaveAttribute("href", /wa\.me\//);
+    await expect(
+      page.getByText("Gratis · Tanpa komitmen · Konsultasi via WhatsApp")
+    ).toBeVisible();
+  });
+
+  test("index blog menampilkan panel CTA", async ({ page }) => {
+    await page.goto("/blog");
+    await expect(
+      page.getByRole("link", { name: /Konsultasi Gratis via WhatsApp/i })
+    ).toHaveCount(1);
+  });
+
   test("slug yang tidak dikenal menampilkan 404", async ({ page }) => {
     await page.goto("/blog/tidak-ada");
     await expect(

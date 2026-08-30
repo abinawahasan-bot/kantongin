@@ -10,6 +10,7 @@ import { GlowCard } from "@/components/common/GlowCard";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { computeEstimate, encodeEstimatePayload } from "@/lib/estimator";
+import { trackConversion } from "@/lib/analytics";
 import { buildWhatsAppLink, estimateDirectMessage } from "@/lib/wa";
 
 export function EstimatorCard() {
@@ -60,6 +61,7 @@ export function EstimatorCard() {
                 href={directLink}
                 onClick={(event) => {
                   if (!ready) event.preventDefault();
+                  if (ready) trackConversion("estimator_submit");
                 }}
                 target={ready ? "_blank" : undefined}
                 rel={ready ? "noopener noreferrer" : undefined}

@@ -7,6 +7,7 @@ import { BackToTop } from "@/components/common/BackToTop";
 import { CursorGlow } from "@/components/common/CursorGlow";
 import { ScrollProgress } from "@/components/common/ScrollProgress";
 import { WhatsAppFloat } from "@/components/common/WhatsAppFloat";
+import { ConversionPopup } from "@/components/common/ConversionPopup";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { siteConfig } from "@/constants/site";
@@ -88,6 +89,7 @@ export default function RootLayout({
           <Footer />
           <BackToTop />
           <WhatsAppFloat />
+          <ConversionPopup />
         </Providers>
         <Analytics />
       </body>

@@ -12,15 +12,17 @@ dan SEO-ready.
 - Framer Motion, GSAP, Lenis, Embla Carousel
 - Zod (skema validasi form bersama di `lib/schemas/forms.ts`)
 - Blog MDX via `next-mdx-remote` (RSC) + `gray-matter` (frontmatter fs-based)
-- Rate limiting hibrida: Upstash Redis (opsional) dengan fallback in-memory
 - Jalur lead utama via WhatsApp: wizard estimasi harga (`#contact`) dan
   kalkulator di halaman `/layanan` membuka `wa.me` dengan pesan prefilled
-  berisi rincian kebutuhan, estimasi awal, dan data kontak. Backend email
-  (Resend) masih tersedia dan dormant sampai ada domain sendiri — beralih
-  otomatis saat `RESEND_*` terisi.
+  berisi rincian kebutuhan, estimasi awal, dan data kontak. Semua lead
+  mengalir ke WhatsApp — tanpa layanan email/database eksternal.
 - Email kontak bisnis aktif: `abinawahasan@gmail.com` ditampilkan (mailto) di
-  wizard `#contact`, footer, halaman legal, dan JSON-LD. Jalur kirim email
-  (Resend) tetap dormant sampai `RESEND_*` terisi.
+  wizard `#contact`, footer, halaman legal, dan JSON-LD.
+- Konversi & pengukuran: CTA di akhir artikel blog dan di blog index
+  (`components/blog/ArticleCta.tsx`), popup WhatsApp kontekstual sekali per
+  sesi (`components/common/ConversionPopup.tsx` + logika murni
+  `lib/conversion.ts`), dan event tracking `trackConversion()` dari
+  `lib/analytics.ts` (Vercel Analytics custom events dikoleksi di plan Pro).
 - Estimator harga: model katalog & komputasi murni di `lib/estimator.ts`;
   UI bersama `components/common/PriceEstimator.tsx` dipakai wizard beranda
   (`components/sections/EstimateWizard.tsx`) dan kalkulator `/layanan`
@@ -35,7 +37,6 @@ dan SEO-ready.
 ```bash
 nvm use
 npm install
-cp .env.example .env.local   # opsional: isi bila beralih ke jalur email Resend
 npm run dev
 ```
 
@@ -56,13 +57,35 @@ Buka [http://localhost:3000](http://localhost:3000).
 
 ## Variabel Lingkungan
 
-| Variabel               | Keterangan                                            |
-| ---------------------- | ----------------------------------------------------- |
-| `RESEND_API_KEY`       | Opsional. API key Resend — hanya untuk beralih ke jalur email; kosong = form kontak mengarah ke WhatsApp |
-| `RESEND_AUDIENCE_ID`   | Opsional. ID audience Resend untuk menyimpan kontak   |
-| `RESEND_FROM_DOMAIN`   | Opsional. Domain pengirim **milik Anda** yang sudah terverifikasi di Resend — hanya untuk beralih ke jalur email; jangan pakai `kantongin.com` |
-| `UPSTASH_REDIS_REST_URL`   | Opsional. URL REST Upstash Redis untuk rate limiting |
-| `UPSTASH_REDIS_REST_TOKEN` | Opsional. Token REST Upstash Redis untuk rate limiting |
+| Variabel | Keterangan |
+| -------- | ---------- |
+| —       | Tidak ada variabel lingkungan wajib. Situs berjalan penuh tanpa konfigurasi tambahan. |
+
+> Catatan: variabel yang dulu ada untuk jalur email (Resend) dan rate limiting
+> (Upstash) telah **dihapus** bersama endpoint `/api/contact` &
+> `/api/newsletter` yang mati — form kontak dan estimasi mengarah ke WhatsApp.
+
+## Konversi & Lead Capture
+
+- **Semua lead via WhatsApp** — tidak ada simpan data email/database. Form
+  estimasi & kontak membuka `wa.me` dengan pesan terisi otomatis
+  (`lib/wa.ts`).
+- **Peristiwa analitik** `lib/analytics.ts` membungkus `track()` dari Vercel
+  Analytics: klik CTA WhatsApp (float, hero, CTA section, paket harga, blog),
+  submit wizard & estimator, serta interaksi popup. Catatan: Vercel hanya
+  mengoleksi *custom events* di paket **Pro** — kode tetap terpasang dan aktif
+  saat akun di-upgrade.
+- **Popup konversi kontekstual** (`components/common/ConversionPopup.tsx`,
+  logika murni di `lib/conversion.ts`): artikel blog → muncul setelah scroll
+  ≥60%; halaman `/layanan` & `/harga` → saat *exit-intent* (mouse keluar
+  viewport). Popup **muncul sekali per sesi** (ditandai di `sessionStorage`
+  dengan kunci `kong.popup.seen`) dan bisa ditutup via tombol, klik backdrop,
+  atau tombol `Esc`. Beranda dan halaman lain tidak pernah memicu popup.
+- **Copy & pesan WA terpusat** di `constants/copy.ts` (`CTA_REASSURANCE`,
+  `WA_CHAT_MESSAGE`, `BLOG_CTA_MESSAGES` per kategori blog) agar konsisten dan
+  mudah diubah.
+- CTA artikel blog: `components/blog/BlogCtaPanel.tsx` (dipakai di halaman
+  detail & index blog).
 
 ## Struktur Konten
 
@@ -106,9 +129,9 @@ di `https://kantongin-beige.vercel.app`. (Catatan: domain `kantongin.com` bukan
 milik kami dan bukan bagian dari project ini.)
 
 1. Push ke GitHub (repo private).
-2. Import proyek di Vercel; set env `RESEND_API_KEY` (+ `RESEND_AUDIENCE_ID`)
-   bila beralih ke jalur email.
-3. Vercel Analytics aktif otomatis setelah import.
+2. Import proyek di Vercel — tanpa variabel lingkungan wajib.
+3. Vercel Analytics aktif otomatis setelah import (custom events via
+   `trackConversion()` dikoleksi di plan Pro).
 
 CI berisi lint, tes unit, build, E2E (Playwright), dan audit Lighthouse yang
 berjalan di setiap push/PR.

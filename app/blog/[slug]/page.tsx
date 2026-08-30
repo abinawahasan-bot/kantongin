@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, CalendarDays, UserRound } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { BlogCtaPanel } from "@/components/blog/BlogCtaPanel";
 import { siteConfig } from "@/constants/site";
 import { buildBreadcrumbList, JsonLdData } from "@/components/common/JsonLd";
 import { buildOgImageUrl } from "@/lib/og";
@@ -202,6 +203,8 @@ export default async function BlogPostPage({ params }: Params) {
             </Link>
           </section>
         ) : null}
+
+        <BlogCtaPanel category={post.category} />
       </article>
     </main>
   );

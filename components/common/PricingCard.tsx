@@ -2,6 +2,7 @@ import { ArrowRight, Check } from "lucide-react";
 import type { MouseEvent } from "react";
 import { GlowCard } from "@/components/common/GlowCard";
 import { Reveal } from "@/components/common/Reveal";
+import { TrackLink } from "@/components/common/TrackLink";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { PricingPlan } from "@/constants/pricing";
@@ -12,10 +13,43 @@ type PricingCardProps = {
   index: number;
   ctaHref: string;
   ctaTarget?: string;
+  /** Saat diisi, klik CTA mengirim event konversi (dipakai dari server component). */
+  trackEvent?: "cta_whatsapp_click";
+  trackSection?: string;
   onCtaClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 };
 
-export function PricingCard({ plan, index, ctaHref, ctaTarget, onCtaClick }: PricingCardProps) {
+export function PricingCard({
+  plan,
+  index,
+  ctaHref,
+  ctaTarget,
+  trackEvent,
+  trackSection,
+  onCtaClick,
+}: PricingCardProps) {
+  const ctaLink = trackEvent ? (
+    <TrackLink
+      href={ctaHref}
+      event={trackEvent}
+      payload={{ section: trackSection ?? "pricing" }}
+      target={ctaTarget}
+      rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}
+    >
+      {plan.cta}
+      <ArrowRight className="size-4" aria-hidden="true" />
+    </TrackLink>
+  ) : (
+    <a
+      href={ctaHref}
+      target={ctaTarget}
+      rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}
+      onClick={onCtaClick}
+    >
+      {plan.cta}
+      <ArrowRight className="size-4" aria-hidden="true" />
+    </a>
+  );
   return (
     <Reveal delay={index * 0.1} className="h-full">
       <div
@@ -83,15 +117,7 @@ export function PricingCard({ plan, index, ctaHref, ctaTarget, onCtaClick }: Pri
                 size="lg"
                 className="w-full rounded-full"
               >
-                <a
-                  href={ctaHref}
-                  target={ctaTarget}
-                  rel={ctaTarget === "_blank" ? "noopener noreferrer" : undefined}
-                  onClick={onCtaClick}
-                >
-                  {plan.cta}
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </a>
+                {ctaLink}
               </Button>
             </div>
           </div>
