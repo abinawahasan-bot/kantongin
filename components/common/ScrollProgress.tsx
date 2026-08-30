@@ -15,7 +15,7 @@ export function ScrollProgress() {
       <div
         data-testid="scroll-track"
         aria-hidden="true"
-        className="fixed inset-x-0 top-0 z-[69] h-1 bg-foreground/10"
+        className="fixed inset-x-0 top-0 z-[69] h-1 bg-border"
       />
       <motion.div
         data-testid="scroll-fill"
