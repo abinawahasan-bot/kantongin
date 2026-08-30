@@ -45,7 +45,7 @@ export function AnimatedText({
       {words.map((word, index) => (
         <span
           key={`${word}-${index}`}
-          className="inline-block overflow-hidden align-bottom"
+          className="inline-block overflow-hidden align-bottom py-[0.12em] -my-[0.12em]"
           aria-hidden="true"
         >
           <motion.span

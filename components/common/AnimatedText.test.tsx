@@ -37,4 +37,18 @@ describe("AnimatedText highlight", () => {
     const { container } = render(<AnimatedText text="Kalimat Biasa Saja" />);
     expect(container.querySelectorAll(".text-gradient")).toHaveLength(0);
   });
+
+  it("memberi bleed vertikal pada kotak klip kata agar descender tidak terpotong", () => {
+    const { container } = render(<AnimatedText text="Tumbuhkan Penjualan" />);
+    const wrappers = Array.from(
+      container.querySelectorAll<HTMLElement>(
+        "span.inline-block.overflow-hidden"
+      )
+    );
+    expect(wrappers.length).toBeGreaterThan(0);
+    for (const wrapper of wrappers) {
+      expect(wrapper.className).toContain("py-[0.12em]");
+      expect(wrapper.className).toContain("-my-[0.12em]");
+    }
+  });
 });
