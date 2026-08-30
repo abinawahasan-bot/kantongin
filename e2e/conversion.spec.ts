@@ -47,6 +47,7 @@ test.describe("Popup konversi", () => {
 
   test("artikel blog muncul setelah scroll 60%", async ({ page }) => {
     await page.goto("/blog/pentingnya-website-untuk-umkm");
+    await waitForHydration(page);
     await page.evaluate(() => {
       window.scrollTo(0, document.body.scrollHeight);
     });

@@ -39,7 +39,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    const lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
     lenisRef.current = lenis;
     setReady(true);
 

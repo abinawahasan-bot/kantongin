@@ -114,10 +114,6 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   @apply bg-background text-foreground antialiased;
 }
