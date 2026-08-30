@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/constants/site";
+import { buildBreadcrumbList, JsonLdData } from "@/components/common/JsonLd";
 import { buildOgImageUrl } from "@/lib/og";
 import { categoryToSlug, getCategories, getPostsByCategory } from "../../_posts";
 import { PostCard } from "../../PostCard";
@@ -60,6 +61,13 @@ export default async function CategoryPage({ params }: Params) {
 
   return (
     <main id="main" tabIndex={-1}>
+      <JsonLdData
+        data={buildBreadcrumbList([
+          { name: "Blog", url: "/blog" },
+          { name: "Kategori", url: "/blog" },
+          { name: category },
+        ])}
+      />
       <section className="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pb-28">
         <Link
           href="/blog"

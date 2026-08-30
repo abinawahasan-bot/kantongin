@@ -33,6 +33,39 @@ test.describe("Blog", () => {
     ).toBeVisible();
   });
 
+  test("setiap artikel baru menampilkan judul dan CTA WhatsApp", async ({ page }) => {
+    const slugs = [
+      "berapa-biaya-bikin-website",
+      "company-profile-vs-landing-page",
+      "cara-membuat-toko-online-untuk-usaha-kecil",
+      "kapan-bisnis-butuh-maintenance-website",
+      "tanda-bisnis-siap-go-online",
+      "jasa-pembuatan-website-yogyakarta",
+    ];
+    for (const slug of slugs) {
+      await page.goto(`/blog/${slug}`);
+      await expect(page.locator("article h1")).toHaveCount(1);
+      await expect(page.locator("article a[href*='wa.me']")).not.toHaveCount(0);
+    }
+  });
+
+  test("detail artikel dan halaman kategori memuat BreadcrumbList JSON-LD", async ({
+    page,
+  }) => {
+    for (const path of [
+      "/blog/pentingnya-website-untuk-umkm",
+      "/blog/kategori/umkm-digital",
+    ]) {
+      await page.goto(path);
+      const breadcrumbCount = await page
+        .locator('script[type="application/ld+json"]')
+        .evaluateAll((scripts) =>
+          scripts.filter((s) => s.textContent?.includes('"BreadcrumbList"')).length
+        );
+      expect(breadcrumbCount).toBeGreaterThanOrEqual(1);
+    }
+  });
+
   test("halaman kategori menampilkan kartu artikel", async ({ page }) => {
     await page.goto("/blog/kategori/umkm-digital");
     await expect(
@@ -48,8 +81,9 @@ test.describe("Blog", () => {
     await expect(
       page.getByRole("heading", { name: "Artikel terkait" })
     ).toBeVisible();
-    await expect(
-      page.getByRole("link", { name: /Pentingnya Website untuk UMKM/i })
-    ).toBeVisible();
+    const relatedLinks = await page
+      .locator('section[aria-labelledby="artikel-terkait"] a[href^="/blog/"]')
+      .count();
+    expect(relatedLinks).toBeGreaterThanOrEqual(1);
   });
 });

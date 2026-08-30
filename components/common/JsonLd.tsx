@@ -54,3 +54,48 @@ export function JsonLdFaq() {
     />
   );
 }
+
+export type JsonLdLinkItem = { name: string; url?: string };
+
+function resolveUrl(url: string): string {
+  return new URL(url, siteConfig.url).toString();
+}
+
+function buildListItems(items: JsonLdLinkItem[]) {
+  return items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    ...(item.url ? { url: resolveUrl(item.url) } : {}),
+  }));
+}
+
+export function buildBreadcrumbList(items: JsonLdLinkItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      ...(item.url ? { item: resolveUrl(item.url) } : {}),
+    })),
+  };
+}
+
+export function buildItemList(items: JsonLdLinkItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: buildListItems(items),
+  };
+}
+
+export function JsonLdData({ data }: { data: Record<string, unknown> }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}

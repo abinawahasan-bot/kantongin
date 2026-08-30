@@ -77,8 +77,13 @@ Buka [http://localhost:3000](http://localhost:3000).
   `date` berformat `YYYY-MM-DD` dengan tanda kutip, `author`, `category` Wajib,
   `tags` array). Posting otomatis muncul di daftar, halaman kategori
   (`/blog/kategori/<slug>`), artikel terkait (otomatis dari kategori & tag via
-  `app/blog/related.ts`), detail SSG, sitemap, dan JSON-LD.
+  `app/blog/related.ts`), detail SSG, sitemap, dan JSON-LD (ItemList di index,
+  BreadcrumbList di detail/kategori). Saat ini ada 9 artikel.
 - Kartu artikel blog dipakai bersama lewat `app/blog/PostCard.tsx`.
+- JSON-LD terstruktur lain: `buildBreadcrumbList`/`buildItemList` di
+  `components/common/JsonLd.tsx` (dipakai di blog, kategori, dan `/layanan`).
+- RSS feed: `/feed.xml` (RSS 2.0) dibangun dari semua posting via `buildFeedXml()`
+  di `lib/feed.ts`; terhubung lewat `alternates` di `app/layout.tsx`.
 - OG image dinamis per halaman: `app/og-image/route.tsx` (query `title` &
   opsional `subtitle`), dibangun lewat `buildOgImageUrl()` dari `lib/og.ts`.
 - Halaman legal: `/kebijakan-privasi`, `/syarat-ketentuan`,

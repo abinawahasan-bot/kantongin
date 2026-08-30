@@ -66,4 +66,33 @@ test.describe("SEO & halaman statis", () => {
       /wa\.me\//
     );
   });
+
+  test("blog index memuat ItemList JSON-LD", async ({ page }) => {
+    await page.goto("/blog");
+    const itemListCount = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((scripts) =>
+        scripts.filter((s) => s.textContent?.includes('"ItemList"')).length
+      );
+    expect(itemListCount).toBeGreaterThanOrEqual(1);
+  });
+
+  test("RSS feed tersedia sebagai application/rss+xml", async ({ page }) => {
+    const res = await page.request.get("/feed.xml");
+    expect(res.status()).toBe(200);
+    expect((await res.headers())["content-type"]).toContain("application/rss+xml");
+    const body = (await res.text()) as string;
+    expect(body).toContain('<rss version="2.0">');
+    expect(body).toContain("<item>");
+  });
+
+  test("halaman layanan memuat BreadcrumbList dan ItemList JSON-LD", async ({ page }) => {
+    await page.goto("/layanan");
+    const jsonLd = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((scripts) => scripts.map((s) => s.textContent ?? ""));
+    expect(jsonLd.some((text) => text.includes('"BreadcrumbList"'))).toBe(true);
+    expect(jsonLd.some((text) => text.includes('"ItemList"'))).toBe(true);
+    expect(jsonLd.some((text) => text.includes('"FAQPage"'))).toBe(true);
+  });
 });

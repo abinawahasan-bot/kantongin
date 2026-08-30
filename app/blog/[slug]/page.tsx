@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, CalendarDays, UserRound } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { siteConfig } from "@/constants/site";
+import { buildBreadcrumbList, JsonLdData } from "@/components/common/JsonLd";
 import { buildOgImageUrl } from "@/lib/og";
 import { mdxComponents } from "@/lib/mdx-components";
 import { categoryToSlug, getCategories, getPost, posts } from "../_posts";
@@ -90,6 +91,13 @@ export default async function BlogPostPage({ params }: Params) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <JsonLdData
+        data={buildBreadcrumbList([
+          { name: "Blog", url: "/blog" },
+          { name: post.category, url: categoryHref },
+          { name: post.title },
+        ])}
       />
       <article className="mx-auto max-w-3xl px-4 pb-20 pt-28 sm:px-6 lg:pb-28">
         <nav

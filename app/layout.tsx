@@ -54,6 +54,11 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
   applicationName: siteConfig.name,
   appleWebApp: { title: siteConfig.name, statusBarStyle: "default" },
   formatDetection: { telephone: false },

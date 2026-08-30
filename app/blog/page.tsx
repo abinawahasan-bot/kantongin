@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/constants/site";
+import { buildItemList, JsonLdData } from "@/components/common/JsonLd";
 import { buildOgImageUrl } from "@/lib/og";
 import { posts } from "./_posts";
 import { PostCard } from "./PostCard";
@@ -33,6 +34,11 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <main id="main" tabIndex={-1}>
+      <JsonLdData
+        data={buildItemList(
+          posts.map((post) => ({ name: post.title, url: `/blog/${post.slug}` }))
+        )}
+      />
       <section className="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pb-28">
         <div className="flex max-w-3xl flex-col gap-4">
           <span className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">

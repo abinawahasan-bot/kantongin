@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { DataIcon } from "@/components/common/DataIcon";
 import { GlowCard } from "@/components/common/GlowCard";
-import { JsonLdFaq } from "@/components/common/JsonLd";
+import { JsonLdData, JsonLdFaq, buildBreadcrumbList, buildItemList } from "@/components/common/JsonLd";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { EstimatorCard } from "@/components/sections/EstimatorCard";
@@ -59,6 +59,20 @@ export default function LayananPage() {
   return (
     <main id="main" tabIndex={-1}>
       <JsonLdFaq />
+      <JsonLdData
+        data={buildBreadcrumbList([
+          { name: "Beranda", url: "/" },
+          { name: "Layanan" },
+        ])}
+      />
+      <JsonLdData
+        data={buildItemList(
+          services.map((service, index) => ({
+            name: service.title,
+            url: `/layanan#layanan-${index + 1}`,
+          }))
+        )}
+      />
 
       <section className="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-8 lg:pb-28">
         <div className="flex max-w-3xl flex-col gap-4">
@@ -95,7 +109,7 @@ export default function LayananPage() {
 
         <div className="mt-20 grid gap-6 lg:grid-cols-2">
           {services.map((service, index) => (
-            <Reveal key={service.title} delay={index * 0.04} className="h-full">
+            <Reveal key={service.title} delay={index * 0.04} className="h-full" id={`layanan-${index + 1}`}>
               <GlowCard className="h-full">
                 <div className="flex h-full flex-col gap-5 p-7">
                   <div className="flex items-start justify-between gap-4">
