@@ -1,3 +1,7 @@
+"use client";
+
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { Marquee } from "@/components/common/Marquee";
 import { partners } from "@/constants/partners";
 import { cn } from "@/lib/utils";
@@ -42,8 +46,11 @@ function PartnerWordmark({ name, index }: PartnerWordmarkProps) {
 }
 
 export function TrustedBy() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { amount: 0.1 });
+
   return (
-    <section id="trusted" className="py-20 lg:py-24">
+    <section id="trusted" ref={sectionRef} className="py-20 lg:py-24" data-animate={inView ? "true" : "false"}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center gap-4">
           <span aria-hidden="true" className="h-px w-10 bg-primary" />

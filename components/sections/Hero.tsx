@@ -2,6 +2,7 @@
 
 import {
   motion,
+  useInView,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -37,6 +38,7 @@ export function Hero() {
   const mockupRef = useRef<HTMLDivElement>(null);
   const { scrollTo, ready } = useLenis();
   const { x, y } = useMousePosition();
+  const inView = useInView(sectionRef, { amount: 0.1 });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -100,7 +102,7 @@ export function Hero() {
       ref={sectionRef}
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      <div aria-hidden="true" className="absolute inset-0 z-0">
+      <div aria-hidden="true" className="absolute inset-0 z-0" data-animate={inView ? "true" : "false"}>
         <Particles className="absolute inset-0 opacity-25" />
         <div className="hero-mesh absolute inset-0" />
         <div className="animate-blob-drift absolute -left-32 -top-32 size-[28rem] rounded-full bg-primary/15 blur-3xl" />

@@ -232,6 +232,12 @@ body {
   );
 }
 
+[data-animate="false"] .animate-blob-drift,
+[data-animate="false"] .hero-mesh,
+[data-animate="false"] .marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-blob-drift,
   .hero-mesh,

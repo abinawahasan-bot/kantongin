@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, useSpring } from "framer-motion";
-import { useEffect, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type GlowCardProps = {
@@ -22,6 +22,7 @@ const BORDER_STYLE: CSSProperties = {
 export function GlowCard({ children, className }: GlowCardProps) {
   const reduceMotion = useReducedMotion();
   const [finePointer, setFinePointer] = useState(false);
+  const rafId = useRef(0);
 
   const rotateX = useSpring(0, { stiffness: 140, damping: 20 });
   const rotateY = useSpring(0, { stiffness: 140, damping: 20 });
@@ -40,11 +41,15 @@ export function GlowCard({ children, className }: GlowCardProps) {
     const rect = event.currentTarget.getBoundingClientRect();
     const px = (event.clientX - rect.left) / rect.width;
     const py = (event.clientY - rect.top) / rect.height;
+    const target = event.currentTarget;
 
-    rotateY.set((px - 0.5) * 6);
-    rotateX.set((0.5 - py) * 6);
-    event.currentTarget.style.setProperty("--spot-x", `${px * 100}%`);
-    event.currentTarget.style.setProperty("--spot-y", `${py * 100}%`);
+    cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      rotateY.set((px - 0.5) * 6);
+      rotateX.set((0.5 - py) * 6);
+      target.style.setProperty("--spot-x", `${px * 100}%`);
+      target.style.setProperty("--spot-y", `${py * 100}%`);
+    });
   };
 
   const handleMouseLeave = (event: MouseEvent<HTMLDivElement>) => {
@@ -56,7 +61,7 @@ export function GlowCard({ children, className }: GlowCardProps) {
 
   return (
     <motion.div
-      className={cn("group relative rounded-lg bg-surface", className)}
+      className={cn("group relative rounded-lg bg-surface will-change-transform", className)}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
