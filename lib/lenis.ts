@@ -66,7 +66,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
         // Resume if stopped so a programmatic scroll is not dropped (Lenis
         // ignores scrollTo while stopped, e.g. when the mobile menu locks it).
         if (lenis.isStopped) lenis.start();
-        lenis.scrollTo(target, { offset, ...opts });
+        lenis.scrollTo(target, { offset, ...opts, duration: opts?.duration ?? 0.8 });
         return;
       }
       // Native fallback when Lenis is disabled (coarse pointer or reduced
