@@ -99,7 +99,7 @@ function PortfolioCard({ project, onOpen }: PortfolioCardProps) {
         <span className="pointer-events-none absolute left-5 top-3 z-10 inline-flex items-center rounded-full bg-gradient-to-r px-3 py-1 text-xs font-bold text-white shadow-sm">
           {project.result}
         </span>
-        <span className="pointer-events-none absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-black/40 px-3 py-1.5 text-xs font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+        <span className="pointer-events-none absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-black/40 px-3 py-1.5 text-xs font-semibold text-white opacity-100 backdrop-blur-sm transition-opacity duration-300 lg:opacity-0 lg:group-hover:opacity-100">
           Lihat Detail
         </span>
       </div>

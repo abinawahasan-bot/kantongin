@@ -3,6 +3,7 @@ import { GlowCard } from "@/components/common/GlowCard";
 import { Reveal } from "@/components/common/Reveal";
 import { SectionHeading } from "@/components/common/SectionHeading";
 import { stats } from "@/constants/stats";
+import { cn } from "@/lib/utils";
 
 const FEATURED = stats[4];
 const REST = stats.slice(0, 4);
@@ -43,12 +44,17 @@ export function Statistics() {
           </GlowCard>
         </Reveal>
 
-        <dl className="mt-6 grid grid-cols-2 divide-border border-t border-border md:grid-cols-4 md:divide-x">
+        <dl className="mt-6 grid grid-cols-1 border-t border-border sm:grid-cols-2 lg:grid-cols-4">
           {REST.map((stat, index) => (
             <Reveal
               key={stat.label}
               delay={0.08 * (index + 1)}
-              className="border-b border-border px-6 py-8 md:border-b-0"
+              className={cn(
+                "border-b border-border px-6 py-8 lg:border-b-0",
+                index < 2 ? "sm:border-b" : "sm:border-b-0",
+                index % 2 === 1 && "sm:border-l",
+                index > 0 && "lg:border-l"
+              )}
             >
               <dt className="text-sm text-muted-foreground">{stat.label}</dt>
               <dd className="mt-2 text-4xl font-bold tracking-tight text-foreground lg:text-[2.75rem]">

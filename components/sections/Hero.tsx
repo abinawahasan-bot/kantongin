@@ -190,7 +190,7 @@ export function Hero() {
           aria-label="Scroll ke bawah"
           className="inline-flex flex-col items-center gap-1.5 text-muted transition-colors hover:text-foreground"
         >
-          <span className="text-[0.7rem] font-semibold uppercase tracking-widest">Scroll</span>
+          <span className="text-xs font-semibold uppercase tracking-widest">Scroll</span>
           <motion.span
             aria-hidden="true"
             animate={reduceMotion ? undefined : { y: [0, 6, 0] }}

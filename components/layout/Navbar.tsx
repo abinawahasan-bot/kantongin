@@ -192,7 +192,7 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          "fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-300",
           scrolled
             ? "border-b border-border bg-white/70 shadow-sm backdrop-blur-xl dark:bg-slate-950/70"
             : "border-b border-transparent bg-transparent"
