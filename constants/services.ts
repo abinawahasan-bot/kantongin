@@ -45,4 +45,26 @@ export const services: Service[] = [
       "Website tetap aman, cepat, dan relevan: update konten, pemantauan keamanan, backup, serta bantuan teknis berkala.",
     points: ["Update konten berkala", "Keamanan & backup", "Bantuan teknis"],
   },
+  {
+    icon: "clipboardCheck",
+    title: "Konsultasi & Audit Website",
+    description:
+      "Menilai kondisi website Anda saat ini — kecepatan, SEO, keamanan, dan pengalaman pengguna — lalu menyusun rekomendasi perbaikan yang jelas dan terprioritas.",
+    points: [
+      "Audit kecepatan & SEO",
+      "Rekomendasi prioritas",
+      "Review UX & konversi",
+    ],
+  },
+  {
+    icon: "searchCheck",
+    title: "SEO & Digital Marketing",
+    description:
+      "Optimasi konten dan teknis agar bisnis Anda mudah ditemukan di Google, sekaligus menjangkau audiens target secara efektif dan terukur.",
+    points: [
+      "Optimasi on-page & teknis",
+      "Riset kata kunci",
+      "Integrasi media sosial",
+    ],
+  },
 ];

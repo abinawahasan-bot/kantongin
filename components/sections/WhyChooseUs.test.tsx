@@ -22,4 +22,10 @@ describe("WhyChooseUs", () => {
     ]);
     expect(values).toHaveLength(4);
   });
+
+  it("setiap nilai jual memiliki poin penjualan", () => {
+    values.forEach((v) => {
+      expect(v.points.length).toBeGreaterThanOrEqual(3);
+    });
+  });
 });

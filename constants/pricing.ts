@@ -6,12 +6,14 @@ export type PricingPlan = {
   features: string[];
   highlight: boolean;
   cta: string;
+  icon: string;
 };
 
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Landing Page",
-    price: "Rp 500 rb",
+    price: "Rp 300 rb",
+    icon: "rocket",
     description:
       "Website satu halaman fokus konversi untuk produk, kampanye, atau personal branding Anda.",
     features: [
@@ -26,7 +28,8 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     name: "Company Profile",
-    price: "Rp 1,3 jt",
+    price: "Rp 800 rb",
+    icon: "building2",
     description:
       "Website multi-halaman profesional yang membangun kredibilitas dan kepercayaan sejak kunjungan pertama.",
     features: [
@@ -34,15 +37,31 @@ export const pricingPlans: PricingPlan[] = [
       "Layout & navigasi sitemap rapi",
       "Optimasi SEO lengkap",
       "Integrasi WhatsApp & media sosial",
-      "Setup domain & hosting",
-      "Daftar & pelatihan admin",
+      "Setup domain, hosting & pelatihan admin",
     ],
     highlight: true,
     cta: "Konsultasi Gratis",
   },
   {
+    name: "E-commerce / Toko Online",
+    price: "Rp 1,3 jt",
+    icon: "shoppingBag",
+    description:
+      "Toko online siap jualan — katalog, keranjang, pembayaran, dan ongkir terintegrasi.",
+    features: [
+      "Katalog produk tanpa batas",
+      "Keranjang & checkout cepat",
+      "Payment gateway terintegrasi",
+      "Panel kelola pesanan & stok",
+      "Optimasi SEO toko online",
+    ],
+    highlight: false,
+    cta: "Konsultasi Gratis",
+  },
+  {
     name: "Custom / Web App",
     price: "Custom",
+    icon: "layoutDashboard",
     description:
       "Solusi khusus untuk kebutuhan kompleks: web app, dashboard, e-commerce skala besar, hingga integrasi sistem.",
     features: [

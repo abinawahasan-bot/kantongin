@@ -6,7 +6,7 @@ const validPayload = {
   email: "budi@example.com",
   service: "company",
   addons: ["blog", "maintenance"],
-  budget: "1to3m",
+  budget: "1to2m",
   message: "Pesan yang cukup panjang untuk lolos validasi.",
 };
 

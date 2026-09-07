@@ -37,10 +37,12 @@ function ProjectPhoto({
   project,
   className,
   decorative,
+  zoom,
 }: {
   project: PortfolioProject;
   className?: string;
   decorative?: boolean;
+  zoom?: boolean;
 }) {
   return (
     <div className={cn("relative overflow-hidden", className)}>
@@ -49,7 +51,10 @@ function ProjectPhoto({
         alt={decorative ? "" : project.imageAlt}
         fill
         sizes={SIZES_CARD}
-        className="object-cover"
+        className={cn(
+          "object-cover",
+          zoom && "transition-transform duration-500 ease-out group-hover:scale-105"
+        )}
       />
     </div>
   );
@@ -63,7 +68,10 @@ type PortfolioCardProps = {
 function PortfolioCard({ project, onOpen }: PortfolioCardProps) {
   return (
     <article
-      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl"
+      className={cn(
+        "group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-xl",
+        project.featured && "md:col-span-2"
+      )}
       onClick={() => onOpen(project)}
       role="button"
       tabIndex={0}
@@ -75,15 +83,24 @@ function PortfolioCard({ project, onOpen }: PortfolioCardProps) {
       }}
       aria-label={`Lihat detail proyek ${project.title}`}
     >
-      <div className="relative h-56 sm:h-64 cursor-pointer">
-        <ProjectPhoto project={project} />
+      <div className={cn("relative cursor-pointer", project.featured ? "h-64 sm:h-72" : "h-56 sm:h-64")}>
+        <div className={cn("absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r", project.gradient)} />
+        <ProjectPhoto project={project} zoom className="h-full" />
         <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/60 via-black/30 to-transparent px-5 pb-4 pt-10">
-          <p className="text-base font-semibold leading-snug text-white drop-shadow-sm">
+          <p
+            className={cn(
+              "font-semibold leading-snug text-white drop-shadow-sm",
+              project.featured ? "text-xl" : "text-base"
+            )}
+          >
             {project.title}
           </p>
         </div>
-        <span className="pointer-events-none absolute left-5 top-3 z-10 inline-flex items-center rounded-full border border-white/30 bg-black/40 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+        <span className="pointer-events-none absolute left-5 top-3 z-10 inline-flex items-center rounded-full bg-gradient-to-r px-3 py-1 text-xs font-bold text-white shadow-sm">
           {project.result}
+        </span>
+        <span className="pointer-events-none absolute bottom-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-black/40 px-3 py-1.5 text-xs font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+          Lihat Detail
         </span>
       </div>
       <div className="mt-auto flex items-center justify-between gap-4 border-t border-border/60 px-5 py-4">
@@ -190,10 +207,9 @@ export function Portfolio() {
       >
         {selected ? (
           <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-lg">
-            <div className="-mx-6 -mt-6 mb-4 h-40 overflow-hidden rounded-t-lg">
+            <div className="relative -mx-6 -mt-6 mb-4 h-40 overflow-hidden rounded-t-lg">
               <ProjectPhoto project={selected} className="h-full" decorative />
-              <div className="absolute inset-x-0 bottom-0 z-10 flex items-end px-6 pb-5">
-              </div>
+              <div className={cn("absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t opacity-80", selected.gradient)} />
             </div>
             <DialogHeader className="items-start text-left">
               <DialogTitle>{selected.title}</DialogTitle>

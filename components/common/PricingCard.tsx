@@ -1,4 +1,12 @@
-import { ArrowRight, Check } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  LayoutDashboard,
+  Rocket,
+  ShoppingBag,
+  type LucideIcon,
+} from "lucide-react";
 import type { MouseEvent } from "react";
 import { GlowCard } from "@/components/common/GlowCard";
 import { Reveal } from "@/components/common/Reveal";
@@ -7,6 +15,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { PricingPlan } from "@/constants/pricing";
 import { cn } from "@/lib/utils";
+
+const icons: Record<string, LucideIcon> = {
+  rocket: Rocket,
+  building2: Building2,
+  shoppingBag: ShoppingBag,
+  layoutDashboard: LayoutDashboard,
+};
 
 type PricingCardProps = {
   plan: PricingPlan;
@@ -28,6 +43,7 @@ export function PricingCard({
   trackSection,
   onCtaClick,
 }: PricingCardProps) {
+  const Icon = icons[plan.icon];
   const ctaLink = trackEvent ? (
     <TrackLink
       href={ctaHref}
@@ -56,7 +72,7 @@ export function PricingCard({
         className={cn(
           "h-full rounded-3xl transition-all duration-300 will-change-transform hover:-translate-y-1.5",
           plan.highlight
-            ? "lg:scale-105 lg:shadow-[0_0_40px_-12px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_-12px_rgba(34,197,94,0.6)]"
+            ? "lg:shadow-[0_0_40px_-12px_rgba(34,197,94,0.5)] hover:shadow-[0_0_50px_-12px_rgba(34,197,94,0.6)]"
             : "hover:shadow-xl"
         )}
       >
@@ -74,13 +90,19 @@ export function PricingCard({
               />
             ) : null}
 
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
+            <div className="flex min-h-6 items-center justify-end">
               {plan.highlight ? (
                 <Badge variant="default" className="rounded-full px-3 py-1 text-[0.7rem] font-bold uppercase tracking-wide">
                   Paling Populer
                 </Badge>
               ) : null}
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="inline-flex rounded-xl bg-primary/10 p-2.5 text-primary">
+                {Icon ? <Icon className="size-5" aria-hidden="true" /> : null}
+              </span>
+              <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
             </div>
 
             <div className="flex items-baseline gap-1.5">
@@ -92,7 +114,7 @@ export function PricingCard({
               ) : null}
             </div>
 
-            <p className="text-sm leading-relaxed text-muted">{plan.description}</p>
+            <p className="line-clamp-2 text-sm leading-relaxed text-muted">{plan.description}</p>
 
             <div aria-hidden="true" className="h-px w-full bg-border/70" />
 

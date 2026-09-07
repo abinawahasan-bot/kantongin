@@ -35,10 +35,8 @@ test.describe("Estimator Harga & Wizard", () => {
     await wizard
       .getByText("Maintenance & support (1 bulan)", { exact: true })
       .click();
-    await wizard
-      .getByLabel("Perkiraan Budget")
-      .selectOption({ label: "Rp 1–3 juta" });
-    await expect(page.getByText("Mulai dari Rp 1.750.000")).toBeVisible();
+    await wizard.getByText("Rp 1–2 juta", { exact: true }).click();
+    await expect(page.getByText("Mulai dari Rp 1.000.000")).toBeVisible();
     await page.getByRole("button", { name: "Lanjut ke Detail" }).click();
 
     // Langkah 2: detail
@@ -59,9 +57,9 @@ test.describe("Estimator Harga & Wizard", () => {
     expect(message).toContain("https://wa.me/6285775149968?text=");
     expect(message).toContain(encodeURIComponent("Budi Santoso"));
     expect(message).toContain(encodeURIComponent("Company Profile"));
-    expect(message).toContain(encodeURIComponent("Rp 1–3 juta"));
-    expect(message).toContain(encodeURIComponent("Mulai dari Rp 1.750.000"));
-    expect(message).toContain(encodeURIComponent("• Blog / Artikel (+Rp 300.000)"));
+    expect(message).toContain(encodeURIComponent("Rp 1–2 juta"));
+    expect(message).toContain(encodeURIComponent("Mulai dari Rp 1.000.000"));
+    expect(message).toContain(encodeURIComponent("• Blog / Artikel (+Rp 150.000)"));
     await expect(page.getByText("WhatsApp dibuka di tab baru.")).toBeVisible();
   });
 
@@ -77,7 +75,7 @@ test.describe("Estimator Harga & Wizard", () => {
       .getByText("Toko online + payment gateway", { exact: true })
       .click();
     await expect(
-      page.getByText("Mulai dari Rp 4.000.000", { exact: true })
+      page.getByText("Mulai dari Rp 2.200.000", { exact: true })
     ).toBeVisible();
 
     const popupPromise = page.waitForEvent("popup");
@@ -90,8 +88,8 @@ test.describe("Estimator Harga & Wizard", () => {
     expect(message).toContain("phone=6285775149968");
     const decoded = decodeURIComponent(message.replace(/\+/g, " "));
     expect(decoded).toContain("E-commerce / Toko Online");
-    expect(decoded).toContain("Mulai dari Rp 4.000.000");
-    expect(decoded).toContain("Toko online + payment gateway (+Rp 1.500.000)");
+    expect(decoded).toContain("Mulai dari Rp 2.200.000");
+    expect(decoded).toContain("Toko online + payment gateway (+Rp 900.000)");
   });
 
   test("CTA /layanan membawa pilihan ke wizard beranda (?estimasi=)", async ({
@@ -100,7 +98,7 @@ test.describe("Estimator Harga & Wizard", () => {
     await page.goto("/layanan");
     const estimator = page.locator("#estimasi");
     await estimator.getByText("Landing Page", { exact: true }).click();
-    await page.getByLabel("Perkiraan Budget").selectOption({ label: "Belum tahu" });
+    await estimator.getByText("Belum tahu", { exact: true }).click();
     await page
       .getByRole("link", { name: "Konsultasi lewat form di beranda" })
       .click();
@@ -111,7 +109,7 @@ test.describe("Estimator Harga & Wizard", () => {
       page.getByRole("radio", { name: /Landing Page/ })
     ).toBeChecked();
     await expect(
-      page.getByText("Mulai dari Rp 500.000", { exact: true })
+      page.getByText("Mulai dari Rp 300.000", { exact: true })
     ).toBeVisible();
   });
 });

@@ -11,15 +11,17 @@ import {
   Wrench,
 } from "lucide-react";
 import {
+  allAddonIds,
+  compareEstimateToBudget,
   estimatorAddons,
   estimatorBudgets,
   estimatorServices,
   formatRp,
+  getBudgetRecommendation,
   type EstimatorAddonId,
   type EstimatorBudgetId,
   type EstimatorServiceId,
 } from "@/lib/estimator";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 export type EstimatorSelection = {
@@ -69,11 +71,31 @@ export function PriceEstimator({
     (service?.note ? true : false) ||
     selectedAddons.some((addon) => addon.price === null);
 
+  const budgetMatch =
+    serviceId && budgetId
+      ? compareEstimateToBudget(subtotal, budgetId)
+      : null;
+  const recommendation = budgetId
+    ? getBudgetRecommendation(budgetId)
+    : null;
+
   const toggleAddon = (id: EstimatorAddonId) => {
     const next = addonIds.includes(id)
       ? addonIds.filter((addonId) => addonId !== id)
       : [...addonIds, id];
     onChange({ ...value, addonIds: next });
+  };
+
+  const getRecommendationLabel = (rec: {
+    serviceId: EstimatorServiceId;
+    addonIds: EstimatorAddonId[];
+  }) => {
+    const service = estimatorServices.find((s) => s.id === rec.serviceId);
+    const addons = estimatorAddons
+      .filter((a) => rec.addonIds.includes(a.id))
+      .map((a) => a.label);
+    const parts = [service?.label, ...addons].filter(Boolean);
+    return parts.length ? parts.join(" + ") : "Paket terbaik";
   };
 
   return (
@@ -206,26 +228,48 @@ export function PriceEstimator({
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="estimator-budget">Perkiraan Budget</Label>
-          <select
-            id="estimator-budget"
-            value={budgetId ?? ""}
-            onChange={(event) =>
-              onChange({
-                ...value,
-                budgetId: (event.target.value || null) as EstimatorBudgetId | null,
-              })
-            }
-            aria-invalid={selectionError ? true : undefined}
-            className="h-11 rounded-xl border border-input bg-transparent px-3 text-sm text-foreground shadow-sm outline-none transition-colors focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/30"
-          >
-            <option value="">Pilih perkiraan budget...</option>
-            {estimatorBudgets.map((budget) => (
-              <option key={budget.id} value={budget.id}>
-                {budget.label}
-              </option>
-            ))}
-          </select>
+          <h3 className="text-sm font-semibold text-foreground">
+            Perkiraan Budget
+          </h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {estimatorBudgets.map((budget) => {
+              const active = budgetId === budget.id;
+              return (
+                <label
+                  key={budget.id}
+                  className={cn(
+                    "flex cursor-pointer items-center gap-2.5 rounded-xl border px-4 py-3 transition-colors duration-200",
+                    active
+                      ? "border-primary bg-primary/[0.06] dark:bg-primary/[0.08]"
+                      : "border-border bg-surface hover:border-primary/40"
+                  )}
+                >
+                  <input
+                    type="radio"
+                    name="estimator-budget"
+                    value={budget.id}
+                    checked={active}
+                    onChange={() =>
+                      onChange({ ...value, budgetId: budget.id })
+                    }
+                    className="sr-only"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "flex size-4 shrink-0 items-center justify-center rounded-full border transition-colors",
+                      active ? "border-primary" : "border-muted"
+                    )}
+                  >
+                    {active ? (
+                      <span className="size-2 rounded-full bg-primary" />
+                    ) : null}
+                  </span>
+                  <span className="text-sm text-foreground">{budget.label}</span>
+                </label>
+              );
+            })}
+          </div>
           {selectionError ? (
             <p role="alert" className="text-sm text-destructive">
               {selectionError}
@@ -278,12 +322,98 @@ export function PriceEstimator({
                 Harga final dapat berubah setelah diskusi scope bersama tim.
               </p>
             )}
+
+            {budgetMatch ? (
+              <div
+                className={cn(
+                  "mt-1 flex items-start gap-2 rounded-xl border px-3 py-2.5 text-xs",
+                  budgetMatch.status === "over" &&
+                    "border-destructive/40 bg-destructive/10 text-destructive",
+                  budgetMatch.status === "near" &&
+                    "border-amber-400/40 bg-amber-400/10 text-amber-700 dark:text-amber-300",
+                  (budgetMatch.status === "under" ||
+                    budgetMatch.status === "none") &&
+                    "border-emerald-500/40 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                )}
+              >
+                <span aria-hidden="true" className="shrink-0">
+                  {budgetMatch.status === "over"
+                    ? "▲"
+                    : budgetMatch.status === "near"
+                      ? "◆"
+                      : "●"}
+                </span>
+                <span>{budgetMatch.message}</span>
+              </div>
+            ) : null}
           </div>
         ) : (
           <p className="mt-4 text-sm leading-relaxed text-muted">
             Pilih jenis layanan untuk melihat estimasi awal.
           </p>
         )}
+
+        {recommendation ? (
+          <div className="mt-5 rounded-2xl border border-primary/30 bg-primary/[0.04] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+              Rekomendasi
+            </p>
+            <p className="mt-2 text-sm font-medium text-foreground">
+              {getRecommendationLabel(recommendation)}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              {recommendation.reason}
+            </p>
+          </div>
+        ) : null}
+
+        {budgetId === "above10m" ? (
+          <div className="mt-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+              Paket Lengkap
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              Perbandingan semua layanan dengan fitur tambahan lengkap. Klik
+              untuk memilih.
+            </p>
+            <div className="mt-3 flex flex-col gap-2">
+              {estimatorServices.map((item) => {
+                const addonTotal = estimatorAddons.reduce(
+                  (sum, addon) => sum + (addon.price ?? 0),
+                  0
+                );
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() =>
+                      onChange({
+                        ...value,
+                        serviceId: item.id,
+                        addonIds: allAddonIds,
+                      })
+                    }
+                    className={cn(
+                      "flex flex-col gap-0.5 rounded-xl border px-4 py-3 text-left transition-colors",
+                      serviceId === item.id
+                        ? "border-primary bg-primary/[0.06] dark:bg-primary/[0.08]"
+                        : "border-border bg-surface hover:border-primary/40"
+                    )}
+                  >
+                    <span className="text-sm font-semibold text-foreground">
+                      {item.label}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Semua fitur — mulai dari{" "}
+                      {formatRp(item.price + addonTotal)}
+                      {addonTotal > 0 ? " (+ API custom)" : ""}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
       </aside>
     </div>
   );

@@ -104,7 +104,7 @@ export default function HargaPage() {
               description="Ketiga paket mencakup gratis revisi, seluruhnya bisa dikonsultasikan lebih dulu."
             />
           </Reveal>
-          <div className="mt-12 grid max-w-5xl items-stretch gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {pricingPlans.map((plan, index) => (
               <PricingCard
                 key={plan.name}
@@ -137,11 +137,11 @@ export default function HargaPage() {
               title="Transparansi dari Awal sampai Selesai"
               description="Alur kerja yang jelas dan jujur — Anda tahu posisi proyek di setiap tahap."
             />
-            <ol className="mt-10 grid gap-4 md:grid-cols-5">
+            <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {paymentFlow.map((step, index) => (
                 <li
                   key={step}
-                  className="flex items-start gap-3 rounded-2xl border border-border bg-surface/50 p-4 text-sm leading-relaxed text-muted-foreground"
+                  className="flex flex-col gap-2.5 rounded-2xl border border-border bg-surface/50 p-4 text-sm leading-relaxed text-muted-foreground"
                 >
                   <span className="shrink-0 text-xs font-bold tracking-[0.2em] text-primary">
                     {String(index + 1).padStart(2, "0")}

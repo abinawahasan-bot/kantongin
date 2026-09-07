@@ -32,7 +32,7 @@ export function Pricing() {
           />
         </Reveal>
 
-        <div className="mx-auto mt-14 grid max-w-5xl items-stretch gap-6 lg:grid-cols-3">
+        <div className="mx-auto mt-14 grid max-w-6xl items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {pricingPlans.map((plan, index) => (
             <PricingCard
               key={plan.name}

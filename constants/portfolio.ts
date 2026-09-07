@@ -19,6 +19,7 @@ export type PortfolioProject = {
   imageAlt: string;
   description?: string;
   metrics?: PortfolioMetric[];
+  featured?: boolean;
 };
 
 export const portfolioCategories: PortfolioCategory[] = [
@@ -35,6 +36,7 @@ export const projects: PortfolioProject[] = [
     category: "E-commerce",
     result: "2x Penjualan Online",
     gradient: "from-rose-500 to-pink-600",
+    featured: true,
     image: "/portfolio/lokalkita-kedai-paman.jpg",
     imageAlt: "Rak pakaian komunitas di ruang kedai kopi yang hangat",
     description:
@@ -99,6 +101,7 @@ export const projects: PortfolioProject[] = [
     category: "Landing Page",
     result: "2,4x Lead Properti",
     gradient: "from-violet-500 to-purple-600",
+    featured: true,
     image: "/portfolio/pesona-wisata-series.jpg",
     imageAlt: "Hamparan lahan luas dengan pemandangan hijau di destinasi tropis",
     description:

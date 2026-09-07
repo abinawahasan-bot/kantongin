@@ -61,7 +61,7 @@ export function GlowCard({ children, className }: GlowCardProps) {
 
   return (
     <motion.div
-      className={cn("group relative rounded-lg bg-surface will-change-transform", className)}
+      className={cn("group relative h-full rounded-lg bg-surface will-change-transform", className)}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

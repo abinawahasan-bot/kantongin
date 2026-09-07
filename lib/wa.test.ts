@@ -11,7 +11,7 @@ const estimateValues: EstimateContactValues = {
   email: "budi@example.com",
   service: "company",
   addons: ["blog", "maintenance"],
-  budget: "1to3m",
+  budget: "1to2m",
   message: "Saya butuh website untuk perusahaan konstruksi.",
 };
 
@@ -30,10 +30,10 @@ describe("estimateToWhatsAppMessage", () => {
     expect(message).toContain("Nama: Budi Santoso");
     expect(message).toContain("Email: budi@example.com");
     expect(message).toContain("Jenis Layanan: Company Profile");
-    expect(message).toContain("• Blog / Artikel (+Rp 300.000)");
-    expect(message).toContain("• Maintenance & support (1 bulan) (+Rp 150.000)");
-    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.750.000");
-    expect(message).toContain("Budget: Rp 1–3 juta");
+    expect(message).toContain("• Blog / Artikel (+Rp 150.000)");
+    expect(message).toContain("• Maintenance & support (1 bulan) (+Rp 50.000)");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.000.000");
+    expect(message).toContain("Budget: Rp 1–2 juta");
     expect(message).toContain("Pesan: Saya butuh website untuk perusahaan konstruksi.");
     expect(message).toContain(
       "(angka estimasi & fitur dapat berubah setelah konsultasi scope)"
@@ -50,9 +50,8 @@ describe("estimateToWhatsAppMessage", () => {
       message: "Mau bikin landing page produk baru.",
     });
     expect(message).toContain("Fitur tambahan: -");
-    expect(message).toContain("Estimasi awal: Mulai dari Rp 500.000");
-    expect(message).toContain("Budget: Belum tahu");
-  });
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 300.000");
+    expect(message).toContain("Budget: Belum tahu");  });
 
   it("menulis custom untuk add-on API tanpa harga", () => {
     const message = estimateToWhatsAppMessage({
@@ -60,7 +59,7 @@ describe("estimateToWhatsAppMessage", () => {
       addons: ["api"],
     });
     expect(message).toContain("• Integrasi API / sistem (custom)");
-    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.300.000");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 800.000");
   });
 });
 
@@ -68,8 +67,8 @@ describe("estimateDirectMessage", () => {
   it("menyusun pesan ringkas tanpa data kontak", () => {
     const message = estimateDirectMessage("company", ["blog", "maintenance"]);
     expect(message).toContain("Jenis Layanan: Company Profile");
-    expect(message).toContain("• Blog / Artikel (+Rp 300.000)");
-    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.750.000");
+    expect(message).toContain("• Blog / Artikel (+Rp 150.000)");
+    expect(message).toContain("Estimasi awal: Mulai dari Rp 1.000.000");
     expect(message).not.toContain("Nama:");
     expect(message).not.toContain("Budget:");
   });

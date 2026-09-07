@@ -3,8 +3,10 @@
 import {
   ArrowRight,
   Building2,
+  ClipboardCheck,
   LayoutTemplate,
   MonitorSmartphone,
+  SearchCheck,
   ShoppingCart,
   Wrench,
   type LucideIcon,
@@ -25,6 +27,8 @@ const icons: Record<string, LucideIcon> = {
   building2: Building2,
   monitorSmartphone: MonitorSmartphone,
   wrench: Wrench,
+  clipboardCheck: ClipboardCheck,
+  searchCheck: SearchCheck,
 };
 
 function ServiceIndex({ value }: { value: number }) {

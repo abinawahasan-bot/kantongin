@@ -11,4 +11,5 @@ export const paymentFlow = [
   "DP 50% untuk memulai pengerjaan",
   "Review bertahap di tiap tahap desain & pengembangan",
   "Pelunasan 50% saat website selesai",
+  "Serah terima & dukungan — website Anda jadi milik penuh, didukung garansi 1 bulan dan bantuan berkelanjutan.",
 ];
